@@ -1,0 +1,12 @@
+<table class="table">
+    <tr><th>Id</th><th>Puesto</th><th>Empresa</th></tr>
+    <?php
+    foreach ($this->anuncio as $value) {
+        echo '<tr>';
+        echo '<td>'.$value['id'].'</td>';
+        echo '<td>'.$value['puesto'].'</td>';
+        echo '<td>'.$value['empresa_rs'].'</td>';
+        echo '</tr>';
+    }
+    ?>
+</table>
