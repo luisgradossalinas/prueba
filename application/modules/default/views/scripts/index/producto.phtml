@@ -1,0 +1,30 @@
+<a href="#myModal" role="button" class="btn" id='btnNuevo' data-toggle="modal">Nuevo producto</a>
+<table id='tablaProducto' class="table table-striped table-bordered">
+    <thead>
+        <tr><th>Id</th><th>Descripción</th><th>Precio</th><th>Imagen</th><th>Registro</th></tr>
+    </thead>
+    <?php
+    echo '<tbody>';
+    foreach ($this->producto as $value) {
+        echo '<tr>';
+        echo '<td>'.$value['id'].'</td>';
+        echo '<td>'.$value['nom_prod'].'</td>';
+        echo '<td>'.$value['precio'].'</td>';
+        echo '<td>'.$value['imagen'].'</td>';
+        echo '<td>'.$value['fecha_crea'].'</td>';
+        echo '</tr>';
+    }
+    echo '</tbody>';
+    ?>
+</table>
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <h3 id="myModalLabel">Nuevo producto</h3>
+  </div>
+  <div class="modal-body"></div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+    <button class="btn btn-primary">Grabar</button>
+  </div>
+</div>
