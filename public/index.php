@@ -17,6 +17,17 @@ set_include_path(implode(PATH_SEPARATOR, array(
 /** Zend_Application */
 require_once 'Zend/Application.php';
 
+require_once 'Zend/Loader/Autoloader.php';
+Zend_Loader_Autoloader::getInstance ();
+
+$translator = new Zend_Translate(
+                'array',
+                '../resources/languages',
+                'es',
+                array('scan' => Zend_Translate::LOCALE_DIRECTORY)
+);
+Zend_Validate_Abstract::setDefaultTranslator($translator);
+
 // Create application, bootstrap, and run
 $application = new Zend_Application(
     APPLICATION_ENV,

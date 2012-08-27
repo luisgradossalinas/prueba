@@ -4054,6 +4054,10 @@ input[type="submit"].btn.btn-mini {
 }
 dt, dd{ float:left; }
 dt{ width:200px; }
+form ul li {
+    color: #CC0000;
+    margin: 0 0 0 0;
+}
      
 .nav-collapse.collapse {
   height: auto;
