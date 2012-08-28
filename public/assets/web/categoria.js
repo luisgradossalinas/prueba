@@ -9,7 +9,7 @@ $(document).ready(function(){
 		"sPaginationType": "bootstrap"
     });
         
-    nuevoRegistro = function(){
+    nuevo = function(){
         codigo = 0;
         $('#modalTitle').empty().html('Nuevo registro');
         $.ajax({
@@ -21,10 +21,10 @@ $(document).ready(function(){
     }
     
     $('#btnNuevo').click(function(){
-        nuevoRegistro();
+        nuevo();
     })
     
-    editarCategoria = function(id){
+    editar = function(id){
         codigo = id;
         $('#modalTitle').empty().html('Editar registro');
         $.ajax({
@@ -37,6 +37,20 @@ $(document).ready(function(){
         })   
         $('#myModal').show();
     }
+    
+    elimina = function(id){
+        if (confirm('¿Está seguro que desea eliminar registro?')) {
+             $.ajax({
+            url: urls.siteUrl + '/categoria/operacion/ajax/delete',
+            data:{id:id},
+            type:'post',
+            success: function(result) {
+                location.reload();
+            }
+        }) 
+        }
+         
+    } 
     
     $('#btnGuardar').click(function(){
         $.ajax({

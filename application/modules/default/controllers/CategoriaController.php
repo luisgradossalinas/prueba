@@ -45,6 +45,13 @@ class Default_CategoriaController extends Zend_Controller_Action
         if ($this->_getParam('ajax') == 'validar') {
                 echo $this->_form->processAjax($data);
         }
+        
+        //Eliminación de registro
+        if ($this->_getParam('ajax') == 'delete') {
+            $where = $this->getAdapter()->quoteInto('id = ?',$data['id']);
+            $eliminado = Application_Model_Categoria::ELIMINADO;
+            $this->_categoriaModel->update(array('estado' => $eliminado),$where);
+        }
    
         // Grabar
         if ($this->_getParam('ajax') == 'save') {

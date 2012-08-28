@@ -35,6 +35,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
     }
     
+    protected function _initDbResource() {
+        
+        $this->_executeResource('db');
+        $adapter = $this->getResource('db');
+        Zend_Registry::set('db', $adapter);
+        
+    }
+    
     protected function _initRoutes()
     {
         $routeConfig = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routes.ini');

@@ -61,7 +61,7 @@ class Default_IndexController extends Zend_Controller_Action
         $this->view->headScript()->appendFile(SITE_URL.'/jquery/plugins/jquery.dataTables.js');
         $this->view->headScript()->appendFile(SITE_URL.'/assets/js/bootstrap-dataTable.js');
         $this->view->headScript()->appendFile(SITE_URL.'/assets/web/categoria.js');
-        $data = $this->_categoriaModel->fetchAll();
+        $data = $this->_categoriaModel->fetchAll('estado != '.Application_Model_Categoria::ELIMINADO);
         $this->view->categoria = $data;
     }
 

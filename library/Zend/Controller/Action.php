@@ -143,6 +143,16 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
     public function init()
     {
     }
+    
+    public function getConfig()
+    {
+        return Zend_Registry::get('config');
+    }
+    
+    public function getAdapter()
+    {
+        return Zend_Registry::get('db');
+    }
 
     /**
      * Initialize View object
