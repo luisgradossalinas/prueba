@@ -11,6 +11,7 @@ class Application_Form_Categoria extends Zend_Form
         $nombre->setLabel('Nombre:');
         $nombre->setRequired();
         $nombre->addFilter('StripTags');
+        $nombre->setAttrib('maxlength', 50);
         $nombre->addValidator(new Zend_Validate_StringLength(array('min' => 4)));
         $nombre->addValidator('Alpha', false, array('allowWhiteSpace' => true));
         $this->addElement($nombre);

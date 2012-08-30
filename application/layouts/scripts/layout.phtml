@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Portal APTiTUS.pe</title>
+    <title>Sistema Florería</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -38,7 +38,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">APTiTUS.pe</a>
+          <a class="brand" href="#">Sistema Florería</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="<?=($this->layout()->active == 'anuncios')?'active':''?>"><a href="<?=SITE_URL?>">Anuncios</a></li>
@@ -48,15 +48,38 @@
               <li class="<?=($this->layout()->active == 'categorias')?'active':''?>"><a href="<?=SITE_URL.'/categoria'?>">Categoría</a></li>
               
             </ul>
+            <ul class="nav" role="navigation">
+                    <li class="dropdown">
+                      <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                        <li><a tabindex="-1" href="http://google.com">Action</a></li>
+                        <li><a tabindex="-1" href="#anotherAction">Another action</a></li>
+                        <li><a tabindex="-1" href="#">Something else here</a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">Dropdown 2 <b class="caret"></b></a>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+                        <li><a tabindex="-1" href="#">Action</a></li>
+                        <li><a tabindex="-1" href="#">Another action</a></li>
+                        <li><a tabindex="-1" href="#">Something else here</a></li>
+                      </ul>
+                    </li>
+            </ul>
+            <ul class="nav pull-right">
+                    <li id="fat-menu" class="dropdown">
+                      <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Usuario: Martin Grados<b class="caret"></b></a>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                        <li><a tabindex="-1" href="#">Cerrar sesión</a></li>
+                      </ul>
+                    </li>
+            </ul>
               
           </div>
         </div>
       </div>
     </div>
-
       <div class='container'><?=$this->layout()->content?></div>
-      
-
   </body>
 </html>
 

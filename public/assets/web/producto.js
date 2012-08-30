@@ -10,7 +10,7 @@ $(document).ready(function(){
     $('#btnNuevo').click(function(){
         //Carga cuerpo de modal
         $.ajax({
-            url: urls.siteUrl + '/usuario/form',
+            url: urls.siteUrl + '/producto/form',
             success: function(result) {
                 $('.modal-body').empty().html(result);
             }
