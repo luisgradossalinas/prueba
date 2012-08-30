@@ -8,6 +8,12 @@ class Application_Model_Categoria extends Zend_Db_Table
     const ACTIVA = 1;
     const ELIMINADO = 2;
     
+    public function combo()
+    {
+        return $this->getAdapter()->select()->from($this->_name,array('key' => 'id', 'value' => 'nom_cat'))
+                ->where('estado = ?',self::ACTIVA)->query()->fetchAll();
+    }
+    
     public function guardar($datos)
     {         
         $id = 0;
