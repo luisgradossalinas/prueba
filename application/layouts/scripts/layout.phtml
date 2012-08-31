@@ -38,15 +38,12 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Sistema Florería</a>
+            <a class="brand" href="<?=SITE_URL?>">Sistema Florería</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="<?=($this->layout()->active == 'anuncios')?'active':''?>"><a href="<?=SITE_URL?>">Anuncios</a></li>
-              <li class="<?=($this->layout()->active == 'usuarios')?'active':''?>"><a href="<?=SITE_URL.'/usuario'?>">Usuarios</a></li>
-              <li class="<?=($this->layout()->active == 'empresas')?'active':''?>"><a href="<?=SITE_URL.'/empresa'?>">Empresas</a></li>
-              <li class="<?=($this->layout()->active == 'productos')?'active':''?>"><a href="<?=SITE_URL.'/producto'?>">Producto</a></li>
-              <li class="<?=($this->layout()->active == 'categorias')?'active':''?>"><a href="<?=SITE_URL.'/categoria'?>">Categoría</a></li>
-              
+              <li class="<?=($this->layout()->active == 'usuarios')?'active':''?>"><a href="<?=SITE_URL.'/admin/usuario'?>">Usuarios</a></li>
+              <li class="<?=($this->layout()->active == 'productos')?'active':''?>"><a href="<?=SITE_URL.'/admin/producto'?>">Producto</a></li>
+              <li class="<?=($this->layout()->active == 'categorias')?'active':''?>"><a href="<?=SITE_URL.'/admin/categoria'?>">Categoría</a></li>
             </ul>
             <ul class="nav" role="navigation">
                     <li class="dropdown">

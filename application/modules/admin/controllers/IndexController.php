@@ -1,6 +1,6 @@
 <?php
 
-class Default_IndexController extends Zend_Controller_Action
+class Admin_IndexController extends Zend_Controller_Action
 {
     private $_usuarioModel = null;
     private $_productoModel = null;
