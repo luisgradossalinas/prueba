@@ -38,6 +38,7 @@ class Admin_MvcController extends App_Controller_Action_Admin
         $this->view->headScript()->appendFile(SITE_URL.'/assets/js/bootstrap-dataTable.js');
         $this->view->headScript()->appendFile(SITE_URL.'/assets/admin/mvc.js');
         $this->view->data = $this->_clase->fetchAll('estado != '.self::ELIMINADO);
+        $this->view->model = ucfirst($this->_model);
         $this->render($this->_model);
     }
     

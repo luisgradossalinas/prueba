@@ -23,6 +23,7 @@ class Application_Form_Usuario extends Zend_Form
         $email->setLabel('E-mail:');
         $email->setRequired();
         $email->addFilter('StripTags');
+        $email->addValidator(new Zend_Validate_EmailAddress());
         $this->addElement($email);
     }
 

@@ -44,9 +44,11 @@
                     <li class="dropdown">
                       <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Mantenimiento <b class="caret"></b></a>
                       <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-                        <li class="<?=($this->layout()->active == 'usuarios')?'':''?>"><a href="<?=SITE_URL.'/admin/usuario'?>">Usuarios</a></li>
-                        <li class="<?=($this->layout()->active == 'productos')?'':''?>"><a href="<?=SITE_URL.'/admin/producto'?>">Producto</a></li>
-                        <li class="<?=($this->layout()->active == 'categorias')?'':''?>"><a href="<?=SITE_URL.'/admin/categoria'?>">Categoría</a></li>
+                        <li class="<?=($this->layout()->active == 'usuarios')?'':''?>"><a href="<?=SITE_URL.'/admin/mvc/usuario'?>">Usuarios</a></li>
+                        <li class="<?=($this->layout()->active == 'productos')?'':''?>"><a href="<?=SITE_URL.'/admin/mvc/producto'?>">Producto</a></li>
+                        <li class="<?=($this->layout()->active == 'categorias')?'':''?>"><a href="<?=SITE_URL.'/admin/mvc/categoria'?>">Categoría</a></li>
+                        <li class="<?=($this->layout()->active == 'roles')?'':''?>"><a href="<?=SITE_URL.'/admin/mvc/rol'?>">Rol</a></li>
+                        <li class="<?=($this->layout()->active == 'recursos')?'':''?>"><a href="<?=SITE_URL.'/admin/mvc/recurso'?>">Recurso</a></li>
                       </ul>
                     </li>
             </ul>

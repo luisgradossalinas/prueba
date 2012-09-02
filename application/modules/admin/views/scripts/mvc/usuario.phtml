@@ -18,14 +18,4 @@
     echo '</tbody>';
     ?>
 </table>
-
-<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <h3 id="myModalLabel">Nuevo registro</h3>
-  </div>
-  <div class="modal-body"></div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-    <button class="btn btn-primary">Grabar</button>
-  </div>
-</div>
+<?=$this->partial('_partials/modal.phtml',array('model' => $this->model));?>

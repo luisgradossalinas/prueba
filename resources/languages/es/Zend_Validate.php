@@ -31,7 +31,7 @@ return array(
 
     // Zend_Validate_Alpha
     "Invalid type given, value should be a string" => "El tipo especificado no es válido, el valor debe ser una cadena de texto",
-    "'%value%' contains non alphabetic characters" => "'%value%' contiene caracteres no alfabéticos",
+    "'%value%' contains non alphabetic characters" => "'%value%' solo debe contener letras",
     "'%value%' is an empty string" => "'%value%' es una cadena de texto vacia",
 
     // Zend_Validate_Barcode
@@ -77,7 +77,7 @@ return array(
 
     // Zend_Validate_EmailAddress
     "Invalid type given, value should be a string" => "El tipo especificado no es válido, el valor debe ser una cadena de texto",
-    "'%value%' is no valid email address in the basic format local-part@hostname" => "'%value%' no es una dirección de correo electrónico válido en el formato local-part@hostname",
+    "'%value%' is no valid email address in the basic format local-part@hostname" => "'%value%' no es un correo válido",
     "'%hostname%' is no valid hostname for email address '%value%'" => "'%hostname%' no es un nombre de host válido para la dirección de correo electrónico '%value%'",
     "'%hostname%' does not appear to have a valid MX record for the email address '%value%'" => "'%hostname%' no parece tener un registro MX válido para la dirección de correo electrónico '%value%'",
     "'%hostname%' is not in a routable network segment. The email address '%value%' should not be resolved from public network." => "'%hostname%' no esta en un segmento de red ruteable. La dirección de correo electrónico '%value%' no se debe poder resolver desde una red pública.",
