@@ -32,7 +32,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headScript()->appendScript($js);
        
         define('SITE_URL', $config->app->siteUrl);
+        define('TITLE', $config->app->title);
         
+    }
+    
+    protected function __initSession() {
+        Zend_Session::start();
     }
     
     protected function _initDbResource() {

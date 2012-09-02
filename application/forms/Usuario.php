@@ -5,7 +5,7 @@ class Application_Form_Usuario extends Zend_Form
 
     public function init()
     {
-        $this->setAction(self::METHOD_POST);
+        $this->setAttrib('id', 'form');
         
         $nombre = new Zend_Form_Element_Text('nombre');
         $nombre->setLabel('Nombres:');

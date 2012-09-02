@@ -1,6 +1,6 @@
 <?php
 
-class Admin_IndexController extends Zend_Controller_Action
+class Admin_IndexController extends App_Controller_Action_Admin
 {
     private $_usuarioModel = null;
     private $_productoModel = null;
@@ -8,6 +8,7 @@ class Admin_IndexController extends Zend_Controller_Action
 
     public function init()
     {
+        parent::init();
         $this->_usuarioModel = new Application_Model_Usuario;
         $this->_productoModel = new Application_Model_Producto;
         $this->_categoriaModel = new Application_Model_Categoria;

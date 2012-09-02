@@ -7,7 +7,7 @@ class Application_Form_Producto extends Zend_Form
     public function init()
     {
         $this->_categoriaModel = new Application_Model_Categoria;
-        $this->setAttrib('id', 'form-producto');
+        $this->setAttrib('id', 'form');
         
         $nombre = new Zend_Form_Element_Text('nom_prod');
         $nombre->setLabel('Producto:');

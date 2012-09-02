@@ -1,19 +1,18 @@
 <?php
 
-class Application_Form_Categoria extends Zend_Form
+class Application_Form_Rol extends Zend_Form
 {
 
     public function init()
     {
         $this->setAttrib('id', 'form');
         
-        $nombre = new Zend_Form_Element_Text('nom_cat');
+        $nombre = new Zend_Form_Element_Text('nombre');
         $nombre->setLabel('Nombre:');
         $nombre->setRequired();
         $nombre->addFilter('StripTags');
         $nombre->setAttrib('maxlength', 50);
-        $nombre->addValidator(new Zend_Validate_StringLength(array('min' => 4)));
-        $nombre->addValidator('Alpha', false, array('allowWhiteSpace' => true));
+        $nombre->addValidator(new Zend_Validate_StringLength(array('min' => 3)));
         $this->addElement($nombre);
         
         $estado = new Zend_Form_Element_Select('estado');

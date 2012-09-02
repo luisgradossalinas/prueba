@@ -1,26 +1,44 @@
 <?php
 
-class Admin_ProductoController extends Zend_Controller_Action
+class Admin_MvcController extends App_Controller_Action_Admin
 {
-
+    private $_model;
     private $_form;
-    private $_productoModel;
+    private $_clase;
+    
+    const INACTIVO = 0;
+    const ACTIVO = 1;
+    const ELIMINADO = 2;
     
     public function init()
     {
-        $this->_form = new Application_Form_Producto;
-        $this->_productoModel = new Application_Model_Producto;
+        parent::init();
+        
+        $sesionMvc  = new Zend_Session_Namespace('sesion_mvc');
+        if ($this->_getParam('model')) {
+            
+            $this->_model = $this->_getParam('model');
+            $form = 'Application_Form_'.ucfirst($this->_model);
+            $clase = 'Application_Model_'.ucfirst($this->_model);
+            $sesionMvc->form = $form;
+            $sesionMvc->clase = $clase;
+        
+        }
+        
+        $this->_form = new $sesionMvc->form;
+        $this->_clase = new $sesionMvc->clase;
+        
     }
-
+    
     public function indexAction()
     {
-        Zend_Layout::getMvcInstance()->assign('active','productos');
+        Zend_Layout::getMvcInstance()->assign('active',$this->_model.'s');
         $this->view->headLink()->appendStylesheet(SITE_URL.'/jquery/css/dataTables.css', 'all');
         $this->view->headScript()->appendFile(SITE_URL.'/jquery/plugins/jquery.dataTables.js');
         $this->view->headScript()->appendFile(SITE_URL.'/assets/js/bootstrap-dataTable.js');
-        $this->view->headScript()->appendFile(SITE_URL.'/assets/web/producto.js');
-        $data = $this->_productoModel->fetchAll();
-        $this->view->producto = $data;
+        $this->view->headScript()->appendFile(SITE_URL.'/assets/admin/mvc.js');
+        $this->view->data = $this->_clase->fetchAll('estado != '.self::ELIMINADO);
+        $this->render($this->_model);
     }
     
     public function operacionAction()
@@ -41,7 +59,7 @@ class Admin_ProductoController extends Zend_Controller_Action
             
             if ($this->_hasParam('id')) {
                 $id = $this->_getParam('id');
-                $data = $this->_productoModel->fetchRow('id = '.$id);
+                $data = $this->_clase->fetchRow('id = '.$id);
                 $this->_form->populate($data->toArray());
             }
             echo $this->_form;         
@@ -55,18 +73,19 @@ class Admin_ProductoController extends Zend_Controller_Action
         //Eliminación de registro
         if ($this->_getParam('ajax') == 'delete') {
             $where = $this->getAdapter()->quoteInto('id = ?',$data['id']);
-            $eliminado = Application_Model_Producto::ELIMINADO;
-            $this->_productoModel->update(array('estado' => $eliminado),$where);
+            $this->_clase->update(array('estado' => self::ELIMINADO),$where);
         }
    
         // Grabar
         if ($this->_getParam('ajax') == 'save') {
             //$data['fecha_crea'] = date("Y-m-d H:i:s");
             //$data['usuario_crea'] = Zend_Auth::getInstance()->getIdentity()->id;
-            $this->_productoModel->guardar($data);
+            $this->_clase->guardar($data);
         }
     }
-
+    
 
 }
+
+
 
