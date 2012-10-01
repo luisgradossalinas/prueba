@@ -7,13 +7,13 @@ class Application_Form_Usuario extends Zend_Form
     {
         $this->setAttrib('id', 'form');
         
-        $nombre = new Zend_Form_Element_Text('nombre');
+        $nombre = new Zend_Form_Element_Text('nombres');
         $nombre->setLabel('Nombres:');
         $nombre->setRequired();
         $nombre->addFilter('StripTags');
         $this->addElement($nombre);
         
-        $apellido = new Zend_Form_Element_Text('apellido');
+        $apellido = new Zend_Form_Element_Text('apellidos');
         $apellido->setLabel('Apellidos:');
         $apellido->setRequired();
         $apellido->addFilter('StripTags');
