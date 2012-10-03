@@ -18,6 +18,10 @@ class Admin_IndexController extends App_Controller_Action_Admin
     {
         
     }
+        public function plantillaAction()
+    {
+        $this->_helper->setLayout('plantilla');
+    }
 
     public function usuarioAction()
     {
