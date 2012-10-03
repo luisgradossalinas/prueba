@@ -1,8 +1,16 @@
 $(document).ready(function(){
 	
-	$('.data-table').dataTable({
+	/*$('.data-table').dataTable({
 		"bJQueryUI": true,
 		"sPaginationType": "full_numbers",
+		"sDom": '<""l>t<"F"fp>'
+	});
+        */
+       
+        $('#tabla').dataTable({
+		"bJQueryUI": true,
+		"sPaginationType": "full_numbers",
+               // "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>"
 		"sDom": '<""l>t<"F"fp>'
 	});
 	

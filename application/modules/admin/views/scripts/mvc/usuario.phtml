@@ -1,4 +1,9 @@
 <a href="#myModal" role="button" class="btn" id='btnNuevo' data-toggle="modal">Nuevo</a>
+<div class="widget-box">
+				<div class="widget-title">	
+                                    <h5><?=$this->active?></h5>
+				</div>
+				<div class="widget-content nopadding">
 <table id='tabla' class="table table-striped table-bordered">
     <thead>
         <tr><th>Id</th><th>Nombre</th><th>Apellido</th><th>E-mail</th><th>Rol</th><th>Opciones</th></tr>
@@ -19,4 +24,6 @@
     echo '</tbody>';
     ?>
 </table>
+</div>
+</div>
 <?=$this->partial('_partials/modal.phtml',array('model' => $this->model));?>

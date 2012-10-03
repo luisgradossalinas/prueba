@@ -7,8 +7,11 @@
         <link rel="stylesheet" href=<?=SITE_URL."/css/bootstrap.min.css"?> />
 		<link rel="stylesheet" href=<?=SITE_URL."/css/bootstrap-responsive.min.css"?> />
 		<link rel="stylesheet" href=<?=SITE_URL."/css/fullcalendar.css"?> />	
-		<link rel="stylesheet" href=<?=SITE_URL."/css/unicorn.main.css"?> />
+                <link rel="stylesheet" href=<?=SITE_URL."/css/unicorn.main.css"?> />
 		<link rel="stylesheet" href=<?=SITE_URL."/css/unicorn.grey.css"?> class="skin-color" />
+
+		<link rel="stylesheet" href=<?=SITE_URL."/css/uniform.css"?> />
+		<link rel="stylesheet" href=<?=SITE_URL."/css/chosen.css"?> />			
                 
                 <script src=<?=SITE_URL."/js/excanvas.min.js"?> ></script>
                 <script src=<?=SITE_URL."/js/jquery.min.js"?> ></script>
@@ -90,7 +93,7 @@
 		
 		<div id="content">
 			<div id="content-header">
-				<h1>Dashboard</h1>
+				<h1><?=$this->layout()->active?></h1>
 				<div class="btn-group">
 					<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
 					<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
@@ -99,11 +102,11 @@
 				</div>
 			</div>
 			<div id="breadcrumb">
-				<a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
-				<a href="#" class="current">Dashboard</a>
+				<a href="#" title="Ir al inicio" class="tip-bottom"><i class="icon-home"></i> Inicio</a>
+				<a href="#" class="current"><?=$this->layout()->active?></a>
 			</div>
 			<div class="container-fluid">
-		
+                                                                        
                             <?php echo $this->layout()->content;?>
 				<?=$this->partial('pie.phtml');?>
 			</div>
