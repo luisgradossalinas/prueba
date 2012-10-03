@@ -33,10 +33,10 @@ class Admin_MvcController extends App_Controller_Action_Admin
     public function indexAction()
     {
         Zend_Layout::getMvcInstance()->assign('active',$this->_model.'s');
-        $this->view->headLink()->appendStylesheet(SITE_URL.'/jquery/css/dataTables.css', 'all');
+       /* $this->view->headLink()->appendStylesheet(SITE_URL.'/jquery/css/dataTables.css', 'all');
         $this->view->headScript()->appendFile(SITE_URL.'/jquery/plugins/jquery.dataTables.js');
         $this->view->headScript()->appendFile(SITE_URL.'/assets/js/bootstrap-dataTable.js');
-        $this->view->headScript()->appendFile(SITE_URL.'/assets/admin/mvc.js');
+        $this->view->headScript()->appendFile(SITE_URL.'/js/web/mvc.js');*/
         $this->view->data = $this->_clase->fetchAll('estado != '.self::ELIMINADO);
         $this->view->model = ucfirst($this->_model);
         $this->render($this->_model);
