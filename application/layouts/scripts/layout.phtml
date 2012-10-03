@@ -62,14 +62,14 @@
 			<a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
 			<ul>
                             <!-- Sería un menú dinámico -->
-				<li class="submenu">
+				<li class="submenu open">
 					<a href="#"><i class="icon icon-th-list"></i> <span>Mantenimiento</span> <span class="label">5</span></a>
 					<ul>
-						<li><a href="invoice.html">Categoría</a></li>
-						<li><a href="chat.html">Producto</a></li>
-						<li><a href="calendar.html">Rol</a></li>
-						<li><a href="gallery.html">Recurso</a></li>
-                                                <li><a href="gallery.html">Usuario</a></li>
+                                                <li class="<?=($this->layout()->active == 'Usuarios')?'active':''?>"><a href="<?=SITE_URL.'/admin/mvc/usuario'?>">Usuarios</a></li>
+						<li class="<?=($this->layout()->active == 'Productos')?'active':''?>"><a href="<?=SITE_URL.'/admin/mvc/producto'?>">Producto</a></li>
+                                                <li class="<?=($this->layout()->active == 'Categorias')?'active':''?>"><a href="<?=SITE_URL.'/admin/mvc/categoria'?>">Categoría</a></li>
+                                                <li class="<?=($this->layout()->active == 'Rols')?'active':''?>"><a href="<?=SITE_URL.'/admin/mvc/rol'?>">Rol</a></li>
+                                                <li class="<?=($this->layout()->active == 'Recursos')?'active':''?>"><a href="<?=SITE_URL.'/admin/mvc/recurso'?>">Recurso</a></li>
 					</ul>
 				</li>
                                 <li><a href="tables.html"><i class="icon icon-th"></i> <span>Configuración</span></a></li>
@@ -93,7 +93,10 @@
 		
 		<div id="content">
 			<div id="content-header">
-				<h1><?=$this->layout()->active?></h1>
+				<h1><?=$this->layout()->active?>&nbsp;
+                                    <a href="#myModal" role="button" class="btn" id='btnNuevo' data-toggle="modal">Nuevo</a>
+                                </h1>
+                                
 				<div class="btn-group">
 					<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
 					<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
