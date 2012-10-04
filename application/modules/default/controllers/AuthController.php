@@ -19,7 +19,7 @@ class Default_AuthController extends Zend_Controller_Action
     
     public function loginAction()
     {
-        $this->_helper->layout->setLayout('login');
+        $this->_helper->layout->setLayout('login_plantilla');
         $this->view->messages = "";
      
         if ($this->getRequest()->isPost()) {
