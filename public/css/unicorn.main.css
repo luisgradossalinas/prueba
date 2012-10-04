@@ -132,7 +132,8 @@ a:hover {
 	margin: 10px 0 0;
 	padding: 0;
 	position: absolute;
-	width: 220px;
+	width: 180px;
+        /*220px*/
 }
 #sidebar > ul > li {
 	display: block;	
@@ -191,7 +192,8 @@ a:hover {
 /* Content */
 #content {
     background: none repeat scroll 0 0 #eeeeee;
-    margin-left: 220px;
+    margin-left: 180px;
+    /*220px*/
     margin-right: 0;
     padding-bottom: 25px;
     position: relative;
