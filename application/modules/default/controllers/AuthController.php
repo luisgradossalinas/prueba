@@ -56,7 +56,7 @@ class Default_AuthController extends Zend_Controller_Action
                 }
         }
         
-        $this->view->form = $this->_formLogin;
+      //  $this->view->form = $this->_formLogin;
     }
     
     public function logoutAction()

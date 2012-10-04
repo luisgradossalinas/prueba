@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Unicorn Admin</title>
+        <title>Admin</title>
 		<meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -13,41 +13,42 @@
             <img src="img/logo.png" alt="" />
         </div>
         <div id="loginbox">            
-            <form id="loginform" class="form-vertical" action="">
-				<p>Enter username and password to continue.</p>
+            <form id="loginform" class="form-vertical" action="login" method="post">
+				<p>Ingresa tu correo y contraseña</p>
                 <div class="control-group">
                     <div class="controls">
                         <div class="input-prepend">
-                            <span class="add-on"><i class="icon-user"></i></span><input type="text" placeholder="Username" />
+                            <span class="add-on"><i class="icon-user"></i></span><input type="text" name="usuario" placeholder="Correo" />
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="controls">
                         <div class="input-prepend">
-                            <span class="add-on"><i class="icon-lock"></i></span><input type="password" placeholder="Password" />
+                            <span class="add-on"><i class="icon-lock"></i></span><input type="password" name="clave" placeholder="Contraseña" />
                         </div>
                     </div>
                 </div>
                 <div class="form-actions">
-                    <span class="pull-left"><a href="#" class="flip-link" id="fliptorecover">Lost password?</a></span>
+                    <span class="pull-left"><a href="#" class="flip-link" id="fliptorecover">¿Olvidaste tu contraseña?</a></span>
                     <span class="pull-right"><input type="submit" class="btn btn-inverse" value="Login" /></span>
                 </div>
             </form>
             <form id="recoverform" action="#" class="form-vertical">
-				<p>Enter your e-mail address below and we will send you instructions how to recover a password.</p>
+				<p>Ingrese su correo y le enviaremos las instrucciones para recuperar su contraseña</p>
 				<div class="control-group">
                     <div class="controls">
                         <div class="input-prepend">
-                            <span class="add-on"><i class="icon-envelope"></i></span><input type="text" placeholder="E-mail address" />
+                            <span class="add-on"><i class="icon-envelope"></i></span><input type="text" placeholder="Correo" />
                         </div>
                     </div>
                 </div>
                 <div class="form-actions">
-                    <span class="pull-left"><a href="#" class="flip-link" id="fliptologin">&lt; Back to login</a></span>
-                    <span class="pull-right"><input type="submit" class="btn btn-inverse" value="Recover" /></span>
+                    <span class="pull-left"><a href="#" class="flip-link" id="fliptologin">&lt; Volver al login</a></span>
+                    <span class="pull-right"><input type="submit" class="btn btn-inverse" value="Recuperar" /></span>
                 </div>
             </form>
+            <?=$this->messages?>
         </div>
         
         <script src="js/jquery.min.js"></script>  
@@ -88,7 +89,7 @@
 
 					return false;
 				}
-			});        
+			});      
         </script>  
     </body>
 </html>
