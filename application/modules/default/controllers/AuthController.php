@@ -79,7 +79,7 @@ class Default_AuthController extends Zend_Controller_Action
         $dataRol = $rolModelo->fetchRow("id = " . $username['id_rol'])->toArray();
         $usuario = $username;
         $usuario['nombre_rol'] = $dataRol['nombre'];
-        $usuario['nombre_completo'] = $username['nombres'] . " " . $username->apellidos;
+        $usuario['nombre_completo'] = $username['nombres'] . " " . $username['apellidos'];
         $sesion_usuario->sesion_usuario = $usuario;
         
     }

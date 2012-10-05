@@ -16,6 +16,12 @@ class Application_Model_Rol extends Zend_Db_Table
     
     const TABLA_ROL = 'rol';
     
+    public function combo()
+    {
+        return $this->getAdapter()->select()->from($this->_name,array('key' => 'id', 'value' => 'nombre'))
+                ->where('estado = ?',self::ESTADO_ACTIVO)->query()->fetchAll();
+    }
+    
     public function guardar($datos)
     {         
         $id = 0;

@@ -16,8 +16,8 @@ class Application_Form_Recurso extends Zend_Form
         $nombre->addValidator('Alpha', false, array('allowWhiteSpace' => true));
         $this->addElement($nombre);
         
-        $key = new Zend_Form_Element_Text('key');
-        $key->setLabel('Key:');
+        $key = new Zend_Form_Element_Text('access');
+        $key->setLabel('Access:');
         $key->setRequired();
         $key->addFilter('StripTags');
         $key->setAttrib('maxlength', 50);
