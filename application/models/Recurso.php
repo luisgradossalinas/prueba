@@ -117,7 +117,7 @@ class Application_Model_Recurso extends Zend_Db_Table
                         }    
                     }
                      
-                    $menu .= '<li '.$class.'><a  href="'.SITE_URL.'/'.$hijo['url'].'">'.$hijo['nombre'].'</a></li>';
+                    $menu .= '<li '.$class.'><a  href="'.SITE_URL.'/'.$hijo['url'].'" title="'.$hijo['tab'].'" class="tip-bottom">'.$hijo['nombre'].'</a></li>';
                 }
                 
                 $menu .= '</ul>';
