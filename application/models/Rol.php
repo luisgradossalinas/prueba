@@ -3,10 +3,18 @@
 class Application_Model_Rol extends Zend_Db_Table
 {
     protected $_name = 'rol';
+    protected $_primary = 'id';
     
-    const INACTIVA = 0;
-    const ACTIVA = 1;
-    const ELIMINADO = 2;
+    const ADMINISTRADOR = 1;
+    const CLIENTE_WEB = 2;
+    const SUPER = 3;
+    //const OTRO_ROL = 4;
+    
+    const ESTADO_INACTIVO = 0;
+    const ESTADO_ACTIVO = 1;
+    CONST ESTADO_ELIMINADO = 2;
+    
+    const TABLA_ROL = 'rol';
     
     public function guardar($datos)
     {         
@@ -17,12 +25,6 @@ class Application_Model_Rol extends Zend_Db_Table
         unset($datos['id']);
 
         $datos = array_intersect_key($datos, array_flip($this->_getCols()));
-
-        foreach ($datos as $key => $valor) {
-            if (!is_numeric($valor)) {
-                $datos[$key] = str_replace("'", '"', $valor);
-            }
-        }
 
         if ($id > 0) {
             $cantidad = $this->update($datos, 'id = ' . $id);

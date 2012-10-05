@@ -71,13 +71,22 @@ class Default_AuthController extends Zend_Controller_Action
      * Guarda el username en la sesión
      * @param String $username 
      */
-    private function _guardarSesion($usuario) {
- 
+    private function _guardarSesion($username) {
+        
+        settype($username,'array');
         $sesion_usuario = new Zend_Session_Namespace('sesion_usuario');
+        $rolModelo = new Application_Model_Rol;
+        $dataRol = $rolModelo->fetchRow("id = " . $username['id_rol'])->toArray();
+        $usuario = $username;
+        $usuario['nombre_rol'] = $dataRol['nombre'];
+        $usuario['nombre_completo'] = $username['nombres'] . " " . $username->apellidos;
         $sesion_usuario->sesion_usuario = $usuario;
+        
     }
-
-    //Verifica si el usuario ya está logueado
+    
+    /**
+     * Verifica si el usuario ya está logueado
+     */
     public function _logueado() {
         
         $login = Zend_Auth::getInstance();
@@ -86,9 +95,6 @@ class Default_AuthController extends Zend_Controller_Action
         }
         
     }
-    
-    
-
 
 }
 

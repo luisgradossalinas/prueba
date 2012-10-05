@@ -63,24 +63,7 @@
 			<a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
 			<ul>
                             <!-- Sería un menú dinámico -->
-				<li class="submenu open">
-					<a href="#"><i class="icon icon-th-list"></i> <span>Mantenimiento</span> <span class="label">5</span></a>
-					<ul>
-                                                <li class="<?=($this->layout()->active == 'Usuarios')?'active':''?>"><a href="<?=SITE_URL.'/admin/mvc/usuario'?>" title="Listado de usuarios" class="tip-bottom">Usuarios</a></li>
-						<li class="<?=($this->layout()->active == 'Productos')?'active':''?>"><a href="<?=SITE_URL.'/admin/mvc/producto'?>">Producto</a></li>
-                                                <li class="<?=($this->layout()->active == 'Categorias')?'active':''?>"><a href="<?=SITE_URL.'/admin/mvc/categoria'?>">Categoría</a></li>
-                                                <li class="<?=($this->layout()->active == 'Rols')?'active':''?>"><a href="<?=SITE_URL.'/admin/mvc/rol'?>">Rol</a></li>
-                                                <li class="<?=($this->layout()->active == 'Recursos')?'active':''?>"><a href="<?=SITE_URL.'/admin/mvc/recurso'?>">Recurso</a></li>
-					</ul>
-				</li>
-                                <li><a href="#"><i class="icon icon-th"></i> <span>Configuración</span></a></li>
-                                <li class="submenu">
-					<a href="#"><i class="icon icon-th-list"></i> <span>Proceso</span> <span class="label">2</span></a>
-					<ul>
-						<li><a href="invoice.html">Pedidos</a></li>
-						<li><a href="chat.html">Contáctenos</a></li>
-					</ul>
-				</li>
+				<?=$this->partial('menu.phtml',array('hola' => 'ok'));?>
 			</ul>
 		</div>
 		
@@ -112,7 +95,7 @@
 			<div class="container-fluid">
                                                                         
                             <?php echo $this->layout()->content;?>
-				<?=$this->partial('pie.phtml');?>
+				<?=$this->render('pie.phtml');?>
 			</div>
 		</div>
 		

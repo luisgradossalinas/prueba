@@ -18,12 +18,6 @@ class Application_Model_Producto extends Zend_Db_Table
 
         $datos = array_intersect_key($datos, array_flip($this->_getCols()));
 
-        foreach ($datos as $key => $valor) {
-            if (!is_numeric($valor)) {
-                $datos[$key] = str_replace("'", '"', $valor);
-            }
-        }
-
         if ($id > 0) {
             $cantidad = $this->update($datos, 'id = ' . $id);
             $id = ($cantidad < 1) ? 0 : $id;
