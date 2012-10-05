@@ -6,15 +6,21 @@ class Admin_MvcController extends App_Controller_Action_Admin
     private $_form;
     private $_clase;
     
+    private $_recurso;
+    
     const INACTIVO = 0;
     const ACTIVO = 1;
     const ELIMINADO = 2;
+    
+    
     
     public function init()
     {
         parent::init();
         
         $sesionMvc  = new Zend_Session_Namespace('sesion_mvc');
+        $this->_recurso = new Application_Model_Recurso;
+        
         if ($this->_getParam('model')) {
             
             $this->_model = $this->_getParam('model');
@@ -31,11 +37,13 @@ class Admin_MvcController extends App_Controller_Action_Admin
     }
     
     public function indexAction()
-    {           
-        Zend_Layout::getMvcInstance()->assign('active',ucfirst($this->_model).'s');
-       /* $this->view->headLink()->appendStylesheet(SITE_URL.'/jquery/css/dataTables.css', 'all');
-        $this->view->headScript()->appendFile(SITE_URL.'/jquery/plugins/jquery.dataTables.js');
-        $this->view->headScript()->appendFile(SITE_URL.'/assets/js/bootstrap-dataTable.js');*/
+    {   
+        $idPadre = $this->_recurso->obtenerPadre($this->_model);
+        
+        Zend_Layout::getMvcInstance()->assign('link', $this->_model);
+        Zend_Layout::getMvcInstance()->assign('active', ucfirst($this->_model).'s');
+        Zend_Layout::getMvcInstance()->assign('padre', $idPadre);
+        
         $this->view->headScript()->appendFile(SITE_URL.'/js/web/mvc.js');
         $this->view->data = $this->_clase->fetchAll('estado != '.self::ELIMINADO);
         $this->view->model = ucfirst($this->_model);

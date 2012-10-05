@@ -30,79 +30,119 @@ class Application_Model_Recurso extends Zend_Db_Table
             $id = $this->insert($datos);
         }
         return $id;
+        
     }
     
     //Para generar el menú dinámico 
     public function recursoByRol ($rol)
-    {
-        return $this->_db->select()->from(array("a" => $this->_name))
+    {   
+        return $this->getAdapter()->select()->from(array("a" => $this->_name))
                 ->joinInner(array("b" => "rol_recurso"), "b.id_recurso = a.id",null)
-                ->where("b.id_rol = ?",$rol)->where("estado = ?",self::ESTADO_ACTIVO)->where("orden  != ?",self::PADRE)
+                ->where("b.id_rol = ?", $rol)->where("estado = ?",self::ESTADO_ACTIVO)->where("orden  != ?",self::PADRE)
                 ->order(array('a.padre asc','a.orden asc'))->query()->fetchAll();
+    }
+    
+    public function obtenerPadre ($key)
+    {
+        return $this->getAdapter()->select()->from($this->_name, 'padre')
+                ->where('access = ?','admin:'.$key)->query()->fetchColumn();
+    }
+    
+    //Para generar el menú dinámico 
+    public function recursosPadre($rol)
+    {   
+        return $this->getAdapter()->select()->from(array("a" => $this->_name))
+                ->joinInner(array("b" => "rol_recurso"), "b.id_recurso = a.id",null)
+                ->where("b.id_rol = ?", $rol)->where("estado = ?",self::ESTADO_ACTIVO)
+                ->where('a.orden = ?', self::PADRE)
+                ->order(array('a.padre asc','a.orden asc'))->query()->fetchAll();
+    }
+    
+    //Para generar el menú dinámico 
+    public function recursosHijo($rol, $padre)
+    {   
+        return $this->getAdapter()->select()->from(array("a" => $this->_name))
+                ->joinInner(array("b" => "rol_recurso"), "b.id_recurso = a.id",null)
+                ->where("b.id_rol = ?", $rol)->where("estado = ?",self::ESTADO_ACTIVO)
+                ->where('a.orden != ?', self::PADRE)
+                ->where('a.padre = ?', $padre)
+                ->order(array('a.orden asc'))->query()->fetchAll();
     }
    
     //Para generar el menú a SUṔER
     public function listaRecursosSuper ()
     {
-        return $this->_db->select()->distinct()->from(array("a" => $this->_name))
+        return $this->getAdapter()->select()->distinct()->from(array("a" => $this->_name))
                 ->where("estado = ?",self::ESTADO_ACTIVO)->where("orden  != ?",self::PADRE)
                 ->order(array('a.padre asc','a.orden asc'))->query()->fetchAll();
     }
     
+    
     //Generación de menú
-    public function generacionMenu()
+    public function generacionMenu($padre, $active)
     {
          $auth = Zend_Auth::getInstance();
          $rol = $auth->getIdentity()->id_rol;
-         $dataRecursos = $this->recursoByRol($rol);
-         $menu = "";
-         //Ver cuantos padre hay
-         if ($rol == Application_Model_Rol::SUPER) {
-             $dataRecursos = $this->listaRecursosSuper();
-         }
-
-         $nReg = count($dataRecursos);
-         $arrayPadre = array();
-         if ($nReg > 0) {
-             for ($i = 0;$i < $nReg; $i++) {
-                 $arrayPadre[] = $dataRecursos[$i]["padre"];
-             }
-         }
-         $dataSub = array_count_values($arrayPadre);
-         $arrayPadre = array_unique($arrayPadre);
-
-         $arraySubMenu = array();
-         foreach ($dataSub as $sub) {
-             $arraySubMenu[] = $sub;
-         }
-
-         $arrayPadreSubMenu = array();
-         foreach ($arrayPadre as $padre) {
-             $arrayPadreSubMenu[] = $padre;
-         }
-
-         $menu .= '<ul id="qm0" class="qmmc">';
-         $contador = 0;
          
-         for ($x = 0; $x < count($arrayPadre);$x++) {
+         $dataRecursos = $this->recursosPadre($rol);
+         $menu = '';
+         
+  
+         foreach ($dataRecursos as $reg) {
              
-             $dataPadre = $this->obtenerRecursoPadre($arrayPadreSubMenu[$x]);
-             $menu .= "<li><a>".$dataPadre["nombre"]."</a><ul>";
+             $idPadre = $reg['padre'];
+             $dataHijos = $this->recursosHijo($rol, $idPadre);
+             //print_r($dataHijos);
              
-             for ($d = 0;$d < $arraySubMenu[$x]; $d++) {
-                 
-                 $tab = $dataRecursos[$contador]["tab"];
-                 $nombre = $dataRecursos[$contador]["nombre"];
-                 $url = $dataRecursos[$contador]["url"];
-                 $menu .= "<li><a href ='javascript:agregarTab(".'"'. $tab.'"'.",".'"'. $nombre.'"'.",".'"'. $url.'"'.")'";
-                 $menu .= ">".$nombre."</a></li>";
-                 $contador++;
+             if (count($dataHijos) > 0) {
+                
+                $open = '';
+                if ($padre == $idPadre) {
+                    $open = 'open';
+                }
+                
+                $menu .= '<li class="submenu '.$open.'">';
+                
+                $menu .= '<a href="#"><i class="icon icon-th-list"></i>'; 
+                $menu .= '<span>'.$reg['nombre'].'</span><span class="label">'.  count($dataHijos).'</span></a>';
+                $menu .= '<ul>';
+                
+                foreach ($dataHijos as $hijo) {
+                    //Validar redirección
+                    $class = '';
+                    if (!empty($active)){
+                        if ('admin:'.$active == $hijo['access']){
+                            $class = 'class="active"';
+                            empty($active);
+                        }    
+                    }
+                     
+                    $menu .= '<li '.$class.'><a  href="'.SITE_URL.'/'.$hijo['url'].'">'.$hijo['nombre'].'</a></li>';
+                }
+                
+                $menu .= '</ul>';
+                $menu .= '</il>';
+             } else {
+                 $menu .= '<li><a href="#"><i class="icon icon-th"></i> <span>'.$reg['nombre'].'</span></a></li>';
                  
              }
              
-             $menu .= "</ul></li>";
-             
          }
+         
+         
+         /*
+         <li><a href="#"><i class="icon icon-th"></i> <span>Configuración</span></a></li>
+         <li class="submenu">
+		<a href="#"><i class="icon icon-th-list"></i> <span>Proceso</span> <span class="label">2</span></a>
+		<ul>
+			<li><a href="invoice.html">Pedidos</a></li>
+			<li><a href="chat.html">Contáctenos</a></li>
+		</ul>
+	 </li> 
+          */
+         
+         $nReg = 0;
+      
 
          return array("menu" => $menu,"registro" => $nReg);
     }

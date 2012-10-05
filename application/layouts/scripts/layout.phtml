@@ -63,7 +63,8 @@
 			<a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
 			<ul>
                             <!-- Sería un menú dinámico -->
-				<?=$this->partial('menu.phtml',array('hola' => 'ok'));?>
+				<?=$this->partial('menu.phtml',array('hola' => 'ok','padre' => $this->layout()->padre
+                                , 'active' => $this->layout()->link));?>
 			</ul>
 		</div>
 		
