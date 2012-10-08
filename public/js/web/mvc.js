@@ -9,24 +9,8 @@ $(document).ready(function(){
 "sPaginationType": "bootstrap"
     });*/
         
-    nuevo = function(){
-        codigo = 0;
-        $('#modalTitle').empty().html('Nuevo registro');
-        $.ajax({
-            url: urls.siteUrl + '/admin/mvc/operacion/ajax/form',
-            success: function(result) {
-                $('.modal-body').empty().html(result);
-            }
-        })
-    }
-    
-    $('#btnNuevo').click(function(){
-        nuevo();
-    })
-    
-    editar = function(id){
-        codigo = id;
-        $('#modalTitle').empty().html('Editar registro');
+    configModal = function(id){
+        $('.modal').css({'width':'560px','margin':'-250px 0 0 -280px'});
         $.ajax({
             url: urls.siteUrl + '/admin/mvc/operacion/ajax/form',
             data:{id:id},
@@ -36,6 +20,16 @@ $(document).ready(function(){
             }
         })
         $('#myModal').show();
+    }
+    
+    nuevo = function() {
+        $('#modalTitle').empty().html('Nuevo registro');
+        configModal(0);
+    }
+    
+    editar = function(id){
+        $('#modalTitle').empty().html('Editar registro');
+        configModal(id);
     }
     
     elimina = function(id){
@@ -50,6 +44,15 @@ $(document).ready(function(){
         })
         }
          
+    }
+    
+    verRecursos = function (id) {
+        $('#modalTitle').empty().html('Lista de recursos');
+        //Generar tabla con recursos
+        $('.modal-body').empty().html("Prueba");
+        $('.modal').css({'width':'800px','margin':'-250px 0 0 -380px'});
+        $('#myModal').show();
+
     }
     
     $('#btnGuardar').click(function(){

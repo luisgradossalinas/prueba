@@ -63,7 +63,7 @@
 			<a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
 			<ul>
                             <!-- Sería un menú dinámico -->
-				<?=$this->partial('menu.phtml',array('hola' => 'ok','padre' => $this->layout()->padre
+				<?=$this->partial('menu.phtml',array('padre' => $this->layout()->padre
                                 , 'active' => $this->layout()->link));?>
 			</ul>
 		</div>
@@ -79,7 +79,7 @@
 		<div id="content">
 			<div id="content-header">
 				<h1><?=$this->layout()->active?>&nbsp;
-                                    <a href="#myModal" role="button" class="btn" id='btnNuevo' data-toggle="modal">Nuevo</a>
+                                    <a href="#myModal" role="button" class="btn" onclick="nuevo()" data-toggle="modal">Nuevo</a>
                                 </h1>
                                 
 				<div class="btn-group">

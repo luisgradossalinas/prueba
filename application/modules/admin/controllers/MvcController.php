@@ -12,8 +12,6 @@ class Admin_MvcController extends App_Controller_Action_Admin
     const ACTIVO = 1;
     const ELIMINADO = 2;
     
-    
-    
     public function init()
     {
         parent::init();
@@ -69,8 +67,10 @@ class Admin_MvcController extends App_Controller_Action_Admin
             
             if ($this->_hasParam('id')) {
                 $id = $this->_getParam('id');
-                $data = $this->_clase->fetchRow('id = '.$id);
-                $this->_form->populate($data->toArray());
+                if ($id != 0) {
+                    $data = $this->_clase->fetchRow('id = '.$id);
+                    $this->_form->populate($data->toArray());
+                }
             }
             echo $this->_form;         
         }

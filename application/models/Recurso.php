@@ -92,7 +92,6 @@ class Application_Model_Recurso extends Zend_Db_Table
              
              $idPadre = $reg['padre'];
              $dataHijos = $this->recursosHijo($rol, $idPadre);
-             //print_r($dataHijos);
              
              if (count($dataHijos) > 0) {
                 
@@ -102,7 +101,6 @@ class Application_Model_Recurso extends Zend_Db_Table
                 }
                 
                 $menu .= '<li class="submenu '.$open.'">';
-                
                 $menu .= '<a href="#"><i class="icon icon-th-list"></i>'; 
                 $menu .= '<span>'.$reg['nombre'].'</span><span class="label">'.  count($dataHijos).'</span></a>';
                 $menu .= '<ul>';
@@ -116,8 +114,7 @@ class Application_Model_Recurso extends Zend_Db_Table
                             empty($active);
                         }    
                     }
-                     
-                    $menu .= '<li '.$class.'><a  href="'.SITE_URL.'/'.$hijo['url'].'" title="'.$hijo['tab'].'" class="tip-bottom">'.$hijo['nombre'].'</a></li>';
+                    $menu .= '<li '.$class.'><a  href="'.SITE_URL.'/'.$hijo['url'].'" title="'.$hijo['descripcion'].'" class="tip-bottom">'.$hijo['nombre'].'</a></li>';
                 }
                 
                 $menu .= '</ul>';
@@ -128,22 +125,8 @@ class Application_Model_Recurso extends Zend_Db_Table
              }
              
          }
-         
-         
-         /*
-         <li><a href="#"><i class="icon icon-th"></i> <span>Configuración</span></a></li>
-         <li class="submenu">
-		<a href="#"><i class="icon icon-th-list"></i> <span>Proceso</span> <span class="label">2</span></a>
-		<ul>
-			<li><a href="invoice.html">Pedidos</a></li>
-			<li><a href="chat.html">Contáctenos</a></li>
-		</ul>
-	 </li> 
-          */
-         
-         $nReg = 0;
-      
 
+         $nReg = 0;
          return array("menu" => $menu,"registro" => $nReg);
     }
     

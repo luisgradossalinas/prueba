@@ -16,13 +16,19 @@ class Application_Form_Recurso extends Zend_Form
         $nombre->addValidator('Alpha', false, array('allowWhiteSpace' => true));
         $this->addElement($nombre);
         
-        $key = new Zend_Form_Element_Text('access');
-        $key->setLabel('Access:');
-        $key->setRequired();
-        $key->addFilter('StripTags');
-        $key->setAttrib('maxlength', 50);
-        $key->addValidator(new Zend_Validate_StringLength(array('min' => 4)));
-        $this->addElement($key);
+        $access = new Zend_Form_Element_Text('access');
+        $access->setLabel('Access:');
+        $access->setRequired();
+        $access->addFilter('StripTags');
+        $access->setAttrib('maxlength', 50);
+        $access->addValidator(new Zend_Validate_StringLength(array('min' => 4)));
+        $this->addElement($access);
+        
+        $descripcion = new Zend_Form_Element_Text('descripcion');
+        $descripcion->setLabel('Descripción:');
+        $descripcion->setRequired();
+        $descripcion->addFilter('StripTags');
+        $this->addElement($descripcion);
         
         $padre = new Zend_Form_Element_Text('padre');
         $padre->setLabel('Padre:');
