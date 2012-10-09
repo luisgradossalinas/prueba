@@ -6,12 +6,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     public function _initConfig()
     {
         $config = new Zend_Config($this->getOptions(), true);
-        Zend_Registry::set('config', $config);
-        
-        /*$config = new Zend_Config($this->getOptions(), true);
         $config->merge(new Zend_Config_Ini(APPLICATION_PATH.'/configs/private.ini'));
         $config->setReadOnly();
-        Zend_Registry::set('config', $config);*/
+        Zend_Registry::set('config', $config);
     }
     
     public function _initViewHelpers()

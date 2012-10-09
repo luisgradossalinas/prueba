@@ -35,7 +35,7 @@ class Admin_MvcController extends App_Controller_Action_Admin
     }
     
     public function indexAction()
-    {   
+    {   echo APPLICATION_PATH;
         $idPadre = $this->_recurso->obtenerPadre($this->_model);
         
         Zend_Layout::getMvcInstance()->assign('link', $this->_model);
