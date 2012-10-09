@@ -14,14 +14,10 @@
     padding: 15px;
 }
 dt {
+    font-weight: bold;
     width: 200px;
 }
 dt, dd {
+    line-height: 10px;
     float: left;
-}
-dt {
-    font-weight: bold;
-}
-dt, dd {
-    line-height: 20px;
 }

@@ -31,7 +31,7 @@ return array(
 
     // Zend_Validate_Alpha
     "Invalid type given, value should be a string" => "El tipo especificado no es válido, el valor debe ser una cadena de texto",
-    "'%value%' contains non alphabetic characters" => "'%value%' solo debe contener letras",
+    "'%value%' contains non alphabetic characters" => "Solo letras",
     "'%value%' is an empty string" => "'%value%' es una cadena de texto vacia",
 
     // Zend_Validate_Barcode
@@ -77,7 +77,7 @@ return array(
 
     // Zend_Validate_EmailAddress
     "Invalid type given, value should be a string" => "El tipo especificado no es válido, el valor debe ser una cadena de texto",
-    "'%value%' is no valid email address in the basic format local-part@hostname" => "'%value%' no es un correo válido",
+    "'%value%' is no valid email address in the basic format local-part@hostname" => "E-mail inválido",
     "'%hostname%' is no valid hostname for email address '%value%'" => "'%hostname%' no es un nombre de host válido para la dirección de correo electrónico '%value%'",
     "'%hostname%' does not appear to have a valid MX record for the email address '%value%'" => "'%hostname%' no parece tener un registro MX válido para la dirección de correo electrónico '%value%'",
     "'%hostname%' is not in a routable network segment. The email address '%value%' should not be resolved from public network." => "'%hostname%' no esta en un segmento de red ruteable. La dirección de correo electrónico '%value%' no se debe poder resolver desde una red pública.",
@@ -232,7 +232,7 @@ return array(
     // Zend_Validate_NotEmpty
     "Invalid type given, value should be float, string, array, boolean or integer" => "El tipo especificado es inválido, el valor deberí­a ser un float, una cadena de texto, un array, un boolean o un entero",
     //"Value is required and can't be empty" => "Se requiere un valor y éste no puede estar vací­o",
-    "Value is required and can't be empty" => "¡Se requiere valor!",
+    "Value is required and can't be empty" => "Se requiere valor",
 
     // Zend_Validate_PostCode
     "Invalid type given. The value should be a string or a integer" => "El tipo especificado es incorrecto, el valor deberí­a ser una cadena de texto",
@@ -261,7 +261,7 @@ return array(
 
     // Zend_Validate_StringLength
     "Invalid type given, value should be a string" => "El tipo especificado es incorrecto, el valor deberí­a ser una cadena de texto",
-    "'%value%' is less than %min% characters long" => "'%value%' tiene menos de '%min%' caracteres",
-    "'%value%' is more than %max% characters long" => "'%value%' tiene más de '%max%' caracteres",
+    "'%value%' is less than %min% characters long" => "Debe tiener más de %min% caract.",
+    "'%value%' is more than %max% characters long" => "Debe tener menos de %max% caract.",
 );
 

@@ -13,7 +13,7 @@ $(document).ready(function(){
     configModal = function(id, ope){
         codigo = id;
         sentencia_crud = ope;
-        $('.modal').css({'width':'650px','margin':'-250px 0 0 -280px'});
+        $('.modal').css({'width':'570px','margin':'-250px 0 0 -280px'});
         $.ajax({
             url: urls.siteUrl + '/admin/mvc/operacion/ajax/form',
             data:{id:id},
