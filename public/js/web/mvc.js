@@ -10,6 +10,7 @@ $(document).ready(function(){
     });*/
         
     configModal = function(id){
+        codigo = id;
         $('.modal').css({'width':'560px','margin':'-250px 0 0 -280px'});
         $.ajax({
             url: urls.siteUrl + '/admin/mvc/operacion/ajax/form',

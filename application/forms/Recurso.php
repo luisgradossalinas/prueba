@@ -24,8 +24,8 @@ class Application_Form_Recurso extends Zend_Form
         $access->addValidator(new Zend_Validate_StringLength(array('min' => 4)));
         $this->addElement($access);
         
-        $descripcion = new Zend_Form_Element_Text('descripcion');
-        $descripcion->setLabel('Descripción:');
+        $descripcion = new Zend_Form_Element_Text('accion');
+        $descripcion->setLabel('Acción:');
         $descripcion->setRequired();
         $descripcion->addFilter('StripTags');
         $this->addElement($descripcion);

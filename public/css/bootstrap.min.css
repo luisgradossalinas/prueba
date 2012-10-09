@@ -13,3 +13,15 @@
     overflow-y: auto;
     padding: 15px;
 }
+dt {
+    width: 200px;
+}
+dt, dd {
+    float: left;
+}
+dt {
+    font-weight: bold;
+}
+dt, dd {
+    line-height: 20px;
+}
