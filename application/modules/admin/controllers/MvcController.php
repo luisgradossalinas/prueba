@@ -88,8 +88,13 @@ class Admin_MvcController extends App_Controller_Action_Admin
    
         // Grabar
         if ($this->_getParam('ajax') == 'save') {
-            //$data['fecha_crea'] = date("Y-m-d H:i:s");
-            //$data['usuario_crea'] = Zend_Auth::getInstance()->getIdentity()->id;
+            if ($this->_getParam('scrud') == 'nuevo') {
+                $data['fecha_crea'] = date("Y-m-d H:i:s");
+                $data['usuario_crea'] = Zend_Auth::getInstance()->getIdentity()->id;
+            } else {
+                $data['fecha_actu'] = date("Y-m-d H:i:s");
+                $data['usuario_actu'] = Zend_Auth::getInstance()->getIdentity()->id;
+            }
             $this->_clase->guardar($data);
         }
     }
