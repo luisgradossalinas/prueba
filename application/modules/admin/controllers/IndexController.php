@@ -16,7 +16,7 @@ class Admin_IndexController extends App_Controller_Action_Admin
 
     public function indexAction()
     {
-        
+        echo "hola";
     }
         public function plantillaAction()
     {
@@ -32,28 +32,6 @@ class Admin_IndexController extends App_Controller_Action_Admin
         $this->view->headScript()->appendFile(SITE_URL.'/assets/web/usuario.js');
         $data = $this->_usuarioModel->fetchAll();
         $this->view->usuario = $data;
-    }
-
-    public function productoAction()
-    {
-        Zend_Layout::getMvcInstance()->assign('active','productos');
-        $this->view->headLink()->appendStylesheet(SITE_URL.'/jquery/css/dataTables.css', 'all');
-        $this->view->headScript()->appendFile(SITE_URL.'/jquery/plugins/jquery.dataTables.js');
-        $this->view->headScript()->appendFile(SITE_URL.'/assets/js/bootstrap-dataTable.js');
-        $this->view->headScript()->appendFile(SITE_URL.'/assets/web/producto.js');
-        $data = $this->_productoModel->fetchAll();
-        $this->view->producto = $data;
-    }
-    
-    public function categoriaAction()
-    {
-        Zend_Layout::getMvcInstance()->assign('active','categorias');
-        $this->view->headLink()->appendStylesheet(SITE_URL.'/jquery/css/dataTables.css', 'all');
-        $this->view->headScript()->appendFile(SITE_URL.'/jquery/plugins/jquery.dataTables.js');
-        $this->view->headScript()->appendFile(SITE_URL.'/assets/js/bootstrap-dataTable.js');
-        $this->view->headScript()->appendFile(SITE_URL.'/assets/web/categoria.js');
-        $data = $this->_categoriaModel->fetchAll('estado != '.Application_Model_Categoria::ELIMINADO);
-        $this->view->categoria = $data;
     }
 
 

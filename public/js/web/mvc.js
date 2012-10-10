@@ -98,7 +98,7 @@ $(document).ready(function(){
         html += '<div class="widget-content nopadding">';
         html += '<table id="tablaRecurso" class="table table-condensed table-bordered  with-check">';
         html += '<thead>';
-        html += '<tr><th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" onclick=seleccionaTodos() /></th><th>Id</th><th>Descripción</th><th>Url</th><th>Estado</th></tr>';
+        html += '<tr><th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" onclick=seleccionaTodos() /></th><th>Id</th><th>Nombre</th><th>Descripción</th><th>Estado</th><th>Url</th></tr>';
         html += '</thead>';
         html += '<tbody>';
         
@@ -108,6 +108,11 @@ $(document).ready(function(){
                     html += '<td><input type="checkbox" /></td>';
                     html += '<td>' + obj['id'] + '</td>';
                     html += '<td>' + obj['nombre'] + '</td>';
+                    accion = obj['accion'];
+                    if (obj['accion'] == '' || obj['accion'] == null) {
+                        accion = '';
+                    }
+                    html += '<td>' + accion + '</td>';
                     
                     if (obj['estado'] == 0) {
                         estado = 'error.png';

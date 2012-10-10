@@ -5,7 +5,7 @@
 <div class="widget-content nopadding">
     <table id='tabla' class="table table-condensed table-bordered" >
         <thead>
-            <tr><th>Id</th><th>Descripción</th><th>Estado</th><th>Registro</th><th>Opciones</th></tr>
+            <tr><th>Id</th><th>Nombre</th><th>Descripción</th><th>Valor</th><th>Estado</th><th>Opciones</th></tr>
         </thead>
         <?php
         echo '<tbody>';
@@ -14,11 +14,12 @@
             echo '<tr>';
             echo '<td>'.$value['id'].'</td>';
             echo '<td>'.$value['nombre'].'</td>';
+            echo '<td>'.$value['descripcion'].'</td>';
+            echo '<td>'.$value['valor'].'</td>';
             if ($value['estado'] == Admin_MvcController::INACTIVO)
                 $estado = 'error.png';
             echo '<td width=8%><span style=display:none>'.$value['estado'].'</span><img src='.SITE_URL.'/img/'.$estado.' width=15%></td>';
-            echo '<td>'.$value['fecha_crea'].'</td>';
-            echo '<td width=15%>
+            echo '<td width=18%>
                     <a  href="#myModal" role="button" class="btn btn-mini" data-toggle="modal" onclick="editar('.$value['id'].')">Editar</a>
                     <a  href="#myModal" role="button" class="btn btn-mini" data-toggle="modal" onclick="elimina('.$value['id'].')">Eliminar</a></td>';
             echo '</tr>';

@@ -120,7 +120,8 @@ class Application_Model_Recurso extends Zend_Db_Table
                 $menu .= '</ul>';
                 $menu .= '</il>';
              } else {
-                 $menu .= '<li><a href="#"><i class="icon icon-th"></i> <span>'.$reg['nombre'].'</span></a></li>';
+                 //El único que no tendra hijos será el INICIO por el momento
+                 $menu .= '<li><a href="'.SITE_URL.'/admin"><i class="icon icon-th"></i> <span>'.$reg['nombre'].'</span></a></li>';
                  
              }
              
