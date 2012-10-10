@@ -57,11 +57,87 @@ $(document).ready(function(){
     
     verRecursos = function (id) {
         $('#modalTitle').empty().html('Lista de recursos');
-        //Generar tabla con recursos
-        $('.modal-body').empty().html("Prueba");
-        $('.modal').css({'width':'800px','margin':'-250px 0 0 -380px'});
-        $('#myModal').show();
+        $.ajax({
+            url: urls.siteUrl + '/admin/recurso/listado/ajax/listado/id_rol/' + id,
+            type: 'post',
+            dataType: 'json',
+            success: function(result) {
+                
+                tablaRecurso(result);
+                
+            }
+            
+        })
 
+    }
+    
+    seleccionaTodos = function() {
+    //$("#title-table-checkbox .title-table-checkbox").click(function() {
+        alert('Falta programar');
+		var checkedStatus = $("#title-table-checkbox").checked;
+		var checkbox = $("#myModal").parents('.widget-box').find('tr td:first-child input:checkbox');		
+		checkbox.each(function() {
+			$("#title-table-checkbox").checked = checkedStatus;
+			if (checkedStatus == $("#title-table-checkbox").checked) {
+				$("#title-table-checkbox").closest('.checker > span').removeClass('checked');
+			}
+			if ($("#title-table-checkbox").checked) {
+				$("#title-table-checkbox").closest('.checker > span').addClass('checked');
+			}
+		});
+    };
+    
+    tablaRecurso = function(data) {
+        
+        $('.modal-body').empty();
+        html = '';
+        html += '<div class="widget-box">';
+        html += '<div class="widget-title">';	
+        html += '<h5>Recursos</h5>';
+        html += '</div>';
+        html += '<div class="widget-content nopadding">';
+        html += '<table id="tablaRecurso" class="table table-condensed table-bordered  with-check">';
+        html += '<thead>';
+        html += '<tr><th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" onclick=seleccionaTodos() /></th><th>Id</th><th>Descripción</th><th>Url</th><th>Estado</th></tr>';
+        html += '</thead>';
+        html += '<tbody>';
+        
+        $.each(data, function(key,obj) {
+                    estado = 'checkmark.png';
+                    html += '<tr>';
+                    html += '<td><input type="checkbox" /></td>';
+                    html += '<td>' + obj['id'] + '</td>';
+                    html += '<td>' + obj['nombre'] + '</td>';
+                    
+                    if (obj['estado'] == 0) {
+                        estado = 'error.png';
+                    }
+                    
+                    html += '<td width=8%><span style=display:none>';
+                    html += obj['cbo_estado'] + '</span><img src='  + urls.siteUrl + '/img/' + estado + ' width=20%></td>';
+                    url = obj['url'];
+                    if (obj['url'] == '' || obj['url'] == null) {
+                        url = '';
+                    }
+                    html += '<td>' + url + '</td>';
+                    html += '</tr>';
+ 
+        })
+        
+        html += '</tbody>';
+        html += '</table>';
+        html += '</div>';
+        html += '</div>';
+        
+        $('.modal-body').append(html);
+        $('#tablaRecurso').dataTable({
+		"bJQueryUI": true,
+		"sPaginationType": "full_numbers",
+		"sDom": '<""l>t<"F"fp>'
+	});
+        $('.modal').css({'width':'950px','margin':'-250px 0 0 -420px'});
+        $('#myModal').show();
+        
     }
     
     $('#btnGuardar').click(function(){
