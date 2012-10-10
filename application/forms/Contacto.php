@@ -8,19 +8,18 @@ class Application_Form_Contacto extends Zend_Form
         $this->setAttrib('id', 'form');
         
         $nombre = new Zend_Form_Element_Text('nombres');
-        $nombre->setLabel('Nombres:');
+        $nombre->setLabel('Nombre:');
         $nombre->setRequired();
         $nombre->addFilter('StripTags');
         $nombre->setAttrib('maxlength', 50);
-        $nombre->addValidator(new Zend_Validate_StringLength(array('min' => 4)));
-        $nombre->addValidator('Alpha', false, array('allowWhiteSpace' => true));
+        $nombre->addValidator(new Zend_Validate_StringLength(array('min' => 3)));
         $this->addElement($nombre);
         
         $celular = new Zend_Form_Element_Text('celular');
         $celular->setLabel('Celular:');
         $celular->setRequired();
         $celular->addFilter('StripTags');
-        $nombre->addValidator(new Zend_Validate_Int());
+        $celular->addValidator(new Zend_Validate_Int());
         $this->addElement($celular);
         
         $correo = new Zend_Form_Element_Text('correo');
