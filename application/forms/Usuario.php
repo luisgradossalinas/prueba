@@ -53,8 +53,18 @@ class Application_Form_Usuario extends Zend_Form
         $direccion = new Zend_Form_Element_Text('direccion');
         $direccion->setLabel('Dirección:');
         $direccion->setRequired();
+        //$direccion->setAttrib("class","input-xlarge");
         $direccion->addFilter('StripTags');
         $this->addElement($direccion);
+        
+       // <input type="text" class="datepicker" value="12-02-2012" data-date-format="dd-mm-yyyy" data-date="12-02-2012">
+        $fechaNac = new Zend_Form_Element_Text('fecha_nac');
+        $fechaNac->setLabel('Fecha nac:');
+        $fechaNac->setRequired();
+        $fechaNac->setAttribs(array('class' => 'datepicker', 'data-date-format' => 'dd-mm-yyyy'));
+        $fechaNac->addFilter('StripTags');
+        $this->addElement($fechaNac);
+        
         
         $estado = new Zend_Form_Element_Select('estado');
         $estado->setLabel('Estado:');

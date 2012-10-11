@@ -42,7 +42,7 @@ class Admin_MvcController extends App_Controller_Action_Admin
         Zend_Layout::getMvcInstance()->assign('active', ucfirst($this->_model).'s');
         Zend_Layout::getMvcInstance()->assign('padre', $idPadre);
         
-        $this->view->headScript()->appendFile(SITE_URL.'/js/web/mvc.js');
+        //$this->view->headScript()->appendFile(SITE_URL.'/js/web/mvc.js');
         $this->view->data = $this->_clase->fetchAll('estado != '.self::ELIMINADO);
         $this->view->model = ucfirst($this->_model);
         $this->view->active = ucfirst($this->_model).'s';

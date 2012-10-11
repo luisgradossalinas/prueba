@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href=<?=SITE_URL."/css/bootstrap.min.css"?> />
 		<link rel="stylesheet" href=<?=SITE_URL."/css/bootstrap-responsive.min.css"?> />
+                <link rel="stylesheet" href=<?=SITE_URL."/css/colorpicker.css"?> />
+                <link rel="stylesheet" href=<?=SITE_URL."/css/datepicker.css"?> />
 		<link rel="stylesheet" href=<?=SITE_URL."/css/uniform.css"?> />
 		<link rel="stylesheet" href=<?=SITE_URL."/css/chosen.css"?> />
                 <link rel="stylesheet" href=<?=SITE_URL."/css/unicorn.main.css"?> />
@@ -20,13 +22,15 @@
                 <script src=<?=SITE_URL."/js/jquery.flot.resize.min.js"?> ></script>
                 <script src=<?=SITE_URL."/js/jquery.peity.min.js"?> ></script>
                 <script src=<?=SITE_URL."/js/fullcalendar.min.js"?> ></script>
-                <script src=<?=SITE_URL."/js/unicorn.js"?> ></script>
-
-  
                 <script src=<?=SITE_URL."/js/jquery.uniform.js"?> ></script>
+                <script src=<?=SITE_URL."/js/bootstrap-colorpicker.js"?> ></script>
+                <script src=<?=SITE_URL."/js/bootstrap-datepicker.js"?> ></script>
+              
                 <script src=<?=SITE_URL."/js/jquery.chosen.js"?> ></script>
                 <script src=<?=SITE_URL."/js/jquery.dataTables.min.js"?> ></script>
                 <script src=<?=SITE_URL."/js/unicorn.tables.js"?> ></script>
+                <script src=<?=SITE_URL."/js/unicorn.form_common.js"?> ></script>
+                <script src=<?=SITE_URL."/js/unicorn.js"?> ></script>
                 
                 <script src=<?=SITE_URL."/js/web/validate.js"?> ></script>
                 <script src=<?=SITE_URL."/js/web/mvc.js"?> ></script>
@@ -100,6 +104,9 @@
 				<?=$this->render('pie.phtml');?>
 			</div>
 		</div>
+            
+            
+            
 		
 	</body>
 </html>

@@ -5,20 +5,27 @@
 <div class="widget-content nopadding">
     <table id='tabla' class="table table-condensed table-bordered">
         <thead>
-            <tr><th>Id</th><th>Descripción</th><th>Precio</th><th>Imagen</th><th>Registro</th><th>Opciones</th></tr>
+            <tr><th></th><th>Id</th><th>Descripción</th><th>Precio</th><th>Imagen</th><th>Registro</th></tr>
         </thead>
         <?php
         echo '<tbody>';
         foreach ($this->data as $value) {
             echo '<tr>';
+            echo '<td width = 8%>';
+            echo '<div class="btn-group dropup">
+		  <button class="btn btn-mini btn-inverse">Opciones</button>
+		  <button class="btn btn-mini btn-inverse dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+		  <ul class="dropdown-menu">
+                    <li><a href="#myModal" data-toggle="modal" onclick="editar('.$value['id'].')"><i class="icon-pencil"></i> Editar</a></li>
+                    <li><a href="#myModal" data-toggle="modal" onclick="elimina('.$value['id'].')"><i class="icon-trash"></i> Eliminar</a></li>
+		  </ul>
+		</div>';
+            echo '</td>';
             echo '<td>'.$value['id'].'</td>';
             echo '<td>'.$value['nom_prod'].'</td>';
             echo '<td>'.$value['precio'].'</td>';
             echo '<td>'.$value['imagen'].'</td>';
             echo '<td>'.$value['fecha_crea'].'</td>';
-            echo '<td width=15%>
-                    <a  href="#myModal" role="button" class="btn btn-mini" data-toggle="modal" onclick="editar('.$value['id'].')">Editar</a>
-                    <a  href="#myModal" role="button" class="btn btn-mini" data-toggle="modal" onclick="elimina('.$value['id'].')">Eliminar</a></td>';
             echo '</tr>';
         }
         echo '</tbody>';

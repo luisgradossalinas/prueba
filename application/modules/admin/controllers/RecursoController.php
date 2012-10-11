@@ -2,9 +2,6 @@
 
 class Admin_RecursoController extends App_Controller_Action_Admin
 {
-    private $_model;
-    private $_form;
-    private $_clase;
     
     const INACTIVO = 0;
     const ACTIVO = 1;
@@ -32,7 +29,7 @@ class Admin_RecursoController extends App_Controller_Action_Admin
         if ($this->_getParam('ajax') == 'listado') {
             if ($this->_hasParam('id_rol')) {
                 $recurso = new Application_Model_Recurso;
-                $listadoRecursos = $recurso->fetchAll()->toArray();
+                $listadoRecursos = $recurso->fetchAll('estado ='. self::ACTIVO)->toArray();
                 echo Zend_Json::encode($listadoRecursos);
                 
             }
