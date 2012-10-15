@@ -5,13 +5,15 @@ class Application_Model_Recurso extends Zend_Db_Table
     protected $_name = 'recurso';
     protected $_primary = 'id';
 
-    const TABLA = 'recurso';
-
     const ESTADO_INACTIVO = 0;
     const ESTADO_ACTIVO = 1;
     const ESTADO_ELIMINADO = 2;
     
+    const TABLA = 'recurso';
+    
     const PADRE = 1;
+    
+    const FUNCION_LISTADO = 'fetchAll';
       
     public function guardar($datos)
     {         
@@ -44,8 +46,8 @@ class Application_Model_Recurso extends Zend_Db_Table
     
     public function obtenerPadre ($key)
     {
-        return $this->getAdapter()->select()->from($this->_name, 'padre')
-                ->where('access = ?','admin:'.$key)->query()->fetchColumn();
+        return $this->getAdapter()->select()->from($this->_name, array('padre', 'funcion_listado', 'estado'))
+                ->where('access = ?','admin:'.$key)->query()->fetch(Zend_Db::FETCH_NUM);
     }
     
     //Para generar el menú dinámico 

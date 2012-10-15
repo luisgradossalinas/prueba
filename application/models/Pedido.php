@@ -1,15 +1,15 @@
 <?php
 
-class Application_Model_Usuario extends Zend_Db_Table
+class Application_Model_Pedido extends Zend_Db_Table
 {
-    protected $_name = 'usuario';
+    protected $_name = 'pedido';
     protected $_primary = 'id';
-
+        
     const ESTADO_INACTIVO = 0;
     const ESTADO_ACTIVO = 1;
     const ESTADO_ELIMINADO = 2;
     
-    const TABLA = 'usuario'; 
+    const TABLA = 'pedido';
     
     public function guardar($datos)
     {         
@@ -30,5 +30,19 @@ class Application_Model_Usuario extends Zend_Db_Table
         return $id;
     }
     
+    public function listado() {
+        
+        return $this->getAdapter()->select()->from(
+                array('a' => $this->_name), 
+                array(
+                    'id', 'id_usuario', 'nombres' => 'concat(b.nombres," ",b.apellidos)', 'entregado',
+                        'fecha_genera', 'fecha_entrega'
+                ))
+                ->joinInner(
+                    array('b' => Application_Model_Usuario::TABLA), 'a.id_usuario = b.id', null)
+                ->query()->fetchAll();
+    }
+
+
 }
 

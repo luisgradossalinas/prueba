@@ -1,15 +1,14 @@
 <?php
 
-class Application_Model_Usuario extends Zend_Db_Table
+class Application_Model_Generator extends Zend_Db_Table
 {
-    protected $_name = 'usuario';
-    protected $_primary = 'id';
-
+    protected $_name = 'dinamic';
+    
     const ESTADO_INACTIVO = 0;
     const ESTADO_ACTIVO = 1;
-    const ESTADO_ELIMINADO = 2;
+    CONST ESTADO_ELIMINADO = 2;
     
-    const TABLA = 'usuario'; 
+    const TABLA = 'dinamic';
     
     public function guardar($datos)
     {         
@@ -30,5 +29,12 @@ class Application_Model_Usuario extends Zend_Db_Table
         return $id;
     }
     
+    public function listado() {
+        
+        return $this->getAdapter()->select()->from($this->_name)->query()->fetchAll();
+        
+    }
+
+
 }
 

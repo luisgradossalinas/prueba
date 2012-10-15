@@ -48,6 +48,12 @@ class Application_Form_Recurso extends Zend_Form
         $url->addFilter('StripTags');
         $this->addElement($url);
         
+        $funcionListado = new Zend_Form_Element_Text('funcion_listado');
+        $funcionListado->setLabel('Función para listar:');
+        $funcionListado->setValue('fetchAll');
+        $funcionListado->addFilter('StripTags');
+        $this->addElement($funcionListado);
+        
         $tab = new Zend_Form_Element_Text('tab');
         $tab->setLabel('Tab:');
         $tab->setRequired();

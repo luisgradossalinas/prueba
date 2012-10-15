@@ -4,9 +4,11 @@ class Application_Model_Producto extends Zend_Db_Table
 {
     protected $_name = 'producto';
     
-    const INACTIVA = 0;
-    const ACTIVA = 1;
-    const ELIMINADO = 2;
+    const ESTADO_INACTIVO = 0;
+    const ESTADO_ACTIVO = 1;
+    CONST ESTADO_ELIMINADO = 2;
+    
+    const TABLA = 'producto';
 
     public function guardar($datos)
     {         

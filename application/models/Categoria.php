@@ -4,14 +4,16 @@ class Application_Model_Categoria extends Zend_Db_Table
 {
     protected $_name = 'categoria';
     
-    const INACTIVA = 0;
-    const ACTIVA = 1;
-    const ELIMINADO = 2;
+    const ESTADO_INACTIVO = 0;
+    const ESTADO_ACTIVO = 1;
+    CONST ESTADO_ELIMINADO = 2;
+    
+    const TABLA = 'categoria';
     
     public function combo()
     {
         return $this->getAdapter()->select()->from($this->_name,array('key' => 'id', 'value' => 'nom_cat'))
-                ->where('estado = ?',self::ACTIVA)->query()->fetchAll();
+                ->where('estado = ?',self::ESTADO_ACTIVO)->query()->fetchAll();
     }
     
     public function guardar($datos)

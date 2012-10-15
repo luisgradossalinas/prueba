@@ -14,7 +14,7 @@ class Application_Model_Rol extends Zend_Db_Table
     const ESTADO_ACTIVO = 1;
     CONST ESTADO_ELIMINADO = 2;
     
-    const TABLA_ROL = 'rol';
+    const TABLA = 'rol';
     
     public function combo()
     {

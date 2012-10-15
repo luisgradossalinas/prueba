@@ -9,7 +9,7 @@ class Application_Model_Configuracion extends Zend_Db_Table
     const ESTADO_ACTIVO = 1;
     CONST ESTADO_ELIMINADO = 2;
     
-    const TABLA_ROL = 'configuracion';
+    const TABLA = 'configuracion';
     
     public function guardar($datos)
     {         

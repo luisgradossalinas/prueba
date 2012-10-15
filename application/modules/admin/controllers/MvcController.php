@@ -36,17 +36,31 @@ class Admin_MvcController extends App_Controller_Action_Admin
     
     public function indexAction()
     {   
-        $idPadre = $this->_recurso->obtenerPadre($this->_model);
+        $dataRecurso = $this->_recurso->obtenerPadre($this->_model);
         
-        Zend_Layout::getMvcInstance()->assign('link', $this->_model);
-        Zend_Layout::getMvcInstance()->assign('active', ucfirst($this->_model).'s');
-        Zend_Layout::getMvcInstance()->assign('padre', $idPadre);
+        $funcionListado = Application_Model_Recurso::FUNCION_LISTADO;
+        $padre = 0;
+        $estado = 0;
+        if ($dataRecurso) {
+            $padre = $dataRecurso[0];
+            $funcionListado = $dataRecurso[1];
+            $estado = $dataRecurso[2];
+        }
         
-        //$this->view->headScript()->appendFile(SITE_URL.'/js/web/mvc.js');
-        $this->view->data = $this->_clase->fetchAll('estado != '.self::ELIMINADO);
-        $this->view->model = ucfirst($this->_model);
-        $this->view->active = ucfirst($this->_model).'s';
-        $this->render($this->_model);
+        if ($estado == 0) {
+            $this->render('recurso-no-activo');
+        } else {
+        
+            Zend_Layout::getMvcInstance()->assign('link', $this->_model);
+            Zend_Layout::getMvcInstance()->assign('active', ucfirst($this->_model));
+            Zend_Layout::getMvcInstance()->assign('padre', $padre);
+
+            $this->view->data = $this->_clase->$funcionListado('estado != '.self::ELIMINADO);
+            $this->view->model = ucfirst($this->_model);
+            $this->view->active = ucfirst($this->_model).'s';
+            $this->render($this->_model);
+        
+        }
     }
     
     public function operacionAction()
