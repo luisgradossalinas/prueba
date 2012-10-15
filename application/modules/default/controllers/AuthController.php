@@ -10,6 +10,8 @@ class Default_AuthController extends Zend_Controller_Action
     {
         $this->_formLogin = new Application_Form_Login;
         $this->_usuarioModel = new Application_Model_Usuario;
+        
+        $this->_helper->layout->setLayout('login');
     }
     
     public function indexAction()
@@ -19,7 +21,7 @@ class Default_AuthController extends Zend_Controller_Action
     
     public function loginAction()
     {
-        $this->_helper->layout->setLayout('login_plantilla');
+        //$this->_helper->layout->setLayout('login_plantilla');
         $this->view->messages = "";
      
         if ($this->getRequest()->isPost()) {
@@ -51,10 +53,12 @@ class Default_AuthController extends Zend_Controller_Action
                     $this->_guardarSesion($data);
                     $this->_redirect('admin');
                 } else {
+                    //$this->_redirect('login');
                     $this->view->messages = 'Usuario o clave incorrectos.';
-                    return;
+                    //return;
                 }
         }
+        //$this->render('login');
         
       //  $this->view->form = $this->_formLogin;
     }
