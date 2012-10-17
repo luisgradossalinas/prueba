@@ -1496,4 +1496,10 @@ form {
 	.dataTables_filter, .dataTables_paginate {
 		text-align: center;
 	}
+        
+}
+
+.DataTables_sort_icon {
+    display: inline-block;
+    float: right;
 }

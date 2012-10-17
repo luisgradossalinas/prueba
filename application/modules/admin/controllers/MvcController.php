@@ -19,13 +19,14 @@ class Admin_MvcController extends App_Controller_Action_Admin
         $sesionMvc  = new Zend_Session_Namespace('sesion_mvc');
         $this->_recurso = new Application_Model_Recurso;
         
-        if ($this->_getParam('model')) {
-            
-            $this->_model = $this->_getParam('model');
-            $form = 'Application_Form_'.ucfirst($this->_model);
-            $clase = 'Application_Model_'.ucfirst($this->_model);
-            $sesionMvc->form = $form;
-            $sesionMvc->clase = $clase;
+        if ($this->_hasParam('model')) {
+
+                $this->_model = $this->_getParam('model');
+                $form = 'Application_Form_'.ucfirst($this->_model);
+                $clase = 'Application_Model_'.ucfirst($this->_model);
+                $sesionMvc->form = $form;
+                $sesionMvc->clase = $clase;
+                $sesionMvc->model = $this->_model;
         
         }
         
@@ -35,12 +36,15 @@ class Admin_MvcController extends App_Controller_Action_Admin
     }
     
     public function indexAction()
-    {   
+    {
         $dataRecurso = $this->_recurso->obtenerPadre($this->_model);
+        //echo $this->_helper->mensajes->ja();
         
         $funcionListado = Application_Model_Recurso::FUNCION_LISTADO;
         $padre = 0;
         $estado = 0;
+        $sesionMvc  = new Zend_Session_Namespace('sesion_mvc');
+        
         if ($dataRecurso) {
             $padre = $dataRecurso[0];
             $funcionListado = $dataRecurso[1];
@@ -48,16 +52,25 @@ class Admin_MvcController extends App_Controller_Action_Admin
         }
         
         if ($estado == 0) {
+            
             $this->render('recurso-no-activo');
+            
         } else {
         
+            $model =  ucfirst($this->_model);
             Zend_Layout::getMvcInstance()->assign('link', $this->_model);
-            Zend_Layout::getMvcInstance()->assign('active', ucfirst($this->_model));
+            Zend_Layout::getMvcInstance()->assign('active', $model);
             Zend_Layout::getMvcInstance()->assign('padre', $padre);
 
             $this->view->data = $this->_clase->$funcionListado('estado != '.self::ELIMINADO);
-            $this->view->model = ucfirst($this->_model);
-            $this->view->active = ucfirst($this->_model).'s';
+            $this->view->model = $model;
+            $this->view->active = $model.'s';
+            $this->view->messages = $sesionMvc->messages;
+            $this->view->tipoMessages = $sesionMvc->tipoMessages;
+            
+            unset($sesionMvc->messages);
+            unset($sesionMvc->tipoMessages);
+            
             $this->render($this->_model);
         
         }
@@ -69,6 +82,7 @@ class Admin_MvcController extends App_Controller_Action_Admin
         $this->_helper->viewRenderer->setNoRender(true);
 
         $data = $this->_getAllParams();
+        $sesionMvc  = new Zend_Session_Namespace('sesion_mvc');
 
         //Previene vulnerabilidad XSS (Cross-site scripting)
         $filtro = new Zend_Filter_StripTags();
@@ -76,7 +90,6 @@ class Admin_MvcController extends App_Controller_Action_Admin
             $data[$key] = $filtro->filter(trim($val));
         }
         
-        //Muestra formulario vacío (Nuevo) o con data según petición ajax (Editar)
         if ($this->_getParam('ajax') == 'form') {
             
             if ($this->_hasParam('id')) {
@@ -89,26 +102,33 @@ class Admin_MvcController extends App_Controller_Action_Admin
             echo $this->_form;         
         }
         
-        //Validación de formulario
         if ($this->_getParam('ajax') == 'validar') {
                 echo $this->_form->processAjax($data);
         }
         
-        //Eliminación de registro
         if ($this->_getParam('ajax') == 'delete') {
+            
             $where = $this->getAdapter()->quoteInto('id = ?',$data['id']);
             $this->_clase->update(array('estado' => self::ELIMINADO),$where);
+            
+            $sesionMvc->messages = 'Registro eliminado';
+            $sesionMvc->tipoMessages = self::SUCCESS;
+                    
         }
-   
-        // Grabar
+        
         if ($this->_getParam('ajax') == 'save') {
             if ($this->_getParam('scrud') == 'nuevo') {
                 $data['fecha_crea'] = date("Y-m-d H:i:s");
                 $data['usuario_crea'] = Zend_Auth::getInstance()->getIdentity()->id;
+                $sesionMvc->messages = 'Registro agregado satisfactoriamente';
             } else {
                 $data['fecha_actu'] = date("Y-m-d H:i:s");
                 $data['usuario_actu'] = Zend_Auth::getInstance()->getIdentity()->id;
+                $sesionMvc->messages = 'Registro actualizado satisfactoriamente';
             }
+            
+            $sesionMvc->tipoMessages = self::SUCCESS;
+            
             $this->_clase->guardar($data);
         }
     }

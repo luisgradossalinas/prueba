@@ -7,9 +7,12 @@ class Application_Model_Configuracion extends Zend_Db_Table
     
     const ESTADO_INACTIVO = 0;
     const ESTADO_ACTIVO = 1;
-    CONST ESTADO_ELIMINADO = 2;
+    const ESTADO_ELIMINADO = 2;
     
     const TABLA = 'configuracion';
+    
+    const ESTILO_PANEL = 'ESTILO_PANEL';
+    static $_ARRAY_ESTILO_PANEL = array('blue', 'red', 'grey');
     
     public function guardar($datos)
     {         

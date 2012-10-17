@@ -2,6 +2,12 @@
 
 class App_Controller_Action extends Zend_Controller_Action
 {
+    
+    //Constantes mensajes
+    const WARNING = '';
+    const SUCCESS = 'success';
+    const ERROR = 'error';
+    const INFO = 'info';
 
     public function init()
     {

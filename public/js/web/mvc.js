@@ -22,6 +22,10 @@ $(document).ready(function(){
                 $('.modal-body').empty().html(result);
             }
         })
+        
+        $('#btnEliminar').hide();
+        $('#btnGuardar').show();
+        
         $('#myModal').show();
     }
     
@@ -36,21 +40,15 @@ $(document).ready(function(){
     }
     
     elimina = function(id){
-      /*  if (confirm('¿Está seguro que desea eliminar registro?')) {
-             $.ajax({
-            url: urls.siteUrl + '/admin/mvc/operacion/ajax/delete',
-            data:{id:id},
-            type:'post',
-            success: function(result) {
-                location.reload();
-            }
-        })
-        }*/
         
-        
+        codigo = id;
         $('#modalTitle').empty().html('Mensaje del sistema');
         $('.modal-body').empty().html('¿Está seguro que desea eliminar registro?');
         $('.modal').css({'width':'380px','margin':'-250px 0 0 -200px'});
+        
+        $('#btnEliminar').show();
+        $('#btnGuardar').hide();
+        
         $('#myModal').show();
          
     }
@@ -146,6 +144,7 @@ $(document).ready(function(){
     }
     
     $('#btnGuardar').click(function(){
+        
         $.ajax({
             url: urls.siteUrl + '/admin/mvc/operacion/ajax/validar',
             data: $('#form').serialize(),
@@ -156,13 +155,29 @@ $(document).ready(function(){
                        url: urls.siteUrl + '/admin/mvc/operacion/ajax/save/scrud/' + sentencia_crud + '/id/'+ codigo,
                        data: $("#form").serialize(),
                        success: function(result){
-                           $('.modal-footer').prepend('<a class="alert" data-dismiss="alert" href="#">Registro grabado. &times;</a>');
                             location.reload();
                        }
                    });
                }
             }
         })
+        
+    })
+    
+    $('#btnEliminar').click(function(){
+        
+        
+        $.post();
+        
+        $.ajax({
+            url: urls.siteUrl + '/admin/mvc/operacion/ajax/delete/id/'+ codigo,
+            data: $("#form").serialize(),
+            success: function(result){
+              //  $('.modal-footer').prepend('<a class="alert" data-dismiss="alert" href="#">Registro grabado. &times;</a>');
+                location.reload();
+            }
+        });
+        
     })
   
 })
