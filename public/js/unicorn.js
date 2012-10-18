@@ -121,7 +121,7 @@ $(document).ready(function(){
 		var style = $(this).attr('href').replace('#','');
 		$('.skin-color').attr('href',urls.siteUrl + '/css/unicorn.'+style+'.css');
                 
-                $.ajax({
+                /*$.ajax({
                     url: urls.siteUrl + '/admin/index/change-css',
                     data:{'color' : style},
                     dataType:'json',
@@ -130,7 +130,7 @@ $(document).ready(function(){
                         
                     }
                     
-                })
+                })*/
                 
 		//$(this).siblings('a').css({'border-color':'transparent'});
 		//$(this).css({'border-color':'#aaaaaa'});
