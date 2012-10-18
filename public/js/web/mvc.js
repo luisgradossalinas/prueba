@@ -167,11 +167,12 @@ $(document).ready(function(){
     $('#btnEliminar').click(function(){
         
         
-        $.post();
+       // $.post();
         
         $.ajax({
-            url: urls.siteUrl + '/admin/mvc/operacion/ajax/delete/id/'+ codigo,
-            data: $("#form").serialize(),
+            url: urls.siteUrl + '/admin/mvc/operacion/ajax/delete',
+            data:{id:codigo},
+            //data: $("#form").serialize(),
             success: function(result){
               //  $('.modal-footer').prepend('<a class="alert" data-dismiss="alert" href="#">Registro grabado. &times;</a>');
                 location.reload();
