@@ -105,11 +105,11 @@ $(document).ready(function(){
 	{
 		if($(this).hasClass('open'))
 		{
-			$(this).parent().animate({marginRight:'-=190'});
+			$(this).parent().animate({marginRight:'0'});
 			$(this).removeClass('open');
 		} else 
 		{
-			$(this).parent().animate({marginRight:'+=190'});
+			$(this).parent().animate({marginRight:'-=190'});
 			$(this).addClass('open');
 		}
 		$(this).toggleClass('icon-arrow-left');
@@ -119,8 +119,20 @@ $(document).ready(function(){
 	$('#style-switcher a').click(function()
 	{
 		var style = $(this).attr('href').replace('#','');
-		$('.skin-color').attr('href','css/unicorn.'+style+'.css');
-		$(this).siblings('a').css({'border-color':'transparent'});
-		$(this).css({'border-color':'#aaaaaa'});
+		$('.skin-color').attr('href',urls.siteUrl + '/css/unicorn.'+style+'.css');
+                
+                $.ajax({
+                    url: urls.siteUrl + '/admin/index/change-css',
+                    data:{'color' : style},
+                    dataType:'json',
+                    type: 'post',
+                    success : function (result) {
+                        
+                    }
+                    
+                })
+                
+		//$(this).siblings('a').css({'border-color':'transparent'});
+		//$(this).css({'border-color':'#aaaaaa'});
 	});
 });

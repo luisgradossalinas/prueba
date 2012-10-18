@@ -16,7 +16,7 @@ class Admin_IndexController extends App_Controller_Action_Admin
 
     public function indexAction()
     {
-        echo "hola";
+        echo 'hola';
     }
         public function plantillaAction()
     {
@@ -32,6 +32,26 @@ class Admin_IndexController extends App_Controller_Action_Admin
         $this->view->headScript()->appendFile(SITE_URL.'/assets/web/usuario.js');
         $data = $this->_usuarioModel->fetchAll();
         $this->view->usuario = $data;
+    }
+    
+    public function changeCssAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        
+        
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            $this->getConfig()->app->estiloCss = $this->_getParam('color');
+        }
+        echo $this->getConfig()->app->estiloCss;
+        /*
+        $config = Zend_Registry::get('config');
+        $config->app->estiloCss = $this->_getParam('estilo');
+        //echo ESTILO_CSS;
+        //echo $config->app->estiloCss;exit;
+        //!defined('SITE_URL')? define('SITE_URL', $config->app->siteUrl):null; 
+        //echo ESTILO_CSS;exit;
+        $this->_redirect(SITE_URL);*/
     }
 
 

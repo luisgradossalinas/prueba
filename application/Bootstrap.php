@@ -6,8 +6,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     public function _initConfig()
     {
         $config = new Zend_Config($this->getOptions(), true);
-        $config->merge(new Zend_Config_Ini(APPLICATION_PATH.'/configs/private.ini'));
-        $config->setReadOnly();
+        //$config->merge(new Zend_Config_Ini(APPLICATION_PATH.'/configs/private.ini'));
+        //$config->setReadOnly();
         Zend_Registry::set('config', $config);
     }
     
@@ -17,7 +17,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $doctypeHelper->doctype(Zend_View_Helper_Doctype::HTML5);
         $this->bootstrap('layout');
         $layout = $this->getResource('layout');
-        $view = $layout->getView();
+        $view = $layout->getView();       
         $config = Zend_Registry::get('config');
         $view->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8');
         $view->headMeta()->appendName("robots", "noindex, nofollow x");
@@ -30,6 +30,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $config->app->siteUrl
           
         );
+        
+        //echo $config->app->estiloCss;
         
         $view->headScript()->appendScript($js);
        
@@ -59,6 +61,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
         $this->getResource('frontController')->setRouter($router);
     }
+    
+    /*public function _initPlugins()
+    {
+        $this->bootstrap('frontcontroller');
+        $frontController = $this->getResource('frontcontroller');
+
+        $plugin = new App_Plugin_SetupApplication();
+        $frontController->registerPlugin($plugin);
+    }*/
 
 }
 
