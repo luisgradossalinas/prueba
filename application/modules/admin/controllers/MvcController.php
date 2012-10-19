@@ -63,10 +63,12 @@ class Admin_MvcController extends App_Controller_Action_Admin
         }
         
         if ($estado == 0) {
-            
             $this->render('recurso-no-activo');
+        }
+        else if ($estado == 2) {
+            $this->render('recurso-eliminado');
             
-        } else {
+        }else {
         
             $model =  ucfirst($this->_model);
             Zend_Layout::getMvcInstance()->assign('link', $this->_model);
