@@ -133,6 +133,48 @@ class Application_Model_Recurso extends Zend_Db_Table
          return array("menu" => $menu,"registro" => $nReg);
     }
     
+    //Generación de menú2
+    public function generacionMenu2()
+    {
+         $auth = Zend_Auth::getInstance();
+         $rol = $auth->getIdentity()->id_rol;
+         
+         $dataRecursos = $this->recursosPadre($rol);
+         $menu = '';
+         
+  
+         foreach ($dataRecursos as $reg) {
+             
+             $idPadre = $reg['padre'];
+             $dataHijos = $this->recursosHijo($rol, $idPadre);
+             
+             if (count($dataHijos) > 0) {
+                
+                $menu .= '<li class="btn btn-inverse dropdown">';
+                $menu .= '<a href="#" data-toggle="dropdown" class="dropdown-toggle" ><i class="icon icon-th-list"></i>'; 
+                $menu .= '<span>'.$reg['nombre'].'</span><span class="label">'.  count($dataHijos).'</span></a>';
+                $menu .= '<ul class="dropdown-menu">';
+                
+                foreach ($dataHijos as $hijo) {
+                    $menu .= '<li><a  href="'.SITE_URL.'/'.$hijo['url'].'" title="'.$hijo['accion'].'" class="tip-right">'.$hijo['nombre'].'</a></li>';
+                }
+                
+                $menu .= '</ul>';
+                $menu .= '</li>';
+             } else {
+                 $menu .= '<li class="btn btn-inverse dropdown">';
+                 $menu .= '<a href="'.SITE_URL.'/admin"><i class="icon icon-th"></i> <span>'.$reg['nombre'].'</span></a>';
+                 $menu .= '</li>';
+                 
+             }
+             
+         }
+
+         $nReg = 0;
+    
+         return array("menu" => $menu,"registro" => $nReg);
+    }
+    
     
 
 

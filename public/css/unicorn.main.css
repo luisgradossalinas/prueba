@@ -64,7 +64,7 @@ a:hover {
 /* Top user navigation */
 #user-nav {
     position: absolute;
-    right: 30px;
+   /* right: 685px;*/
     top: 5px;
     z-index: 20;
 }
@@ -192,7 +192,7 @@ a:hover {
 /* Content */
 #content {
     background: none repeat scroll 0 0 #eeeeee;
-    margin-left: 165px;
+    margin-left: 0px;
     /*220px*/
     margin-right: 0;
     padding-bottom: 25px;
