@@ -132,7 +132,7 @@ a:hover {
 	margin: 10px 0 0;
 	padding: 0;
 	position: absolute;
-	width: 170px;
+	width: 165px;
         /*220px*/
 }
 #sidebar > ul > li {
@@ -192,7 +192,7 @@ a:hover {
 /* Content */
 #content {
     background: none repeat scroll 0 0 #eeeeee;
-    margin-left: 170px;
+    margin-left: 165px;
     /*220px*/
     margin-right: 0;
     padding-bottom: 25px;
@@ -214,7 +214,7 @@ a:hover {
     height: 52px;
     position: abslute;
     width: 100%;
-    margin-top: -38px;
+    margin-top: -42px;
     z-index: 20;
 }
 
@@ -292,7 +292,7 @@ a:hover {
 	background-color: #000000;
 	z-index: 40;
 	right: 0;
-	top: 95px;
+	top: 90px;
 	border-radius: 5px 0 0 5px;
 	margin-right: -190px;
 }

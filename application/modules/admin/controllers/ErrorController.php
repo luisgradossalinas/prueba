@@ -1,8 +1,9 @@
 <?php
 
-class Admin_ErrorController extends Zend_Controller_Action
+class Admin_ErrorController extends App_Controller_Action_Admin
 {
 
+    
     public function errorAction()
     {
         $errors = $this->_getParam('error_handler');
@@ -51,6 +52,14 @@ class Admin_ErrorController extends Zend_Controller_Action
         }
         $log = $bootstrap->getResource('Log');
         return $log;
+    }
+    
+    public function errorMvcAction(){
+        
+        $sesionMvc  = new Zend_Session_Namespace('sesion_mvc');
+        $this->view->messages = $sesionMvc->messages;
+        unset($sesionMvc->messages);
+        
     }
 
 

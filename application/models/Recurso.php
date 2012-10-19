@@ -103,7 +103,7 @@ class Application_Model_Recurso extends Zend_Db_Table
                 }
                 
                 $menu .= '<li class="submenu '.$open.'">';
-                $menu .= '<a href="#"><i class="icon icon-th-list"></i>'; 
+                $menu .= '<a href="#" title="'.$reg['accion'].'" class="tip-right"><i class="icon icon-th-list"></i>'; 
                 $menu .= '<span>'.$reg['nombre'].'</span><span class="label">'.  count($dataHijos).'</span></a>';
                 $menu .= '<ul>';
                 

@@ -30,6 +30,17 @@ class Admin_MvcController extends App_Controller_Action_Admin
         
         }
         
+        if (!class_exists($sesionMvc->form)) {
+            $sesionMvc->messages = 'Clase no existe: <b>"'.$sesionMvc->form.'"</b>';
+            $this->_redirect(SITE_URL.'/admin/error/error-mvc');
+        }
+        
+        if (!class_exists($sesionMvc->clase)) {
+            $sesionMvc->messages = 'Clase no existe: <b>"'.$sesionMvc->clase.'"</b>';
+            $this->_redirect(SITE_URL.'/admin/error/error-mvc');
+        }
+        
+        
         $this->_form = new $sesionMvc->form;
         $this->_clase = new $sesionMvc->clase;
         
