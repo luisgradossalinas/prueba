@@ -12,10 +12,15 @@
 		<link rel="stylesheet" href=<?=SITE_URL."/css/unicorn.".$this->layout()->css.".css"?> class="skin-color" />
                 <link rel="stylesheet" href="<?=SITE_URL?>/css/mensajes.css" />
                 <link rel="stylesheet" href="<?=SITE_URL?>/ui/css/custom-theme/jquery-ui-1.8.16.custom.css" />
+                
+                <link href=<?=SITE_URL."/kendo/content/shared/styles/examples-offline.css"?> rel="stylesheet">
+                <link href=<?=SITE_URL."/kendo/css/kendo.common.min.css"?> rel="stylesheet">
+                <link href=<?=SITE_URL."/kendo/css/kendo.default.min.css"?> rel="stylesheet">
                 <?=$this->headLink() ?>
                 
                 <script src=<?=SITE_URL."/js/excanvas.min.js"?> ></script>
                 <script src=<?=SITE_URL."/js/jquery.min.js"?> ></script>
+                <script src=<?=SITE_URL."/kendo/js/kendo.web.min.js"?> ></script>
                 <script src=<?=SITE_URL."/js/jquery.ui.custom.js"?> ></script>
                 <script src=<?=SITE_URL."/js/bootstrap.min.js"?> ></script>
                 <script src=<?=SITE_URL."/js/jquery.flot.min.js"?> ></script>
@@ -36,6 +41,7 @@
                 <script src=<?=SITE_URL."/js/web/validate.js"?> ></script>
                 <script src="<?=SITE_URL?>/js/web/main.js"></script>
                 <script src=<?=SITE_URL."/js/web/mvc.js"?> ></script>
+                
 
                 <?=$this->headScript() ?>
 	</head>
@@ -82,10 +88,9 @@
 			<div id="content-header">
 				<h1><?=$this->layout()->active?>&nbsp;
                                     <!-- validara si tiene permiso el usuario -->
-                                    <a href="#myModal" role="button" class="btn tip-right" title="Nuevo registro" onclick="nuevo()" data-toggle="modal">
+                                    <a href="#myModal" id="btnOpen" role="button" class="btn tip-right" title="Nuevo registro" onclick="nuevo()" data-toggle="modal">
                                         <li class="icon-plus-sign"></li>Nuevo
-                                    </a>
-                                    
+                                    </a> 
                                 </h1>
                                 
 				<div class="btn-group">
