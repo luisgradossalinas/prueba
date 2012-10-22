@@ -132,7 +132,7 @@ a:hover {
 	margin: 10px 0 0;
 	padding: 0;
 	position: absolute;
-	width: 165px;
+	width: 150px;
         /*220px*/
 }
 #sidebar > ul > li {
@@ -145,7 +145,7 @@ a:hover {
 }
 
 #sidebar > ul > li > a {
-	padding: 10px 0 10px 15px;
+	padding: 10px 0 10px 5px;
 	display: block;
 	color: #AAAAAA;
 }
@@ -192,7 +192,11 @@ a:hover {
 /* Content */
 #content {
     background: none repeat scroll 0 0 #eeeeee;
+<<<<<<< HEAD
     margin-left: 0px;
+=======
+    margin-left: 150px;
+>>>>>>> unicorn
     /*220px*/
     margin-right: 0;
     padding-bottom: 25px;

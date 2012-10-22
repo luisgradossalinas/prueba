@@ -1,19 +1,45 @@
 var codigo = 0;
 var sentencia_crud = '';
 $(document).ready(function(){
-
-    $('#myModal').hide();
-    //$('#myModal').css('width','580px');
     
  /*   $('#tabla').dataTable({
 "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
 "sPaginationType": "bootstrap"
     });*/
+    
+    
+    var window = $("#window");
+    var win = $("#window").data("kendoWindow");
+     $("#btnOpen").bind("click", function() {
+         configModal(0, 'nuevo');
+    });
+
+     if (!window.data("kendoWindow")) {
+       window.kendoWindow({
+          width: "580px",
+          modal: true,
+          actions: ["Close"],
+          title: "About Alvar Aalto",
+          resizable: false
+     });
+     }
+     
+     /*window.kendoWindow({
+        actions: ["Custom", "Refresh", "Maximize", "Minimize", "Close"],
+        //draggable: false,
+        height: auto,
+        modal: true,
+        resizable: false,
+        title: "Modal Window",
+        width: "580px"
+    }).data("kendoWindow");
+                    */
+     
         
     configModal = function(id, ope){
         codigo = id;
         sentencia_crud = ope;
-        $('.modal').css({'width':'570px','margin':'-250px 0 0 -280px'});
+        $('.k-widget k-window').css({'width':'570px','margin':'-250px 0 0 -280px;top:0px'});
         $.ajax({
             url: urls.siteUrl + '/admin/mvc/operacion/ajax/form',
             data:{id:id},
@@ -26,35 +52,41 @@ $(document).ready(function(){
         $('#btnEliminar').hide();
         $('#btnGuardar').show();
         
-        $('#myModal').show();
+        //window.data("kendoWindow").open();
+        win = $("#window").data("kendoWindow");
+        win.center();
+        win.open();
+      
     }
     
     nuevo = function() {
-        $('#modalTitle').empty().html('Nuevo registro');
+        $('.k-window-title').empty().html('Nuevo registro');
         configModal(0, 'nuevo');
     }
     
     editar = function(id){
-        $('#modalTitle').empty().html('Editar registro');
+        $('.k-window-title').empty().html('Editar registro');
         configModal(id, 'edit');
     }
     
     elimina = function(id){
         
         codigo = id;
-        $('#modalTitle').empty().html('Mensaje del sistema');
+        $('.k-window-title').empty().html('Mensaje del sistema');
         $('.modal-body').empty().html('¿Está seguro que desea eliminar registro?');
-        $('.modal').css({'width':'380px','margin':'-250px 0 0 -200px'});
+        $('.k-widget k-window').css({'width':'380px','margin':'-250px 0 0 -200px'});
         
         $('#btnEliminar').show();
         $('#btnGuardar').hide();
         
-        $('#myModal').show();
+        win = $("#window").data("kendoWindow");
+        win.center();
+        win.open();
          
     }
     
     verRecursos = function (id) {
-        $('#modalTitle').empty().html('Lista de recursos');
+        $('.k-window-title').empty().html('Lista de recursos');
         $.ajax({
             url: urls.siteUrl + '/admin/recurso/listado/ajax/listado/id_rol/' + id,
             type: 'post',
@@ -138,8 +170,8 @@ $(document).ready(function(){
 		"sPaginationType": "full_numbers",
 		"sDom": '<""l>t<"F"fp>'
 	});
-        $('.modal').css({'width':'950px','margin':'-250px 0 0 -420px'});
-        $('#myModal').show();
+        $('.k-widget k-window').css({'width':'950px','margin':'-250px 0 0 -420px'});
+        $('#window').show();
         
     }
     
@@ -166,9 +198,6 @@ $(document).ready(function(){
     
     $('#btnEliminar').click(function(){
         
-        
-       // $.post();
-        
         $.ajax({
             url: urls.siteUrl + '/admin/mvc/operacion/ajax/delete',
             data:{id:codigo},
@@ -179,6 +208,10 @@ $(document).ready(function(){
             }
         });
         
+    })
+    
+    $('#btnCerrar').click(function(){
+        window.data("kendoWindow").close();
     })
   
 })
