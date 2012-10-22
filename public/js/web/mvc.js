@@ -170,8 +170,12 @@ $(document).ready(function(){
 		"sPaginationType": "full_numbers",
 		"sDom": '<""l>t<"F"fp>'
 	});
-        $('.k-widget k-window').css({'width':'950px','margin':'-250px 0 0 -420px'});
-        $('#window').show();
+       // $('.k-widget k-window').css({'width':'950px','margin':'-250px 0 0 -420px'});
+        $('#btnEliminar').hide();
+        $('#btnGuardar').show();
+        win = $("#window").data("kendoWindow");
+        win.center();
+        win.open();
         
     }
     
@@ -201,9 +205,7 @@ $(document).ready(function(){
         $.ajax({
             url: urls.siteUrl + '/admin/mvc/operacion/ajax/delete',
             data:{id:codigo},
-            //data: $("#form").serialize(),
             success: function(result){
-              //  $('.modal-footer').prepend('<a class="alert" data-dismiss="alert" href="#">Registro grabado. &times;</a>');
                 location.reload();
             }
         });
