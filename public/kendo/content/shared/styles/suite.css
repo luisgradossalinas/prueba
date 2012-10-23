@@ -23,7 +23,7 @@ html {
 
 body {
     box-shadow: 0 0 200px #aaa inset;
-    background: url("flowers-left.png") no-repeat fixed 0 400px transparent;
+    background: no-repeat fixed 0 400px transparent;
 }
 
 h1, h2 {
