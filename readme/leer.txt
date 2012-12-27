@@ -5,3 +5,9 @@ ALTER TABLE name ADD COLUMN usuario_crea INT(10) UNSIGNED DEFAULT NULL COMMENT '
 ALTER TABLE name ADD COLUMN fecha_crea DATETIME DEFAULT NULL COMMENT 'Fecha de creacion';
 ALTER TABLE name ADD COLUMN usuario_actu INT(10) UNSIGNED DEFAULT NULL COMMENT 'Usuario que actualiza';
 ALTER TABLE name ADD COLUMN fecha_actu DATETIME DEFAULT NULL COMMENT 'Fecha de actualizacion';
+
+Después el software generará todos los mantenimientos automáticos:
+Creará el modelo de datos, el formulario y la vista por cada tabla de la BD.
+
+Mejorar parte de la administración de usuarios.
+Personalización de mensajes.

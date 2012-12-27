@@ -79,6 +79,21 @@ class Application_Model_Recurso extends Zend_Db_Table
                 ->order(array('a.padre asc','a.orden asc'))->query()->fetchAll();
     }
     
+    //Recursos dependiendo del ROL
+    public function listadoPorRol($rol)
+    {      
+        return $this->getAdapter()->select()->from(array("a" => $this->_name))
+               ->joinInner(array('b' => 'rol_recurso'), 'b.id_recurso = a.id',
+                       array('a.id','a.nombre','a.access','a.estado','a.accion',
+                           'a.padre','a.orden','a.url','a.funcion_listado','a.tab'
+                           ,'a.usuario_crea','a.fecha_crea','a.usuario_actu','a.fecha_actu'
+                           ))
+                ->where("a.estado = ?",self::ESTADO_ACTIVO)
+                ->where("a.orden  != ?",self::PADRE)
+                ->where('b.id_rol = ?', $rol)
+                ->order(array('a.padre asc','a.orden asc'))->query()->fetchAll();
+    }        
+ 
     
     //Generación de menú
     public function generacionMenu($padre, $active)

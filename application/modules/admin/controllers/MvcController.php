@@ -74,7 +74,8 @@ class Admin_MvcController extends App_Controller_Action_Admin
             Zend_Layout::getMvcInstance()->assign('link', $this->_model);
             Zend_Layout::getMvcInstance()->assign('active', $model);
             Zend_Layout::getMvcInstance()->assign('padre', $padre);
-
+            
+            //$funcionListado:Es dinamico si se usa inner join por defecto es fetchAll
             $this->view->data = $this->_clase->$funcionListado('estado != '.self::ELIMINADO);
             $this->view->model = $model;
             $this->view->active = $model.'s';

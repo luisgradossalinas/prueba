@@ -28,8 +28,10 @@ class Admin_RecursoController extends App_Controller_Action_Admin
         
         if ($this->_getParam('ajax') == 'listado') {
             if ($this->_hasParam('id_rol')) {
+                $rol = $this->_getParam('id_rol');
                 $recurso = new Application_Model_Recurso;
-                $listadoRecursos = $recurso->fetchAll('estado ='. self::ACTIVO)->toArray();
+                //$listadoRecursos = $recurso->fetchAll('estado ='. self::ACTIVO)->toArray();
+                $listadoRecursos = $recurso->listadoPorRol($rol);
                 echo Zend_Json::encode($listadoRecursos);
                 
             }

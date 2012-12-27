@@ -11,7 +11,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Registry::set('config', $config);
     }
     
-    public function _initViewHelpers()
+    public function _initViewHelpers() 
     {
         $doctypeHelper = new Zend_View_Helper_Doctype();
         $doctypeHelper->doctype(Zend_View_Helper_Doctype::HTML5);
@@ -25,14 +25,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $js = sprintf(
             "var urls = {
                 siteUrl : '%s',
-        
             }", 
             $config->app->siteUrl
-          
         );
-        
-        //echo $config->app->estiloCss;
-        
+
         $view->headScript()->appendScript($js);
        
         define('SITE_URL', $config->app->siteUrl);
@@ -40,11 +36,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
     }
     
-    protected function __initSession() {
+    protected function __initSession() 
+    {
         Zend_Session::start();
     }
     
-    protected function _initDbResource() {
+    protected function _initDbResource() 
+    {
         
         $this->_executeResource('db');
         $adapter = $this->getResource('db');
@@ -52,7 +50,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
     }
     
-    protected function _initRoutes()
+    
+    //Configuración de SEO
+    protected function _initRoutes() 
     {
         $routeConfig = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routes.ini');
         
