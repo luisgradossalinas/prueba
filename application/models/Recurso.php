@@ -123,7 +123,6 @@ class Application_Model_Recurso extends Zend_Db_Table
                 $menu .= '<ul>';
                 
                 foreach ($dataHijos as $hijo) {
-                    //Validar redirección
                     $class = '';
                     if (!empty($active)){
                         if ('admin:'.$active == $hijo['access']){

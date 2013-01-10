@@ -2,12 +2,6 @@ var codigo = 0;
 var sentencia_crud = '';
 $(document).ready(function(){
     
- /*   $('#tabla').dataTable({
-"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
-"sPaginationType": "bootstrap"
-    });*/
-    
-    
     var window = $("#window");
     var win = $("#window").data("kendoWindow");
      $("#btnOpen").bind("click", function() {
@@ -23,18 +17,6 @@ $(document).ready(function(){
           resizable: false
      });
      }
-     
-     /*window.kendoWindow({
-        actions: ["Custom", "Refresh", "Maximize", "Minimize", "Close"],
-        //draggable: false,
-        height: auto,
-        modal: true,
-        resizable: false,
-        title: "Modal Window",
-        width: "580px"
-    }).data("kendoWindow");
-                    */
-     
         
     configModal = function(id, ope){
         codigo = id;
