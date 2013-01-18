@@ -25,8 +25,8 @@ class Application_Form_Recurso extends Zend_Form
         $this->addElement($access);
         
         $descripcion = new Zend_Form_Element_Text('accion');
-        $descripcion->setLabel('Acción:');
-        $descripcion->setRequired();
+        $descripcion->setLabel('Descripción:');
+       // $descripcion->setRequired();
         $descripcion->addFilter('StripTags');
         $this->addElement($descripcion);
         
@@ -44,7 +44,7 @@ class Application_Form_Recurso extends Zend_Form
         
         $url = new Zend_Form_Element_Text('url');
         $url->setLabel('Url:');
-        $url->setRequired();
+      //  $url->setRequired();
         $url->addFilter('StripTags');
         $this->addElement($url);
         
@@ -56,7 +56,7 @@ class Application_Form_Recurso extends Zend_Form
         
         $tab = new Zend_Form_Element_Text('tab');
         $tab->setLabel('Tab:');
-        $tab->setRequired();
+       // $tab->setRequired();
         $tab->addFilter('StripTags');
         $this->addElement($tab);
         
