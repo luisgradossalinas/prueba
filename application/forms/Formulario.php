@@ -1,11 +1,12 @@
 <?php
 
-class Formulario extends Hola
+class Application_Form_Tabla extends Zend_Form
 {
 
-    public function hola()
+    public function init()
     {
-        echo 'Hello world!';
+        $this->setAttrib('id', 'form');
+        $nombre = new Zend_Form_Element_Text('nombre');
     }
 
 

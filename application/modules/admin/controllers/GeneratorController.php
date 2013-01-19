@@ -2,11 +2,6 @@
 
 class Admin_GeneratorController extends App_Controller_Action_Admin
 {
-    private $_model;
-    private $_form;
-    private $_clase;
-    
-    private $_recurso;
     
     const INACTIVO = 0;
     const ACTIVO = 1;
@@ -29,7 +24,6 @@ class Admin_GeneratorController extends App_Controller_Action_Admin
      //   print_r($table->columnas('distrito'));
        // print_r($table->listaTablas());
         
-     //   echo $col;
         $this->view->headScript()->appendFile(SITE_URL.'/js/generator/config.js');
         
         $this->view->active = 'Generator de CRUD';
@@ -37,41 +31,61 @@ class Admin_GeneratorController extends App_Controller_Action_Admin
         Zend_Layout::getMvcInstance()->assign('active', 'generator');
         Zend_Layout::getMvcInstance()->assign('padre', '5');
         
-        $this->view->form = $this->_form; 
-        
-        
-     /*   $file = new Zend_CodeGenerator_Php_File(array(
-        'classes' => array(
-            new Zend_CodeGenerator_Php_Class(array(
-                'name'    => 'Tabla extends Hola',
-                'methods' => array(
-                    new Zend_CodeGenerator_Php_Method(array(
-                        'name' => 'hello',
-                        'body' => 'echo \'Hello world!\';',
-                    )),
-                ),
-            )),
-        )
-    ));*/
- 
-        // Configuring after instantiation
-        $method = new Zend_CodeGenerator_Php_Method();
-        $method->setName('hola')
-               ->setBody('echo \'Hello world!\';');
-
-        $class = new Zend_CodeGenerator_Php_Class();
-        $class->setName('Formulario extends Hola')
-              ->setMethod($method);
-
-        $file = new Zend_CodeGenerator_Php_File();
-        $file->setClass($class);
-
-        // Render the generated file
-        echo $file;
-
-        // or write it to a file:
-        file_put_contents(APPLICATION_PATH.'/forms/Formulario.php', $file->generate());
+        $this->view->form = $this->_form;        
       
+    }
+    
+    public function generarCodeAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+       
+        if (!$this->getRequest()->isXmlHttpRequest())
+            exit('Acción solo válida para peticiones ajax');
+        
+        $tabla = $this->_getParam('tabla');
+        $formulario = ucfirst($tabla);
+        
+        $generator = new Generator_Form();
+        
+        $formMetodo = new Zend_CodeGenerator_Php_Method();
+        $formMetodo->setName('init')
+               ->setBody(
+                    $generator->cuerpoFormulario($tabla)
+                );
+
+        $formClase = new Zend_CodeGenerator_Php_Class();
+        $formClase->setName('Application_Form_'.$formulario.' extends Zend_Form')
+              ->setMethod($formMetodo);
+
+        //Creación de atributos
+      /*  $class->setProperties(array(
+        array(
+            'name'         => '_bar',
+            'visibility'   => 'protected',
+            'defaultValue' => 'baz',
+        ),
+        array(
+            'name'         => 'baz',
+            'visibility'   => 'public',
+            'defaultValue' => 'bat',
+        ),
+        array(
+            'name'         => 'bat',
+            'const'        => true,
+            'defaultValue' => 'foobarbazbat1',
+        ),
+    ));*/
+        
+        $formArchivo = new Zend_CodeGenerator_Php_File();
+        $formArchivo->setClass($formClase);
+        
+        //Donde guardar los archivos
+        $rutaFormulario = APPLICATION_PATH.'/forms/'.$formulario.'.php';
+        file_put_contents($rutaFormulario, $formArchivo->generate());
+        chmod($rutaFormulario, 0777);
+        
+        echo "Formulario generado correctamente.";
     }
  
 
