@@ -44,8 +44,6 @@ class Generator_Form extends Zend_Db_Table
         }
         
         return $cuerpo;
-        //print_r($dataTabla);
-        //echo count($dataTabla);
     }
 
    
