@@ -38,6 +38,39 @@ class Admin_GeneratorController extends App_Controller_Action_Admin
         Zend_Layout::getMvcInstance()->assign('padre', '5');
         
         $this->view->form = $this->_form; 
+        
+        
+     /*   $file = new Zend_CodeGenerator_Php_File(array(
+        'classes' => array(
+            new Zend_CodeGenerator_Php_Class(array(
+                'name'    => 'Tabla extends Hola',
+                'methods' => array(
+                    new Zend_CodeGenerator_Php_Method(array(
+                        'name' => 'hello',
+                        'body' => 'echo \'Hello world!\';',
+                    )),
+                ),
+            )),
+        )
+    ));*/
+ 
+        // Configuring after instantiation
+        $method = new Zend_CodeGenerator_Php_Method();
+        $method->setName('hola')
+               ->setBody('echo \'Hello world!\';');
+
+        $class = new Zend_CodeGenerator_Php_Class();
+        $class->setName('Formulario extends Hola')
+              ->setMethod($method);
+
+        $file = new Zend_CodeGenerator_Php_File();
+        $file->setClass($class);
+
+        // Render the generated file
+        echo $file;
+
+        // or write it to a file:
+        file_put_contents(APPLICATION_PATH.'/forms/Formulario.php', $file->generate());
       
     }
  
