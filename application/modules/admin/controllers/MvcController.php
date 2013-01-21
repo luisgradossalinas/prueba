@@ -49,7 +49,6 @@ class Admin_MvcController extends App_Controller_Action_Admin
     public function indexAction()
     {
         $dataRecurso = $this->_recurso->obtenerPadre($this->_model);
-        //echo $this->_helper->mensajes->ja();
         
         $funcionListado = Application_Model_Recurso::FUNCION_LISTADO;
         $padre = 0;
@@ -62,10 +61,10 @@ class Admin_MvcController extends App_Controller_Action_Admin
             $estado = $dataRecurso[2];
         }
         
-        if ($estado == 0) {
+        if ($estado == self::INACTIVO) {
             $this->render('recurso-no-activo');
         }
-        else if ($estado == 2) {
+        else if ($estado == self::ELIMINADO) {
             $this->render('recurso-eliminado');
             
         }else {
@@ -76,7 +75,12 @@ class Admin_MvcController extends App_Controller_Action_Admin
             Zend_Layout::getMvcInstance()->assign('padre', $padre);
             
             //$funcionListado:Es dinamico si se usa inner join por defecto es fetchAll
-            $this->view->data = $this->_clase->$funcionListado('estado != '.self::ELIMINADO);
+            if ($funcionListado == 'fetchAll') {
+                $this->view->data = $this->_clase->$funcionListado('estado != '.self::ELIMINADO);
+            } else {
+                $this->view->data = $this->_clase->$funcionListado();
+            }
+            
             $this->view->model = $model;
             $this->view->active = $model.'s';
             $this->view->messages = $sesionMvc->messages;

@@ -114,7 +114,7 @@ class Generator_Modelo extends Zend_Db_Table
         $dataTabla = $db->describeTable($tabla);
         
         $cuerpo = '<?php '."\n";
-        $cuerpo .= "\t".'echo "<tr>";'."\n";
+        //$cuerpo .= "\t".'echo "<tr>";'."\n";
         
         foreach ($dataTabla as $key => $value) {
           if ($value['PRIMARY'] != 1)
