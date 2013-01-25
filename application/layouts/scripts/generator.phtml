@@ -71,15 +71,12 @@
 			<a href="#" class="visible-phone"><i class="icon icon-home"></i>Dashboard</a>
 			<ul>
                             <!-- Sería un menú dinámico -->
-				<?=$this->partial('menu.phtml',array('padre' => $this->layout()->padre
-                                , 'active' => $this->layout()->link));?>
+				<?=$this->partial('menu.phtml',array('padre' => $this->layout()->padre, 'active' => $this->layout()->link));?>
 			</ul>
 		</div>
 		
 		<div id="content">
 			<div id="content-header">
-				
-                                
 				<div class="btn-group">
 					<a class="btn btn-large tip-left" title="Administrar archivos"><i class="icon-file"></i></a>
 					<a href="<?=SITE_URL.'/admin/mvc/usuario'?>" class="btn btn-large tip-left" title="Administrar usuarios"><i class="icon-user"></i></a>
@@ -93,10 +90,8 @@
 				<a href="#" class="current"><?=$this->layout()->active?></a>
 			</div>
                     
-			<div class="container-fluid">
-                                                                        
+			<div class="container-fluid">      
                             <?php echo $this->layout()->content;?>
-				<?//=$this->render('pie.phtml');?>
 			</div>
 		</div>
 		

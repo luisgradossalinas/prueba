@@ -78,6 +78,7 @@ class Admin_MvcController extends App_Controller_Action_Admin
             if ($funcionListado == 'fetchAll') {
                 $this->view->data = $this->_clase->$funcionListado('estado != '.self::ELIMINADO);
             } else {
+                //print_r($this->_clase->$funcionListado());
                 $this->view->data = $this->_clase->$funcionListado();
             }
             
@@ -99,8 +100,11 @@ class Admin_MvcController extends App_Controller_Action_Admin
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
 
-        $data = $this->_getAllParams();
+        $generator = new Generator_Modelo;
         $sesionMvc  = new Zend_Session_Namespace('sesion_mvc');
+        $primaryKey = $generator->getPrimaryKey($sesionMvc->model);
+        $data = $this->_getAllParams();
+        
 
         //Previene vulnerabilidad XSS (Cross-site scripting)
         $filtro = new Zend_Filter_StripTags();
@@ -113,7 +117,7 @@ class Admin_MvcController extends App_Controller_Action_Admin
             if ($this->_hasParam('id')) {
                 $id = $this->_getParam('id');
                 if ($id != 0) {
-                    $data = $this->_clase->fetchRow('id = '.$id);
+                    $data = $this->_clase->fetchRow(''.$primaryKey.' = '.$id);
                     $this->_form->populate($data->toArray());
                 }
             }
@@ -126,7 +130,7 @@ class Admin_MvcController extends App_Controller_Action_Admin
         
         if ($this->_getParam('ajax') == 'delete') {
             
-            $where = $this->getAdapter()->quoteInto('id = ?',$data['id']);
+            $where = $this->getAdapter()->quoteInto(''.$primaryKey.' = ?',$data['id']);
             $this->_clase->update(array('estado' => self::ELIMINADO),$where);
             
             $sesionMvc->messages = 'Registro eliminado';

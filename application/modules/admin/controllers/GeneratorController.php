@@ -66,7 +66,7 @@ class Admin_GeneratorController extends App_Controller_Action_Admin
                ->setMethod(
                     array(
                         'name'       => 'listado',
-                        'body'       => 'return $this->fetchAll();'
+                        'body'       => 'return $this->getAdapter()->select()->from($this->_name)->query()->fetchAll();'
                     )
                );
         
@@ -129,9 +129,9 @@ class Admin_GeneratorController extends App_Controller_Action_Admin
         file_put_contents($rutaVista, $vistaSalida);
         chmod($rutaVista, 0777);
         
-        echo "Formulario generado correctamente.<br>";
-        echo "Modelo generado correctamente.<br>";
-        echo "Vista generada correctamente.";
+        echo "Formulario Application_Form_".$formulario." generado correctamente.<br>";
+        echo "Modelo Application_Model_".$modelo." generado correctamente.<br>";
+        echo "Vista ".$tabla.".phtml generada correctamente.";
     }
  
 

@@ -10,63 +10,33 @@ class Generator_Modelo extends Zend_Db_Table
         $primaryKey = $this->getPrimaryKey($tabla);
         
         $cuerpo .= '$id = 0;'. "\n";
-        $cuerpo .= 'if (!empty($datos[\''.$primaryKey.'\'])) {'. "\n";
-        $cuerpo .= "\t".'$id = (int) $datos[\''.$primaryKey.'\'];'. "\n";
+//        $cuerpo .= 'if (!empty($datos[\''.$primaryKey.'\'])) {'. "\n";
+//        $cuerpo .= "\t".'$id = (int) $datos[\''.$primaryKey.'\'];'. "\n";
+//        $cuerpo .= '}'. "\n\n";
+//        $cuerpo .= 'unset($datos[\''.$primaryKey.'\']);'. "\n";
+        
+        $cuerpo .= 'if (!empty($datos["id"])) {'. "\n";
+        $cuerpo .= "\t".'$id = (int) $datos["id"];'. "\n";
         $cuerpo .= '}'. "\n\n";
-        $cuerpo .= 'unset($datos[\''.$primaryKey.'\']);'. "\n";
+        $cuerpo .= 'unset($datos["id"]);'. "\n";
+        
         $cuerpo .= '$datos = array_intersect_key($datos, array_flip($this->_getCols()));'. "\n\n";
         $cuerpo .= 'if ($id > 0) {'."\n";
         $cuerpo .= "\t".'$cantidad = $this->update($datos, \''.$primaryKey.' = \' . $id);'."\n";
         $cuerpo .= "\t".'$id = ($cantidad < 1) ? 0 : $id;'."\n";
         $cuerpo .= '} else {'."\n";
+        
+        if (!$this->esIdentity($tabla)) {
+            $cuerpo .= "\t".'$GM = new Generator_Modelo();'."\n";
+            $cuerpo .= "\t".'$datos[\''.$primaryKey.'\'] = $GM->maxCodigo($this->_name);'."\n";
+        }
+        
         $cuerpo .= "\t".'$id = $this->insert($datos);'."\n";
         $cuerpo .= '}'. "\n\n";
         $cuerpo .= 'return $id;';
         
-       
         return $cuerpo;
         
-        /*
-        $db = $this->getAdapter();
-        $dataTabla = $db->describeTable($tabla);
-        
-        $cuerpo = '$this->setAttrib(\'id\', \'form\');'. "\n\n";
-        
-        foreach ($dataTabla as $key => $value) {
-            $campo = $key;
-            $label = ucfirst($campo);
-            $primary = $value['PRIMARY'];
-            $identity = $value['IDENTITY'];
-            $tipo = $value['DATA_TYPE'];
-            $length = $value['LENGTH'];
-            $null = $value['NULLABLE'];
-            
-            if ($identity != 1) {
-                $cuerpo .= '$'.$campo.' = new Zend_Form_Element_Text(\''.$campo.'\');'. "\n";
-                $cuerpo .= '$'.$campo.'->setLabel(\''.$label.':\');'."\n";
-                
-                if ($null != 1){
-                    $cuerpo .=  '$'.$campo.'->setRequired();'. "\n";
-                }
-                
-                if ($tipo == 'int') {
-                    $cuerpo .=  '$'.$campo.'->addValidator(new Zend_Validate_Int());'. "\n";
-                    $cuerpo .=  '$'.$campo.'->setAttrib(\'maxlength\',17);'. "\n";
-                    
-                } 
-                else if ($tipo == 'varchar' || $tipo == 'char') {
-                    $cuerpo .=  '$'.$campo.'->setAttrib(\'maxlength\','.$length.');'. "\n";
-                }
-                
-                $cuerpo .= '$'. $campo.'->addFilter(\'StripTags\');'. "\n";
-                $cuerpo .= '$this->addElement($'.$campo.');'. "\n\n";
-              
-            }
-        }
-        
-        return $cuerpo;
-        //print_r($dataTabla);
-        //echo count($dataTabla);*/
     }
     
     public function getPrimaryKey($tabla) 
@@ -88,6 +58,42 @@ class Generator_Modelo extends Zend_Db_Table
         
     }
     
+    public function maxCodigo ($tabla)
+    {
+        $db = $this->getAdapter();
+        $primaryKey = $this->getPrimaryKey($tabla);
+        $max = $db->select()->from($tabla,array('ifnull(max('.$primaryKey.'+1),1)'))->query()->fetchColumn();
+        return $max;
+        
+    }
+    
+    public function esIdentity($tabla)
+    {
+        
+        $db = $this->getAdapter();
+        $dataTabla = $db->describeTable($tabla);
+        $valor = true;
+        
+        foreach ($dataTabla as $key => $value) {
+            $primary = $value['PRIMARY'];
+            $identity = $value['IDENTITY'];
+            
+            if ($primary == 1) {
+                if ($identity == 1) {
+                
+                    $value = true;
+                }
+                else {
+                    $valor = false;
+                }
+                break;
+            }  
+            
+        }
+        
+        return $valor;
+    }
+    
     public function getColumnas($tabla)
     {
         
@@ -95,15 +101,15 @@ class Generator_Modelo extends Zend_Db_Table
         $dataTabla = $db->describeTable($tabla);
         
         $cuerpo = '<tr>';
-        
+        $cuerpo .= '<th></th>';
         foreach ($dataTabla as $key => $value) {
-            $campo = $key;
-            $label = ucfirst($campo);
+            $label = ucfirst($key);
+            if ($value['PRIMARY'] != 1)
             $cuerpo .= '<th>'.$label.'</th>';
            
         }
         
-        $cuerpo .= '<tr>';        
+        $cuerpo .= '</tr>';        
         return $cuerpo;
         
     }
@@ -114,7 +120,6 @@ class Generator_Modelo extends Zend_Db_Table
         $dataTabla = $db->describeTable($tabla);
         
         $cuerpo = '<?php '."\n";
-        //$cuerpo .= "\t".'echo "<tr>";'."\n";
         
         foreach ($dataTabla as $key => $value) {
           if ($value['PRIMARY'] != 1)

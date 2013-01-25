@@ -6,7 +6,7 @@
 <div class="widget-content nopadding">
     <table id='tabla' class="table table-condensed table-bordered" >
         <thead>
-            <tr><th>Id_personal</th><th>Nombre</th><th>Fecha_nacimiento</th><th>Sueldo</th><th>Hijos</th><th>Casado</th><tr>
+        <tr><th></th><th>Nombre</th><th>Fecha_nacimiento</th><th>Sueldo</th><th>Hijos</th><th>Casado</th><th>Estado</th></tr>
         </thead>
         <?php
         echo '<tbody>';
@@ -26,6 +26,7 @@
 	echo "<td>".$value['sueldo']."</td>";
 	echo "<td>".$value['hijos']."</td>";
 	echo "<td>".$value['casado']."</td>";
+	echo "<td>".$value['estado']."</td>";
 	echo "</tr>";
 	?>
         <?php

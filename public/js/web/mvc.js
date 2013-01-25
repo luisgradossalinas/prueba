@@ -28,6 +28,14 @@ $(document).ready(function(){
             type:'post',
             success: function(result) {
                 $('.modal-body').empty().html(result);
+                //Validaciones 
+                $(".v_numeric").numeric();
+                $(".v_decimal").numeric(',');
+                 $("#datepicker").datepicker({
+                    changeMonth: true,
+                    changeYear: true
+                    });
+                
             }
         })
         
