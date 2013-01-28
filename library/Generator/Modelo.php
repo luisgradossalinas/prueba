@@ -10,10 +10,6 @@ class Generator_Modelo extends Zend_Db_Table
         $primaryKey = $this->getPrimaryKey($tabla);
         
         $cuerpo .= '$id = 0;'. "\n";
-//        $cuerpo .= 'if (!empty($datos[\''.$primaryKey.'\'])) {'. "\n";
-//        $cuerpo .= "\t".'$id = (int) $datos[\''.$primaryKey.'\'];'. "\n";
-//        $cuerpo .= '}'. "\n\n";
-//        $cuerpo .= 'unset($datos[\''.$primaryKey.'\']);'. "\n";
         
         $cuerpo .= 'if (!empty($datos["id"])) {'. "\n";
         $cuerpo .= "\t".'$id = (int) $datos["id"];'. "\n";
