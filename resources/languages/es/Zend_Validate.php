@@ -197,9 +197,9 @@ return array(
     "'%value%' appears to be a DNS hostname but contains a dash in an invalid position" => "'%value%' parece ser un nombre de dominio DNS pero contiene una barra en una posición inválida",
     "'%value%' appears to be a DNS hostname but cannot match against hostname schema for TLD '%tld%'" => "'%value%' parece ser un nombre de dominio DNS pero su formato no se corresponde con el correcto para el TLD '%tld%'",
     "'%value%' appears to be a DNS hostname but cannot extract TLD part" => "'%value%' parece ser un nombre de dominio DNS pero no se puede extraer la parte del TLD",
-    "'%value%' does not match the expected structure for a DNS hostname" => "'%value%' no se corresponde con la estructura esperada para un nombre de dominio DNS",
+    "'%value%' does not match the expected structure for a DNS hostname" => "'%value%' dominio no válido",
     "'%value%' does not appear to be a valid local network name" => "'%value%' no parece ser un nombre de área local válido",
-    "'%value%' appears to be a local network name but local network names are not allowed" => "'%value%' parece ser un nombre de área local pero no se permiten nombres de área local",
+    "'%value%' appears to be a local network name but local network names are not allowed" => "'%value%' no es un dominio correcto",
     "'%value%' appears to be a DNS hostname but the given punycode notation cannot be decoded" => "'%value%' parece ser un nombre de dominio DNS pero no se puede decodificar la notación de punycode",
 
     // Zend_Validate_Iban

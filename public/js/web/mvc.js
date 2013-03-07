@@ -2,13 +2,16 @@ var codigo = 0;
 var sentencia_crud = '';
 $(document).ready(function(){
     
+   /*
     var window = $("#window");
     var win = $("#window").data("kendoWindow");
-     
+   */  
+   
      $("#btnOpen").click(function() {
          configModal(0, 'nuevo','Nuevo registro');
     });
 
+    /*
      if (!window.data("kendoWindow")) {
        window.kendoWindow({
           width: "580px",
@@ -18,6 +21,7 @@ $(document).ready(function(){
           resizable: false
      });
      }
+     */
         
     //configModal = function(id, ope){
     configModal = function(id, ope, titulo){
@@ -31,9 +35,16 @@ $(document).ready(function(){
             success: function(result) {
                 
                 $('#ventana-modal').empty().html(result);
+                $(".v_numeric").numeric();
+                $(".v_decimal").numeric(',');
+                $(".v_datepicker").datepicker({
+                    changeMonth: true,
+                    changeYear: true
+                    });
+                   
                 $('#ventana-modal').dialog({
-                height: 540,
-                width: 630, //1050
+                height: 'auto',
+                width: 620, //1050
                 modal: true,
                 resizable: false,
                 title:titulo,
@@ -56,7 +67,7 @@ $(document).ready(function(){
                            });
                        }
                     }
-                })
+                    })
 
                     },
                      "Cancelar": function() {
@@ -122,8 +133,8 @@ $(document).ready(function(){
        
                 $('#ventana-modal').empty().html('¿Está seguro que desea eliminar registro?');
                 $('#ventana-modal').dialog({
-                height: 140,
-                width: 350, //1050
+                height: 'auto',
+                width: 350, 
                 modal: true,
                 resizable: false,
                 title:'Mensaje del sistema',
@@ -137,8 +148,6 @@ $(document).ready(function(){
                             location.reload();
                         }
                     });
-                   
-
                     },
                      "Cancelar": function() {
                        $(this).dialog("close");
@@ -247,6 +256,7 @@ $(document).ready(function(){
         
     }
     
+    /*
     $('#btnGuardar').click(function(){
         
         $.ajax({
@@ -283,5 +293,6 @@ $(document).ready(function(){
     $('#btnCerrar').click(function(){
         window.data("kendoWindow").close();
     })
+    */
   
 })

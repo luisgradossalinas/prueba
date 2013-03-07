@@ -21,8 +21,13 @@ class Default_AuthController extends Zend_Controller_Action
     
     public function loginAction()
     {
-        //$this->_helper->layout->setLayout('login_plantilla');
         $this->view->messages = "";
+        
+        //Si está logueado y vuelve atràs o por url lo envia al admin
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity()) {
+            $this->_redirect('/admin');
+        }
      
         if ($this->getRequest()->isPost()) {
             
@@ -42,7 +47,7 @@ class Default_AuthController extends Zend_Controller_Action
 
                 $authAdapter->setIdentity($username);
                 $authAdapter->setCredential(md5($password));
-                $auth = Zend_Auth::getInstance();
+                //$auth = Zend_Auth::getInstance();
                 $result = $auth->authenticate($authAdapter);
 
                 if ($result->isValid()) {

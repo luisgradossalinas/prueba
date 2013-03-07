@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 	<head>
-		<title>Admin Test</title>
+		<title><?=TITLE?></title>
 		<meta charset="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <link rel="stylesheet" href=<?=SITE_URL."/css/bootstrap.min.css"?> />
@@ -59,7 +59,7 @@
 
 		<div id="user-nav" class="navbar">
                     <ul class="nav btn-group">
-                        <li class="btn btn-inverse" ><a title="" href="#"><i class="icon icon-user"></i> <span class="text">Usuario: <?=$this->layout()->user?></span></a></li>
+                        <li class="btn btn-inverse" ><a title="" href="#"><i class="icon icon-user"></i> <span class="text">Usuario: <?=$this->layout()->user." (".$this->layout()->rol.")"?></span></a></li>
                         <li class="btn btn-inverse dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">Mensajes</span> <span class="label label-important">5</span> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a class="sAdd" title="" href="#">new message</a></li>
