@@ -4,8 +4,9 @@ $(document).ready(function(){
     
     var window = $("#window");
     var win = $("#window").data("kendoWindow");
-     $("#btnOpen").bind("click", function() {
-         configModal(0, 'nuevo');
+     
+     $("#btnOpen").click(function() {
+         configModal(0, 'nuevo','Nuevo registro');
     });
 
      if (!window.data("kendoWindow")) {
@@ -18,15 +19,55 @@ $(document).ready(function(){
      });
      }
         
-    configModal = function(id, ope){
+    //configModal = function(id, ope){
+    configModal = function(id, ope, titulo){
         codigo = id;
         sentencia_crud = ope;
-        $('.k-widget k-window').css({'width':'570px','margin':'-250px 0 0 -280px;top:0px'});
+       // $('.k-widget k-window').css({'width':'570px','margin':'-250px 0 0 -280px;top:0px'});
         $.ajax({
             url: urls.siteUrl + '/admin/mvc/operacion/ajax/form',
             data:{id:id},
             type:'post',
             success: function(result) {
+                
+                $('#ventana-modal').empty().html(result);
+                $('#ventana-modal').dialog({
+                height: 540,
+                width: 630, //1050
+                modal: true,
+                resizable: false,
+                title:titulo,
+                buttons: {
+                    "Guardar": function() {
+                    dialog = $(this);
+                    
+                    $.ajax({
+                    url: urls.siteUrl + '/admin/mvc/operacion/ajax/validar',
+                    data: $('#form').serialize(),
+                    type:'post',
+                    success: function(result) {
+                       if(validarCampos(result)){
+                           $.ajax({
+                               url: urls.siteUrl + '/admin/mvc/operacion/ajax/save/scrud/' + sentencia_crud + '/id/'+ codigo,
+                               data: $("#form").serialize(),
+                               success: function(result){
+                                    location.reload();
+                               }
+                           });
+                       }
+                    }
+                })
+
+                    },
+                     "Cancelar": function() {
+                       $(this).dialog("close");
+                        
+                    }
+                },
+                close: function() {//$("#ventana-modal").remove();
+                }
+                });
+                /*
                 $('.modal-body').empty().html(result);
                 //Validaciones 
                 $(".v_numeric").numeric();
@@ -35,10 +76,11 @@ $(document).ready(function(){
                     changeMonth: true,
                     changeYear: true
                     });
+                    */
                 
             }
         })
-        
+        /*
         $('#btnEliminar').hide();
         $('#btnGuardar').show();
         
@@ -46,22 +88,26 @@ $(document).ready(function(){
         win = $("#window").data("kendoWindow");
         win.center();
         win.open();
+        */
       
     }
     
     nuevo = function() {
-        $('.k-window-title').empty().html('Nuevo registro');
-        configModal(0, 'nuevo');
+        //$('.k-window-title').empty().html('Nuevo registro');
+        //configModal(0, 'nuevo');
+        configModal(0, 'nuevo','Nuevo registro');
     }
     
     editar = function(id){
-        $('.k-window-title').empty().html('Editar registro');
-        configModal(id, 'edit');
+        //$('.k-window-title').empty().html('Editar registro');
+        //configModal(id, 'edit');
+        configModal(id, 'edit','Editar registro');
     }
     
     elimina = function(id){
         
         codigo = id;
+        /*
         $('.k-window-title').empty().html('Mensaje del sistema');
         $('.modal-body').empty().html('¿Está seguro que desea eliminar registro?');
         $('.k-widget k-window').css({'width':'380px','margin':'-250px 0 0 -200px'});
@@ -72,6 +118,36 @@ $(document).ready(function(){
         win = $("#window").data("kendoWindow");
         win.center();
         win.open();
+        */
+       
+                $('#ventana-modal').empty().html('¿Está seguro que desea eliminar registro?');
+                $('#ventana-modal').dialog({
+                height: 140,
+                width: 350, //1050
+                modal: true,
+                resizable: false,
+                title:'Mensaje del sistema',
+                buttons: {
+                    "Eliminar": function() {
+                    dialog = $(this);
+                    $.ajax({
+                        url: urls.siteUrl + '/admin/mvc/operacion/ajax/delete',
+                        data:{id:codigo},
+                        success: function(result){
+                            location.reload();
+                        }
+                    });
+                   
+
+                    },
+                     "Cancelar": function() {
+                       $(this).dialog("close");
+                        
+                    }
+                },
+                close: function() {//$("#ventana-modal").remove();
+                }
+                });
          
     }
     
@@ -138,8 +214,8 @@ $(document).ready(function(){
                         estado = 'error.png';
                     }
                     
-                    html += '<td width=8%><span style=display:none>';
-                    html += obj['cbo_estado'] + '</span><img src='  + urls.siteUrl + '/img/' + estado + ' width=20%></td>';
+                    html += '<td width=8%><center><span style=display:none>';
+                    html += obj['cbo_estado'] + '</span><img src='  + urls.siteUrl + '/img/' + estado + ' width=15%></center></td>';
                     url = obj['url'];
                     if (obj['url'] == '' || obj['url'] == null) {
                         url = '';
@@ -160,12 +236,14 @@ $(document).ready(function(){
 		"sPaginationType": "full_numbers",
 		"sDom": '<""l>t<"F"fp>'
 	});
-       // $('.k-widget k-window').css({'width':'950px','margin':'-250px 0 0 -420px'});
+        
         $('#btnEliminar').hide();
         $('#btnGuardar').show();
         win = $("#window").data("kendoWindow");
         win.center();
         win.open();
+        
+        $('.k-widget').css({'width':'950px'});
         
     }
     

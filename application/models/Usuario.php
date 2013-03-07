@@ -37,6 +37,7 @@ class Application_Model_Usuario extends Zend_Db_Table
                        array('nom_rol'=> 'nombre'))
                 ->where('a.estado != ?',self::ESTADO_ELIMINADO)
                 ->query()->fetchAll();
+        
     }
     
 }
