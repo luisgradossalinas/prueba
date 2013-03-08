@@ -161,7 +161,7 @@ $(document).ready(function(){
     }
     
     verRecursos = function (id) {
-        $('.k-window-title').empty().html('Lista de recursos');
+        //$('.k-window-title').empty().html('Lista de recursos');
         $.ajax({
             url: urls.siteUrl + '/admin/recurso/listado/ajax/listado/id_rol/' + id,
             type: 'post',
@@ -210,7 +210,7 @@ $(document).ready(function(){
         $.each(data, function(key,obj) {
                     estado = 'checkmark.png';
                     html += '<tr>';
-                    html += '<td><input type="checkbox" /></td>';
+                    html += '<td class="check_recurso"><input type="checkbox" name="check_recursos" value="'+obj['id']+'" /></td>';
                     //html += '<td>' + obj['id'] + '</td>';
                     html += '<td>' + obj['nombre'] + '</td>';
                     accion = obj['accion'];
@@ -239,13 +239,46 @@ $(document).ready(function(){
         html += '</div>';
         html += '</div>';
         
-        $('.modal-body').append(html);
+        //$('.modal-body').append(html);
+        $('#ventana-modal').empty().html(html);
         $('#tablaRecurso').dataTable({
 		"bJQueryUI": true,
 		"sPaginationType": "full_numbers",
 		"sDom": '<""l>t<"F"fp>'
 	});
         
+        
+        $('#ventana-modal').dialog({
+                height: 'auto',
+                width: 1000, 
+                modal: true,
+                resizable: false,
+                title:'Lista de recursos',
+                buttons: {
+                    "Guardar": function() {
+                    dialog = $(this);
+                    
+                    //Recorrer y guardar los recursos
+                    //alert($('input[name="check_recursos"]:checked').val());
+                    var selectedItems = new Array();
+		
+                    $("input[@name='check_recursos[]']:checked").each(function(){
+                            selectedItems.push($(this).val());
+                    });
+
+                    alert(selectedItems);
+
+                    },
+                     "Cancelar": function() {
+                       $(this).dialog("close");
+                        
+                    }
+                },
+                close: function() {//$("#ventana-modal").remove();
+                }
+                });
+        
+        /*
         $('#btnEliminar').hide();
         $('#btnGuardar').show();
         win = $("#window").data("kendoWindow");
@@ -253,6 +286,7 @@ $(document).ready(function(){
         win.open();
         
         $('.k-widget').css({'width':'950px'});
+        */
         
     }
     
