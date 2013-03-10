@@ -17,8 +17,12 @@ class Admin_IndexController extends App_Controller_Action_Admin
     public function indexAction()
     {
         //echo 'hola1';
-        
-        
+        /*
+        $recursoModelo = new Application_Model_Recurso;
+        print_r($recursoModelo->recursosPadre(1));
+        echo count($recursoModelo->recursosPadre(1));
+        //recursosPadre
+        */
     }
         public function plantillaAction()
     {

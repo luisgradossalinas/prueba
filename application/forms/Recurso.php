@@ -26,19 +26,21 @@ class Application_Form_Recurso extends Zend_Form
         
         $descripcion = new Zend_Form_Element_Text('accion');
         $descripcion->setLabel('Descripción:');
-       // $descripcion->setRequired();
+        $descripcion->setRequired();
         $descripcion->addFilter('StripTags');
         $this->addElement($descripcion);
         
         $padre = new Zend_Form_Element_Text('padre');
         $padre->setLabel('Padre:');
         $padre->setRequired();
+        $padre->setAttrib('class','v_numeric');
         $padre->addFilter('StripTags');
         $this->addElement($padre);
         
         $orden = new Zend_Form_Element_Text('orden');
         $orden->setLabel('Orden:');
         $orden->setRequired();
+        $orden->setAttrib('class','v_numeric');
         $orden->addFilter('StripTags');
         $this->addElement($orden);
         

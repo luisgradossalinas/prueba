@@ -52,12 +52,21 @@ class Application_Model_Recurso extends Zend_Db_Table
     
     //Para generar el menú dinámico 
     public function recursosPadre($rol)
-    {   
-        return $this->getAdapter()->select()->from(array("a" => $this->_name))
-                ->joinInner(array("b" => "rol_recurso"), "b.id_recurso = a.id",null)
-                ->where("b.id_rol = ?", $rol)->where("estado = ?",self::ESTADO_ACTIVO)
-                ->where('a.orden = ?', self::PADRE)
-                ->order(array('a.padre asc','a.orden asc'))->query()->fetchAll();
+    {
+        return $this->getAdapter()->select()->from($this->_name,array('padre','nombre','accion'))
+        ->where('padre in (select distinct r.padre FROM recurso r 
+                inner join rol_recurso rr ON rr.`id_recurso` = r.`id`
+                where rr.`id_rol` = '.$rol.' ORDER BY r.`id`)')
+                ->where('orden = ?', self::PADRE)
+                ->order(array('padre asc','orden asc'))->query()->fetchAll();
+        
+        /*return $this->getAdapter()->select()->from($this->_name)
+                ->where('id in (?)',
+                        $this->getAdapter()->select()->distinct()->from(array('r' => $this->_name),'id')
+                        ->joinInner(array('rr' => 'rol_recurso'), 'rr.id_recurso = r.id',null)
+                        ->where('rr.id_rol = ?', 1)->order(array('r.id asc'))
+                        );
+         * */
     }
     
     //Para generar el menú dinámico 
@@ -69,6 +78,21 @@ class Application_Model_Recurso extends Zend_Db_Table
                 ->where('a.orden != ?', self::PADRE)
                 ->where('a.padre = ?', $padre)
                 ->order(array('a.orden asc'))->query()->fetchAll();
+    }
+    
+    public function validaAcceso($rol, $url)
+    {
+        return $this->getAdapter()->select()->from(array('r' => $this->_name),array('acceso'=>'count(1)'))
+                ->joinInner(array('rr' => 'rol_recurso'),'rr.id_recurso = r.id',null)
+                ->joinInner(array('ro' => 'rol'),'ro.id = rr.id_rol',null)
+                ->where('ro.id = ?',$rol)
+                ->where('r.url = ?',$url)
+                ->query()->fetchColumn();
+        //SELECT COUNT(1) AS acceso FROM recurso r INNER JOIN rol_recurso  rr ON r.`id` = rr.id_recurso 
+        //INNER JOIN rol ro ON ro.id = rr.id_rol WHERE ro.id = 2 AND
+        // r.`url` = 'admin/mvc/configuracion' AND r.`estado` = 1
+        
+        
     }
    
     //Para generar el menú a SUṔER
@@ -82,15 +106,16 @@ class Application_Model_Recurso extends Zend_Db_Table
     //Recursos dependiendo del ROL
     public function listadoPorRol($rol)
     {      
-        return $this->getAdapter()->select()->from(array("a" => $this->_name))
-               ->joinInner(array('b' => 'rol_recurso'), 'b.id_recurso = a.id',
-                       array('a.id','a.nombre','a.access','a.estado','a.accion',
+        
+       // SELECT *,(SELECT COUNT(1) FROM rol_recurso rr WHERE rr.id_recurso = r.id AND rr.id_rol = 1 LIMIT 1)
+       //  AS checked FROM recurso r WHERE r.`estado` = 1 AND orden != 1
+        return $this->getAdapter()->select()->from(array("a" => $this->_name),array('a.id','a.nombre','a.access','a.estado','a.accion',
                            'a.padre','a.orden','a.url','a.funcion_listado','a.tab'
-                           ,'a.usuario_crea','a.fecha_crea','a.usuario_actu','a.fecha_actu'
-                           ))
+                           ,'a.usuario_crea','a.fecha_crea','a.usuario_actu','a.fecha_actu',
+            'checked' => '(SELECT COUNT(1) FROM rol_recurso rr WHERE rr.id_recurso = a.id AND 
+                rr.id_rol = '.$rol.' LIMIT 1)'))
                 ->where("a.estado = ?",self::ESTADO_ACTIVO)
                 ->where("a.orden  != ?",self::PADRE)
-                ->where('b.id_rol = ?', $rol)
                 ->order(array('a.padre asc','a.orden asc'))->query()->fetchAll();
     }        
  

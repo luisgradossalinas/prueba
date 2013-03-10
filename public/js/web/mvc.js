@@ -1,33 +1,14 @@
 var codigo = 0;
 var sentencia_crud = '';
 $(document).ready(function(){
-    
-   /*
-    var window = $("#window");
-    var win = $("#window").data("kendoWindow");
-   */  
-   
+
      $("#btnOpen").click(function() {
          configModal(0, 'nuevo','Nuevo registro');
     });
-
-    /*
-     if (!window.data("kendoWindow")) {
-       window.kendoWindow({
-          width: "580px",
-          modal: true,
-          actions: ["Close"],
-          title: "About Alvar Aalto",
-          resizable: false
-     });
-     }
-     */
         
-    //configModal = function(id, ope){
     configModal = function(id, ope, titulo){
         codigo = id;
         sentencia_crud = ope;
-       // $('.k-widget k-window').css({'width':'570px','margin':'-250px 0 0 -280px;top:0px'});
         $.ajax({
             url: urls.siteUrl + '/admin/mvc/operacion/ajax/form',
             data:{id:id},
@@ -43,9 +24,11 @@ $(document).ready(function(){
                     });
                    
                 $('#ventana-modal').dialog({
-                height: 'auto',
+                //height: 'auto',
+                height:500,
                 width: 620, //1050
                 modal: true,
+                //maxHeight: 400,
                 resizable: false,
                 title:titulo,
                 buttons: {
@@ -78,59 +61,22 @@ $(document).ready(function(){
                 close: function() {//$("#ventana-modal").remove();
                 }
                 });
-                /*
-                $('.modal-body').empty().html(result);
-                //Validaciones 
-                $(".v_numeric").numeric();
-                $(".v_decimal").numeric(',');
-                 $("#datepicker").datepicker({
-                    changeMonth: true,
-                    changeYear: true
-                    });
-                    */
-                
             }
-        })
-        /*
-        $('#btnEliminar').hide();
-        $('#btnGuardar').show();
-        
-        //window.data("kendoWindow").open();
-        win = $("#window").data("kendoWindow");
-        win.center();
-        win.open();
-        */
-      
+        })     
     }
     
     nuevo = function() {
-        //$('.k-window-title').empty().html('Nuevo registro');
-        //configModal(0, 'nuevo');
         configModal(0, 'nuevo','Nuevo registro');
     }
     
     editar = function(id){
-        //$('.k-window-title').empty().html('Editar registro');
-        //configModal(id, 'edit');
         configModal(id, 'edit','Editar registro');
     }
     
     elimina = function(id){
         
         codigo = id;
-        /*
-        $('.k-window-title').empty().html('Mensaje del sistema');
-        $('.modal-body').empty().html('¿Está seguro que desea eliminar registro?');
-        $('.k-widget k-window').css({'width':'380px','margin':'-250px 0 0 -200px'});
-        
-        $('#btnEliminar').show();
-        $('#btnGuardar').hide();
-        
-        win = $("#window").data("kendoWindow");
-        win.center();
-        win.open();
-        */
-       
+   
                 $('#ventana-modal').empty().html('¿Está seguro que desea eliminar registro?');
                 $('#ventana-modal').dialog({
                 height: 'auto',
@@ -150,8 +96,7 @@ $(document).ready(function(){
                     });
                     },
                      "Cancelar": function() {
-                       $(this).dialog("close");
-                        
+                       $(this).dialog("close"); 
                     }
                 },
                 close: function() {//$("#ventana-modal").remove();
@@ -161,23 +106,17 @@ $(document).ready(function(){
     }
     
     verRecursos = function (id) {
-        //$('.k-window-title').empty().html('Lista de recursos');
         $.ajax({
             url: urls.siteUrl + '/admin/recurso/listado/ajax/listado/id_rol/' + id,
             type: 'post',
             dataType: 'json',
             success: function(result) {
-                
-                tablaRecurso(result);
-                
+                tablaRecurso(result,id);
             }
-            
         })
-
     }
     
     seleccionaTodos = function() {
-    //$("#title-table-checkbox .title-table-checkbox").click(function() {
         alert('Falta programar');
 		var checkedStatus = $("#title-table-checkbox").checked;
 		var checkbox = $("#myModal").parents('.widget-box').find('tr td:first-child input:checkbox');		
@@ -192,7 +131,7 @@ $(document).ready(function(){
 		});
     };
     
-    tablaRecurso = function(data) {
+    tablaRecurso = function(data,rol) {
         
         $('.modal-body').empty();
         html = '';
@@ -201,17 +140,20 @@ $(document).ready(function(){
         html += '<h5>Recursos</h5>';
         html += '</div>';
         html += '<div class="widget-content nopadding">';
-        html += '<table id="tablaRecurso" class="table table-condensed table-bordered  with-check">';
+        html += '<table id="tablaRecurso" class="table table-condensed table-bordered">';
         html += '<thead>';
-        html += '<tr><th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" onclick=seleccionaTodos() /></th><th>Nombre</th><th>Descripción</th><th>Estado</th><th>Url</th></tr>';
+        html += '<tr><th></th><th>Nombre</th><th>Descripción</th><th>Estado</th><th>Url</th></tr>';
         html += '</thead>';
         html += '<tbody>';
         
         $.each(data, function(key,obj) {
                     estado = 'checkmark.png';
                     html += '<tr>';
-                    html += '<td class="check_recurso"><input type="checkbox" name="check_recursos" value="'+obj['id']+'" /></td>';
-                    //html += '<td>' + obj['id'] + '</td>';
+                    checked = ''
+                    if (obj['checked']== 1)
+                    checked = 'checked';
+                    
+                    html += '<td style="text-align:center"><input type="checkbox" name="check_recursos" '+checked+' value="'+obj['id']+'" /></td>';
                     html += '<td>' + obj['nombre'] + '</td>';
                     accion = obj['accion'];
                     if (obj['accion'] == '' || obj['accion'] == null) {
@@ -224,7 +166,7 @@ $(document).ready(function(){
                     }
                     
                     html += '<td width=8%><center><span style=display:none>';
-                    html += obj['cbo_estado'] + '</span><img src='  + urls.siteUrl + '/img/' + estado + ' width=15%></center></td>';
+                    html += obj['estado'] + '</span><img src='  + urls.siteUrl + '/img/' + estado + ' width=15%></center></td>';
                     url = obj['url'];
                     if (obj['url'] == '' || obj['url'] == null) {
                         url = '';
@@ -239,14 +181,13 @@ $(document).ready(function(){
         html += '</div>';
         html += '</div>';
         
-        //$('.modal-body').append(html);
         $('#ventana-modal').empty().html(html);
         $('#tablaRecurso').dataTable({
 		"bJQueryUI": true,
 		"sPaginationType": "full_numbers",
 		"sDom": '<""l>t<"F"fp>'
+                
 	});
-        
         
         $('#ventana-modal').dialog({
                 height: 'auto',
@@ -261,12 +202,37 @@ $(document).ready(function(){
                     //Recorrer y guardar los recursos
                     //alert($('input[name="check_recursos"]:checked').val());
                     var selectedItems = new Array();
+                    var recursosAdd = '';
+                    var recursosDelete = '';
+                    var pr = '';
 		
                     $("input[@name='check_recursos[]']:checked").each(function(){
                             selectedItems.push($(this).val());
+                            recursosAdd += $(this).val() + ',';
                     });
-
-                    alert(selectedItems);
+                    
+                    $("input[@name='check_recursos[]']:not(:checked)").each(function(){
+                        if ($(this).val() != '')
+                            recursosDelete += $(this).val() + ',';
+                    });
+            
+                    $.ajax({
+                        url: urls.siteUrl + '/admin/recurso/agregar-recursos',
+                        data:{
+                            rec_add:selectedItems,
+                            rec_del:recursosDelete,
+                            rol:rol
+                        },
+                        type:'post',
+                        success:function (result) {
+                             //location.reload();
+                             $(this).dialog("close");
+                        }
+                    })
+                    
+                    
+                    
+                    //alert(selectedItems);
 
                     },
                      "Cancelar": function() {
@@ -278,55 +244,9 @@ $(document).ready(function(){
                 }
                 });
         
-        /*
-        $('#btnEliminar').hide();
-        $('#btnGuardar').show();
-        win = $("#window").data("kendoWindow");
-        win.center();
-        win.open();
-        
-        $('.k-widget').css({'width':'950px'});
-        */
+     
         
     }
-    
-    /*
-    $('#btnGuardar').click(function(){
-        
-        $.ajax({
-            url: urls.siteUrl + '/admin/mvc/operacion/ajax/validar',
-            data: $('#form').serialize(),
-            type:'post',
-            success: function(result) {
-               if(validarCampos(result)){
-                   $.ajax({
-                       url: urls.siteUrl + '/admin/mvc/operacion/ajax/save/scrud/' + sentencia_crud + '/id/'+ codigo,
-                       data: $("#form").serialize(),
-                       success: function(result){
-                            location.reload();
-                       }
-                   });
-               }
-            }
-        })
-        
-    })
-    
-    $('#btnEliminar').click(function(){
-        
-        $.ajax({
-            url: urls.siteUrl + '/admin/mvc/operacion/ajax/delete',
-            data:{id:codigo},
-            success: function(result){
-                location.reload();
-            }
-        });
-        
-    })
-    
-    $('#btnCerrar').click(function(){
-        window.data("kendoWindow").close();
-    })
-    */
+ 
   
 })
