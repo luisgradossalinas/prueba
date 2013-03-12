@@ -20,7 +20,7 @@ class Admin_RecursoController extends App_Controller_Action_Admin
     {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
-
+        
         $data = $this->_getAllParams();
 
         //Previene vulnerabilidad XSS (Cross-site scripting)
@@ -37,6 +37,8 @@ class Admin_RecursoController extends App_Controller_Action_Admin
                 //$listadoRecursos = $recurso->fetchAll('estado ='. self::ACTIVO)->toArray();
                 $listadoRecursos = $recurso->listadoPorRol($rol);
                 echo Zend_Json::encode($listadoRecursos);
+
+                
                 
             }
         }
@@ -47,6 +49,8 @@ class Admin_RecursoController extends App_Controller_Action_Admin
     {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
+        
+        $sesionMvc  = new Zend_Session_Namespace('sesion_mvc');
         
         if (!$this->getRequest()->isXmlHttpRequest())
             exit('Acción solo válida para peticiones ajax');
@@ -63,8 +67,12 @@ class Admin_RecursoController extends App_Controller_Action_Admin
             foreach ($recursoADD as $reg){
                 //verifica si el recurso está asignado al rol
                 $dataRR = $rolrecurso->fetchAll('id_rol = '.$rol. ' and id_recurso = '.$reg);
-                if (count($dataRR) == 0)
+                if (count($dataRR) == 0){
                     $rolrecurso->insert(array('id_rol' => $rol,'id_recurso' => $reg));
+                    $sesionMvc->messages = 'Rol actualizado';
+                    $sesionMvc->tipoMessages = self::SUCCESS;
+                }
+                    
             }
         }
         

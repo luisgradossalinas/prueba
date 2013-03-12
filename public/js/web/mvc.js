@@ -225,8 +225,8 @@ $(document).ready(function(){
                         },
                         type:'post',
                         success:function (result) {
-                             //location.reload();
-                             $(this).dialog("close");
+                             location.reload();
+                             //$(this).dialog("close");
                         }
                     })
                     

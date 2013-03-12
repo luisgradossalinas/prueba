@@ -2,10 +2,15 @@
 
 class Application_Form_Recurso extends Zend_Form
 {
-
+    private $_recurso;
+    
     public function init()
     {
+        $this->_recurso = new Application_Model_Recurso;
         $this->setAttrib('id', 'form');
+        
+        $dataRecurso = $this->_recurso->listaRecursosPadre();
+        array_unshift($dataRecurso,array('key'=> '', 'value' => 'Seleccione'));
         
         $nombre = new Zend_Form_Element_Text('nombre');
         $nombre->setLabel('Nombre:');
@@ -30,11 +35,12 @@ class Application_Form_Recurso extends Zend_Form
         $descripcion->addFilter('StripTags');
         $this->addElement($descripcion);
         
-        $padre = new Zend_Form_Element_Text('padre');
+        $padre = new Zend_Form_Element_Select('padre');
         $padre->setLabel('Padre:');
         $padre->setRequired();
-        $padre->setAttrib('class','v_numeric');
+        //$padre->setAttrib('class','v_numeric');
         $padre->addFilter('StripTags');
+        $padre->setMultiOptions($dataRecurso);
         $this->addElement($padre);
         
         $orden = new Zend_Form_Element_Text('orden');
