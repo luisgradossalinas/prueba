@@ -50,6 +50,13 @@ class Application_Model_Recurso extends Zend_Db_Table
                 ->where('access = ?','admin:'.$key)->query()->fetch(Zend_Db::FETCH_NUM);
     }
     
+    public function numRecursoCorrelativo($padre)
+    {
+        //SELECT COUNT(1) + 1 FROM recurso WHERE padre = 90
+        return $this->getAdapter()->select()->from($this->_name,array('num' => 'count(1) + 1'))
+                ->where('padre = ?', $padre)->query()->fetchColumn();
+    }
+    
     public function listaRecursosPadre()
     {
         //SELECT nombre,padre FROM recurso WHERE orden = 1

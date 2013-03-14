@@ -22,6 +22,23 @@ $(document).ready(function(){
                     changeMonth: true,
                     changeYear: true
                     });
+                    
+                $("#padre").change(function(){
+                    var padre = $("#padre").val();
+                    
+                    $.ajax({
+                        url:urls.siteUrl + '/admin/recurso/num-recurso-correlativo',
+                        data:{padre:padre},
+                        type:'post',
+                        dataType:'json',
+                        success: function(result) {
+                            $('#orden').val(result);
+                        }
+                        
+                        
+                    })
+                    
+               })
                    
                 $('#ventana-modal').dialog({
                 //height: 'auto',
@@ -45,7 +62,7 @@ $(document).ready(function(){
                                url: urls.siteUrl + '/admin/mvc/operacion/ajax/save/scrud/' + sentencia_crud + '/id/'+ codigo,
                                data: $("#form").serialize(),
                                success: function(result){
-                                    location.reload();
+                                    //location.reload();
                                }
                            });
                        }
@@ -247,6 +264,8 @@ $(document).ready(function(){
      
         
     }
+    
+    
  
   
 })

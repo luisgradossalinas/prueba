@@ -115,6 +115,7 @@ class Admin_MvcController extends App_Controller_Action_Admin
         if ($this->_getParam('ajax') == 'form') {
             
             if ($this->_hasParam('id')) {
+                
                 $id = $this->_getParam('id');
                 if ($id != 0) {
                     $data = $this->_clase->fetchRow(''.$primaryKey.' = '.$id);
@@ -139,6 +140,7 @@ class Admin_MvcController extends App_Controller_Action_Admin
         }
         
         if ($this->_getParam('ajax') == 'save') {
+      
             if ($this->_getParam('scrud') == 'nuevo') {
                 $data['fecha_crea'] = date("Y-m-d H:i:s");
                 $data['usuario_crea'] = Zend_Auth::getInstance()->getIdentity()->id;

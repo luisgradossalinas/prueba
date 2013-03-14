@@ -8,12 +8,14 @@ class Admin_RecursoController extends App_Controller_Action_Admin
     const ELIMINADO = 2;
     
     private $_rolrecurso;
+    private $_recurso;
     
     public function init()
     {
         parent::init();
         
         $this->_rolrecurso = new Application_Model_RolRecurso;
+        $this->_recurso = new Application_Model_Recurso;
     }
     
     public function listadoAction()
@@ -75,6 +77,17 @@ class Admin_RecursoController extends App_Controller_Action_Admin
                     
             }
         }
+        
+    }
+    
+    public function numRecursoCorrelativoAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        
+        $padre = $this->_getParam('padre');
+        $numRecurso = $this->_recurso->numRecursoCorrelativo($padre);
+        echo Zend_Json::encode($numRecurso);
         
     }
     

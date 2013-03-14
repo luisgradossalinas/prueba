@@ -8,6 +8,9 @@ class App_Controller_Action extends Zend_Controller_Action
     const SUCCESS = 'success';
     const ERROR = 'error';
     const INFO = 'info';
+    
+    const ACTUALIZAR = 'UPDATE';
+    const NUEVO = 'NEW';
 
     public function init()
     {
