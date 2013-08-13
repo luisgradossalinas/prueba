@@ -62,7 +62,7 @@ $(document).ready(function(){
                                url: urls.siteUrl + '/admin/mvc/operacion/ajax/save/scrud/' + sentencia_crud + '/id/'+ codigo,
                                data: $("#form").serialize(),
                                success: function(result){
-                                    //location.reload();
+                                    location.reload();
                                }
                            });
                        }
