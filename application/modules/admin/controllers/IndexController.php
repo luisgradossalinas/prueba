@@ -23,6 +23,7 @@ class Admin_IndexController extends App_Controller_Action_Admin
         echo count($recursoModelo->recursosPadre(1));
         //recursosPadre
         */
+        Zend_Layout::getMvcInstance()->assign('btnNuevo','0');
     }
         public function plantillaAction()
     {

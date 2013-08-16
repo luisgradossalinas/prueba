@@ -11,7 +11,7 @@
                 <link rel="stylesheet" href=<?=SITE_URL."/css/unicorn.main.css"?> />
 		<link rel="stylesheet" href=<?=SITE_URL."/css/unicorn.".$this->layout()->css.".css"?> class="skin-color" />
                 <link rel="stylesheet" href="<?=SITE_URL?>/css/mensajes.css" />
-                <link rel="stylesheet" href="<?=SITE_URL?>/ui/css/redmond/jquery-ui-1.8.19.custom.css" />
+                <link rel="stylesheet" href="<?=SITE_URL?>/ui/css/smoothness/jquery-ui-1.8.19.custom.css" />
                 
                 <!--<link rel="stylesheet" href="<?=SITE_URL?>/ui/css/custom-theme/jquery-ui-1.8.16.custom.css" />--!>
                 
@@ -86,9 +86,11 @@
 			<div id="content-header">
 				<h1><?=$this->layout()->active?>&nbsp;
                                     <!-- validara si tiene permiso el usuario -->
+                                    <?php if ($this->layout()->btnNuevo == 1) { ?>
                                     <a href="#myModal" id="btnOpen" role="button" class="btn tip-right" title="Nuevo registro" onclick="nuevo()" data-toggle="modal">
                                         <li class="icon-plus-sign"></li>Nuevo
                                     </a> 
+                                    <?php } ?>
                                 </h1>
                                 
 				<div class="btn-group">

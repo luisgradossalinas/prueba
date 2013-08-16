@@ -24,8 +24,8 @@
             if ($value['estado'] == Admin_MvcController::INACTIVO)
                 $estado = 'error.png';
             echo '<td width=7%><center><span style=display:none>'.$value['estado'].'</span><img src='.SITE_URL.'/img/'.$estado.' width=15%><center></td>';
-            echo '<td>'.$value['fecha_crea'].'</td>';
-            echo '<td width=8%>
+            echo '<td width=12% class="taskOptions">'.$value['fecha_crea'].'</td>';
+            echo '<td width=10% class="taskOptions">
                     <a  href="#myModal" role="button" class="btn btn-mini btn-inverse" data-toggle="modal" onclick="verRecursos('.$value['id'].')">Ver recursos</a>';
             echo '</td>';
             echo '</tr>';

@@ -16,6 +16,8 @@ class Admin_MvcController extends App_Controller_Action_Admin
     {
         parent::init();
         
+        Zend_Layout::getMvcInstance()->assign('btnNuevo','1');
+        
         $sesionMvc  = new Zend_Session_Namespace('sesion_mvc');
         $this->_recurso = new Application_Model_Recurso;
         
@@ -62,6 +64,7 @@ class Admin_MvcController extends App_Controller_Action_Admin
         }
         
         if ($estado == self::INACTIVO) {
+            Zend_Layout::getMvcInstance()->assign('btnNuevo','0');
             $this->render('recurso-no-activo');
         }
         else if ($estado == self::ELIMINADO) {
