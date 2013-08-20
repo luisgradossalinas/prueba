@@ -1,11 +1,11 @@
 <?php
 
-class Application_Model_Tema extends Zend_Db_Table
+class Application_Model_Socio extends Zend_Db_Table
 {
 
-    protected $_name = 'tema';
+    protected $_name = 'socio';
 
-    protected $_primary = 'id_tema';
+    protected $_primary = 'id';
 
     const ESTADO_INACTIVO = 0;
 
@@ -13,7 +13,7 @@ class Application_Model_Tema extends Zend_Db_Table
 
     const ESTADO_ELIMINADO = 2;
 
-    const TABLA = 'tema';
+    const TABLA = 'socio';
 
     public function guardar($datos)
     {
@@ -26,9 +26,11 @@ class Application_Model_Tema extends Zend_Db_Table
         $datos = array_intersect_key($datos, array_flip($this->_getCols()));
         
         if ($id > 0) {
-        	$cantidad = $this->update($datos, 'id_tema = ' . $id);
+        	$cantidad = $this->update($datos, 'id = ' . $id);
         	$id = ($cantidad < 1) ? 0 : $id;
         } else {
+        	$GM = new Generator_Modelo();
+        	$datos['id'] = $GM->maxCodigo($this->_name);
         	$id = $this->insert($datos);
         }
         

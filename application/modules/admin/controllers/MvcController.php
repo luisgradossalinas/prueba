@@ -83,6 +83,7 @@ class Admin_MvcController extends App_Controller_Action_Admin
             } else {
                 //print_r($this->_clase->$funcionListado());
                 $this->view->data = $this->_clase->$funcionListado();
+                
             }
             
             $this->view->model = $model;
