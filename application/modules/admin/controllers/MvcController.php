@@ -16,6 +16,8 @@ class Admin_MvcController extends App_Controller_Action_Admin
     {
         parent::init();
         
+        Zend_Layout::getMvcInstance()->assign('btnNuevo','1');
+        
         $sesionMvc  = new Zend_Session_Namespace('sesion_mvc');
         $this->_recurso = new Application_Model_Recurso;
         
@@ -49,7 +51,6 @@ class Admin_MvcController extends App_Controller_Action_Admin
     public function indexAction()
     {
         $dataRecurso = $this->_recurso->obtenerPadre($this->_model);
-        //echo $this->_helper->mensajes->ja();
         
         $funcionListado = Application_Model_Recurso::FUNCION_LISTADO;
         $padre = 0;
@@ -62,18 +63,29 @@ class Admin_MvcController extends App_Controller_Action_Admin
             $estado = $dataRecurso[2];
         }
         
-        if ($estado == 0) {
-            
+        if ($estado == self::INACTIVO) {
+            Zend_Layout::getMvcInstance()->assign('btnNuevo','0');
             $this->render('recurso-no-activo');
+        }
+        else if ($estado == self::ELIMINADO) {
+            $this->render('recurso-eliminado');
             
-        } else {
+        }else {
         
             $model =  ucfirst($this->_model);
             Zend_Layout::getMvcInstance()->assign('link', $this->_model);
             Zend_Layout::getMvcInstance()->assign('active', $model);
             Zend_Layout::getMvcInstance()->assign('padre', $padre);
-
-            $this->view->data = $this->_clase->$funcionListado('estado != '.self::ELIMINADO);
+            
+            //$funcionListado:Es dinamico si se usa inner join por defecto es fetchAll
+            if ($funcionListado == 'fetchAll') {
+                $this->view->data = $this->_clase->$funcionListado('estado != '.self::ELIMINADO);
+            } else {
+                //print_r($this->_clase->$funcionListado());
+                $this->view->data = $this->_clase->$funcionListado();
+                
+            }
+            
             $this->view->model = $model;
             $this->view->active = $model.'s';
             $this->view->messages = $sesionMvc->messages;
@@ -92,8 +104,11 @@ class Admin_MvcController extends App_Controller_Action_Admin
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
 
-        $data = $this->_getAllParams();
+        $generator = new Generator_Modelo;
         $sesionMvc  = new Zend_Session_Namespace('sesion_mvc');
+        $primaryKey = $generator->getPrimaryKey($sesionMvc->model);
+        $data = $this->_getAllParams();
+        
 
         //Previene vulnerabilidad XSS (Cross-site scripting)
         $filtro = new Zend_Filter_StripTags();
@@ -104,9 +119,10 @@ class Admin_MvcController extends App_Controller_Action_Admin
         if ($this->_getParam('ajax') == 'form') {
             
             if ($this->_hasParam('id')) {
+                
                 $id = $this->_getParam('id');
                 if ($id != 0) {
-                    $data = $this->_clase->fetchRow('id = '.$id);
+                    $data = $this->_clase->fetchRow(''.$primaryKey.' = '.$id);
                     $this->_form->populate($data->toArray());
                 }
             }
@@ -119,7 +135,7 @@ class Admin_MvcController extends App_Controller_Action_Admin
         
         if ($this->_getParam('ajax') == 'delete') {
             
-            $where = $this->getAdapter()->quoteInto('id = ?',$data['id']);
+            $where = $this->getAdapter()->quoteInto(''.$primaryKey.' = ?',$data['id']);
             $this->_clase->update(array('estado' => self::ELIMINADO),$where);
             
             $sesionMvc->messages = 'Registro eliminado';
@@ -128,6 +144,7 @@ class Admin_MvcController extends App_Controller_Action_Admin
         }
         
         if ($this->_getParam('ajax') == 'save') {
+      
             if ($this->_getParam('scrud') == 'nuevo') {
                 $data['fecha_crea'] = date("Y-m-d H:i:s");
                 $data['usuario_crea'] = Zend_Auth::getInstance()->getIdentity()->id;
