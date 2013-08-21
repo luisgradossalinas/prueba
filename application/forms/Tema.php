@@ -21,11 +21,19 @@ class Application_Form_Tema extends Zend_Form
         
         $fecha_inicio = new Zend_Form_Element_Text('fecha_inicio');
         $fecha_inicio->setLabel('Fecha_inicio:');
-        $fecha_inicio->addValidator(new Zend_Validate_Date());
+        $fecha_inicio->addValidator(new Zend_Validate_Date('DD-MM-YYYY'));
         $fecha_inicio->setAttrib('maxlength',10);
         $fecha_inicio->setAttrib('class','v_datepicker');
         $fecha_inicio->addFilter('StripTags');
         $this->addElement($fecha_inicio);
+    }
+    
+    public function populate($data)
+    {
+        $data['fecha_inicio'] = new Zend_Date($data['fecha_inicio'],'yyyy-mm-dd');
+        $data['fecha_inicio'] = $data['fecha_inicio']->get('dd-mm-yyyy');
+        
+        return $this->setDefaults($data);
     }
 
 

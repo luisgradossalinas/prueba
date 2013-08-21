@@ -18,6 +18,9 @@ class Generator_Modelo extends Zend_Db_Table
         
         $cuerpo .= '$datos = array_intersect_key($datos, array_flip($this->_getCols()));'. "\n\n";
         $cuerpo .= 'if ($id > 0) {'."\n";
+        if ($this->haveFieldDate($tabla)) {
+            $cuerpo .= $this->setFieldFecha($tabla);
+        }
         $cuerpo .= "\t".'$cantidad = $this->update($datos, \''.$primaryKey.' = \' . $id);'."\n";
         $cuerpo .= "\t".'$id = ($cantidad < 1) ? 0 : $id;'."\n";
         $cuerpo .= '} else {'."\n";
@@ -25,6 +28,10 @@ class Generator_Modelo extends Zend_Db_Table
         if (!$this->esIdentity($tabla)) {
             $cuerpo .= "\t".'$GM = new Generator_Modelo();'."\n";
             $cuerpo .= "\t".'$datos[\''.$primaryKey.'\'] = $GM->maxCodigo($this->_name);'."\n";
+        }
+        
+        if ($this->haveFieldDate($tabla)) {
+            $cuerpo .= $this->setFieldFecha($tabla);
         }
         
         $cuerpo .= "\t".'$id = $this->insert($datos);'."\n";
@@ -90,6 +97,42 @@ class Generator_Modelo extends Zend_Db_Table
         return $valor;
     }
     
+    public function haveFieldDate($tabla) 
+    {
+        
+        $db = $this->getAdapter();
+        $dataTabla = $db->describeTable($tabla);
+        
+        $valor = false;
+        foreach ($dataTabla as $key => $value) {
+            $tipo = $value['DATA_TYPE'];
+            if ($tipo == 'date' or $tipo == 'datetime' ) {
+                $valor = true;          
+            }   
+        }
+        
+        return $valor;
+    }
+    
+    public function setFieldFecha($tabla) 
+    {
+        $db = $this->getAdapter();
+        $dataTabla = $db->describeTable($tabla);
+        
+        $cuerpo = '';
+        foreach ($dataTabla as $key => $value) {
+            $campo = $key;
+            $tipo = $value['DATA_TYPE'];
+                if ($tipo == 'date' or $tipo == 'datetime' ){
+                    $cuerpo .=  "\t".'$datos[\''.$campo.'\'] = new Zend_Date($datos[\''.$campo.'\'],\'yyyy-mm-dd\');'. "\n";
+                    $cuerpo .=  "\t".'$datos[\''.$campo.'\'] = $datos[\''.$campo.'\']->get(\'yyyy-mm-dd\');'. "\n";                 
+                } 
+                
+        }         
+                    
+        return $cuerpo;
+    }
+    
     public function getColumnas($tabla)
     {
         
@@ -118,8 +161,14 @@ class Generator_Modelo extends Zend_Db_Table
         $cuerpo = '<?php '."\n";
         
         foreach ($dataTabla as $key => $value) {
-          if ($value['PRIMARY'] != 1)
-            $cuerpo .= "\t".'echo "<td>".$value[\''.$key.'\']."</td>";'."\n";
+            $tipo = $value['DATA_TYPE'];
+            if ($value['PRIMARY'] != 1)
+                if ($tipo == 'date' or $tipo == 'datetime' ){
+                    $cuerpo .= "\t".'echo "<td>".$this->FechaMostrar($value[\''.$key.'\'])."</td>";'."\n";                   
+                } else {
+                    $cuerpo .= "\t".'echo "<td>".$value[\''.$key.'\']."</td>";'."\n";
+                }
+                
         }
         
         $cuerpo .= "\t".'echo "</tr>";'."\n";

@@ -48,9 +48,19 @@ class Admin_GeneratorController extends App_Controller_Action_Admin
                ->setBody(
                     $generator->cuerpoFormulario($tabla)
                 );
+        
         $formClase = new Zend_CodeGenerator_Php_Class();
         $formClase->setName('Application_Form_'.$formulario.' extends Zend_Form')
-              ->setMethod($formMetodo);
+              ->setMethod($formMetodo)
+               ->setMethod(
+                    array(
+                        'name'       => 'populate',
+                        'parameters' => array(
+                            array('name' => 'data'),
+                        ),
+                        'body'       => $generator->populate($tabla)
+                    )
+               );
         
         $modeloClase = new Zend_CodeGenerator_Php_Class();
         $modeloClase->setName('Application_Model_'.$modelo.' extends Zend_Db_Table')

@@ -1,2 +1,2 @@
 1. Al crear un recurso .. que se pueda tener un padre.
-2. Manejo de fechas al guardar y mostrar en las tablas.
+2. Manejo de fechas al guardar y mostrar en las tablas. SOLUCIONADO

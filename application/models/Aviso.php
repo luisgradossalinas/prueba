@@ -1,11 +1,11 @@
 <?php
 
-class Application_Model_Tema extends Zend_Db_Table
+class Application_Model_Aviso extends Zend_Db_Table
 {
 
-    protected $_name = 'tema';
+    protected $_name = 'aviso';
 
-    protected $_primary = 'id_tema';
+    protected $_primary = 'id';
 
     const ESTADO_INACTIVO = 0;
 
@@ -13,7 +13,7 @@ class Application_Model_Tema extends Zend_Db_Table
 
     const ESTADO_ELIMINADO = 2;
 
-    const TABLA = 'tema';
+    const TABLA = 'aviso';
 
     public function guardar($datos)
     {
@@ -26,11 +26,13 @@ class Application_Model_Tema extends Zend_Db_Table
         $datos = array_intersect_key($datos, array_flip($this->_getCols()));
         
         if ($id > 0) {
-        	$cantidad = $this->update($datos, 'id_tema = ' . $id);
+        	$datos['fecha_pub'] = new Zend_Date($datos['fecha_pub'],'yyyy-mm-dd');
+        	$datos['fecha_pub'] = $datos['fecha_pub']->get('yyyy-mm-dd');
+        	$cantidad = $this->update($datos, 'id = ' . $id);
         	$id = ($cantidad < 1) ? 0 : $id;
         } else {
-                $datos['fecha_inicio'] = new Zend_Date($datos['fecha_inicio'],'dd/mm/yyyy');
-                $datos['fecha_inicio'] = $datos['fecha_inicio']->get('yyyy-mm-dd');
+        	$datos['fecha_pub'] = new Zend_Date($datos['fecha_pub'],'yyyy-mm-dd');
+        	$datos['fecha_pub'] = $datos['fecha_pub']->get('yyyy-mm-dd');
         	$id = $this->insert($datos);
         }
         

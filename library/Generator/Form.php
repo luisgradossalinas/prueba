@@ -67,7 +67,7 @@ class Generator_Form extends Zend_Db_Table
                     $cuerpo .=  '$'.$campo.'->setAttrib(\'class\',\'v_decimal\');'. "\n";
                     
                 } else if ($tipo == 'date' or $tipo == 'datetime' ){
-                    $cuerpo .=  '$'.$campo.'->addValidator(new Zend_Validate_Date());'. "\n";
+                    $cuerpo .=  '$'.$campo.'->addValidator(new Zend_Validate_Date(\'DD-MM-YYYY\'));'. "\n";
                     $cuerpo .=  '$'.$campo.'->setAttrib(\'maxlength\',10);'. "\n";
                     $cuerpo .=  '$'.$campo.'->setAttrib(\'class\',\'v_datepicker\');'. "\n";
                     
@@ -84,6 +84,31 @@ class Generator_Form extends Zend_Db_Table
         }
         
         return $cuerpo;
+    }
+    
+    public function populate($tabla) {
+        
+        $db = $this->getAdapter();
+        $dataTabla = $db->describeTable($tabla);
+        
+        $populate = '';
+        
+        foreach ($dataTabla as $key => $value) {
+            $campo = $key;
+            //$label = ucfirst($campo);
+            $tipo = $value['DATA_TYPE'];
+   
+                if ($tipo == 'date' or $tipo == 'datetime' ){
+                    $populate .=  '$data[\''.$campo.'\'] = new Zend_Date($data[\''.$campo.'\'],\'yyyy-mm-dd\');'. "\n";
+                    $populate .=  '$data[\''.$campo.'\'] = $data[\''.$campo.'\']->get(\'dd/mm/yyyy\');'. "\n";
+                }             
+            
+        }
+        
+        $populate .= 'return $this->setDefaults($data);'. "\n";
+        
+        return $populate;
+        
     }
 
    
