@@ -10,6 +10,36 @@ class Application_Model_Generator extends Zend_Db_Table
     
     const TABLA = 'dinamic';
     
+    public function columnas($tabla)
+    {
+        
+        $db = $this->getAdapter();
+        return $db->describeTable($tabla);
+        
+        
+    }      
+    
+    public function listaTablas()
+    {
+        
+        $db = $this->getAdapter();
+        $data = $db->query('show tables')->fetchAll();
+        
+        $d = array();
+        $contador = 0;
+        
+        foreach ($data as $key => $value)
+            foreach ($value  as $k)
+            {
+            
+                $d[] = array('key' => $contador, 'value' => $k);
+                $contador ++;
+            }
+                
+        
+        return $d;
+    }
+    
     public function guardar($datos)
     {         
         $id = 0;
