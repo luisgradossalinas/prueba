@@ -1,18 +1,15 @@
 <?php
 
-class Application_Model_Configuracion extends Zend_Db_Table
+class Application_Model_RolRecurso extends Zend_Db_Table
 {
-    protected $_name = 'configuracion';
-    protected $_primary = 'id';
+    protected $_name = 'rol_recurso';
+    protected $_primary = 'id_rolrecurso';
     
     const ESTADO_INACTIVO = 0;
     const ESTADO_ACTIVO = 1;
-    const ESTADO_ELIMINADO = 2;
+    CONST ESTADO_ELIMINADO = 2;
     
-    const TABLA = 'configuracion';
-    
-    const ESTILO_PANEL = 'ESTILO_PANEL';
-    static $_ARRAY_ESTILO_PANEL = array('blue', 'red', 'grey');
+    const TABLA = 'rol_recurso';
     
     public function guardar($datos)
     {         

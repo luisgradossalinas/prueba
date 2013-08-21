@@ -6,7 +6,7 @@
 <div class="widget-content nopadding">
     <table id='tabla' class="table table-condensed table-bordered" >
         <thead>
-            <tr><th></th><th>Descripción</th><th>Estado</th><th>Registro</th></tr>
+            <tr><th></th><th>Descripción</th><th>Estado</th><th>Url</th></tr>
         </thead>
         <?php
         echo '<tbody>';
@@ -23,7 +23,7 @@
             if ($value['estado'] == Admin_MvcController::INACTIVO)
                 $estado = 'error.png';
             echo '<td width=8%><span style=display:none>'.$value['estado'].'</span><img src='.SITE_URL.'/img/'.$estado.' width=15%></td>';
-            echo '<td>'.$value['fecha_crea'].'</td>';
+            echo '<td>'.$value['url'].'</td>';
             echo '</tr>';
         }
         echo '</tbody>';

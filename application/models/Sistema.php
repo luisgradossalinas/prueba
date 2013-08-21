@@ -1,11 +1,11 @@
 <?php
 
-class Application_Model_Pedido extends Zend_Db_Table
+class Application_Model_Sistema extends Zend_Db_Table
 {
 
-    protected $_name = 'pedido';
+    protected $_name = 'sistema';
 
-    protected $_primary = 'id';
+    protected $_primary = 'id_sistema';
 
     const ESTADO_INACTIVO = 0;
 
@@ -13,7 +13,7 @@ class Application_Model_Pedido extends Zend_Db_Table
 
     const ESTADO_ELIMINADO = 2;
 
-    const TABLA = 'pedido';
+    const TABLA = 'sistema';
 
     public function guardar($datos)
     {
@@ -26,7 +26,7 @@ class Application_Model_Pedido extends Zend_Db_Table
         $datos = array_intersect_key($datos, array_flip($this->_getCols()));
         
         if ($id > 0) {
-        	$cantidad = $this->update($datos, 'id = ' . $id);
+        	$cantidad = $this->update($datos, 'id_sistema = ' . $id);
         	$id = ($cantidad < 1) ? 0 : $id;
         } else {
         	$id = $this->insert($datos);

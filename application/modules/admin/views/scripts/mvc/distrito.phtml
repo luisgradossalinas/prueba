@@ -6,7 +6,7 @@
 <div class="widget-content nopadding">
     <table id='tabla' class="table table-condensed table-bordered" >
         <thead>
-            <tr><th></th><th>Nombres</th><th>Celular</th><th>Correo</th><th>Mensaje</th></tr>
+            <tr><th></th><th>Descripción</th><th>Estado</th><th>Registro</th></tr>
         </thead>
         <?php
         echo '<tbody>';
@@ -19,15 +19,17 @@
             echo '<a data-original-title="Eliminar" class="tip-top" href="#myModal" data-toggle="modal" onclick="elimina('.$value['id'].')">';
             echo '<i class="icon-trash"></i></a>';
             echo '</td>';
-            echo '<td>'.$value['nombres'].'</td>';
-            echo '<td>'.$value['celular'].'</td>';
-            echo '<td>'.$value['correo'].'</td>';
-            echo '<td>'.$value['mensaje'].'</td>';
+            
+            echo '<td>'.$value['nombre'].'</td>';
+            if ($value['estado'] == Admin_MvcController::INACTIVO)
+                $estado = 'error.png';
+            echo '<td width=7%><center><span style=display:none>'.$value['estado'].'</span><img src='.SITE_URL.'/img/'.$estado.' width=15%><center></td>';
+            echo '<td>'.$value['fecha_crea'].'</td>';
             echo '</tr>';
         }
         echo '</tbody>';
         ?>
     </table>
 </div>
-</div>
+</div>    
 <?=$this->partial('_partials/modal.phtml',array('model' => $this->model));?>

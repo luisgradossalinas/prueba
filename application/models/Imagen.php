@@ -1,9 +1,9 @@
 <?php
 
-class Application_Model_Pedido extends Zend_Db_Table
+class Application_Model_Imagen extends Zend_Db_Table
 {
 
-    protected $_name = 'pedido';
+    protected $_name = 'imagen';
 
     protected $_primary = 'id';
 
@@ -13,7 +13,7 @@ class Application_Model_Pedido extends Zend_Db_Table
 
     const ESTADO_ELIMINADO = 2;
 
-    const TABLA = 'pedido';
+    const TABLA = 'imagen';
 
     public function guardar($datos)
     {
@@ -29,6 +29,8 @@ class Application_Model_Pedido extends Zend_Db_Table
         	$cantidad = $this->update($datos, 'id = ' . $id);
         	$id = ($cantidad < 1) ? 0 : $id;
         } else {
+        	$GM = new Generator_Modelo();
+        	$datos['id'] = $GM->maxCodigo($this->_name);
         	$id = $this->insert($datos);
         }
         

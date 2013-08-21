@@ -10,6 +10,9 @@ class Application_Form_Usuario extends Zend_Form
         $this->_rol = new Application_Model_Rol;
         $this->setAttrib('id', 'form');
         
+        $dataRol = $this->_rol->combo();
+        array_unshift($dataRol,array('key'=> '', 'value' => 'Seleccione'));
+        
         $nombre = new Zend_Form_Element_Text('nombres');
         $nombre->setLabel('Nombres:');
         $nombre->setRequired();
@@ -29,9 +32,6 @@ class Application_Form_Usuario extends Zend_Form
         $email->addValidator(new Zend_Validate_EmailAddress());
         $this->addElement($email);
         
-        $dataRol = $this->_rol->combo();
-        array_unshift($dataRol,array('key'=> '', 'value' => 'Seleccione'));
-        
         $rol = new Zend_Form_Element_Select('id_rol');
         $rol->setLabel('Rol:');
         $rol->setRequired();
@@ -50,21 +50,28 @@ class Application_Form_Usuario extends Zend_Form
         $cel->addFilter('StripTags');
         $this->addElement($cel);
         
+        $clave = new Zend_Form_Element_Password('password');
+        $clave->setLabel('Contraseña:');
+        $clave->addValidator(new Zend_Validate_StringLength(array('min' => 6)));
+        $this->addElement($clave);
+
+        $clave2 = new Zend_Form_Element_Password('password2');
+        $clave2->setLabel('Confirmar Contraseña:');
+        $clave2->addValidator(new Zend_Validate_StringLength(array('min' => 6)));
+        $this->addElement($clave2);
+        
         $direccion = new Zend_Form_Element_Text('direccion');
         $direccion->setLabel('Dirección:');
         $direccion->setRequired();
-        //$direccion->setAttrib("class","input-xlarge");
         $direccion->addFilter('StripTags');
         $this->addElement($direccion);
         
-       // <input type="text" class="datepicker" value="12-02-2012" data-date-format="dd-mm-yyyy" data-date="12-02-2012">
         $fechaNac = new Zend_Form_Element_Text('fecha_nac');
         $fechaNac->setLabel('Fecha nac:');
         $fechaNac->setRequired();
-        $fechaNac->setAttribs(array('class' => 'datepicker', 'data-date-format' => 'dd-mm-yyyy'));
+        $fechaNac->setAttribs(array('class' => 'v_datepicker',));
         $fechaNac->addFilter('StripTags');
         $this->addElement($fechaNac);
-        
         
         $estado = new Zend_Form_Element_Select('estado');
         $estado->setLabel('Estado:');

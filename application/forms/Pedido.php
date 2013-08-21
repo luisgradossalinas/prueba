@@ -3,75 +3,77 @@
 class Application_Form_Pedido extends Zend_Form
 {
 
-    private $_rol;
-    
     public function init()
     {
-        $this->_rol = new Application_Model_Rol;
         $this->setAttrib('id', 'form');
         
-        $nombre = new Zend_Form_Element_Text('nombres');
-        $nombre->setLabel('Nombres:');
-        $nombre->setRequired();
-        $nombre->addFilter('StripTags');
-        $this->addElement($nombre);
+        $subtotal = new Zend_Form_Element_Text('subtotal');
+        $subtotal->setLabel('Subtotal:');
+        $subtotal->addFilter('StripTags');
+        $this->addElement($subtotal);
         
-        $apellido = new Zend_Form_Element_Text('apellidos');
-        $apellido->setLabel('Apellidos:');
-        $apellido->setRequired();
-        $apellido->addFilter('StripTags');
-        $this->addElement($apellido);
+        $igv = new Zend_Form_Element_Text('igv');
+        $igv->setLabel('Igv:');
+        $igv->addFilter('StripTags');
+        $this->addElement($igv);
         
-        $email = new Zend_Form_Element_Text('email');
-        $email->setLabel('E-mail:');
-        $email->setRequired();
-        $email->addFilter('StripTags');
-        $email->addValidator(new Zend_Validate_EmailAddress());
-        $this->addElement($email);
+        $total = new Zend_Form_Element_Text('total');
+        $total->setLabel('Total:');
+        $total->addFilter('StripTags');
+        $this->addElement($total);
         
-        $dataRol = $this->_rol->combo();
-        array_unshift($dataRol,array('key'=> '', 'value' => 'Seleccione'));
-        
-        $rol = new Zend_Form_Element_Select('id_rol');
-        $rol->setLabel('Rol:');
-        $rol->setRequired();
-        $rol->setMultiOptions($dataRol);
-        $this->addElement($rol);
-        
-        $telefono = new Zend_Form_Element_Text('telefono');
-        $telefono->setLabel('Teléfono:');
-        $telefono->setRequired();
-        $telefono->addFilter('StripTags');
-        $this->addElement($telefono);
-        
-        $cel = new Zend_Form_Element_Text('celular');
-        $cel->setLabel('Celular:');
-        $cel->setRequired();
-        $cel->addFilter('StripTags');
-        $this->addElement($cel);
-        
-        $direccion = new Zend_Form_Element_Text('direccion');
-        $direccion->setLabel('Dirección:');
-        $direccion->setRequired();
-        //$direccion->setAttrib("class","input-xlarge");
-        $direccion->addFilter('StripTags');
-        $this->addElement($direccion);
-        
-       // <input type="text" class="datepicker" value="12-02-2012" data-date-format="dd-mm-yyyy" data-date="12-02-2012">
-        $fechaNac = new Zend_Form_Element_Text('fecha_nac');
-        $fechaNac->setLabel('Fecha nac:');
-        $fechaNac->setRequired();
-        $fechaNac->setAttribs(array('class' => 'datepicker', 'data-date-format' => 'dd-mm-yyyy'));
-        $fechaNac->addFilter('StripTags');
-        $this->addElement($fechaNac);
-        
-        
-        $estado = new Zend_Form_Element_Select('estado');
+        $estado = new Zend_Form_Element_Text('estado');
         $estado->setLabel('Estado:');
         $estado->setRequired();
-        $estado->setMultiOptions(array('1' => 'Activo', '0' => 'Inactivo'));
+        $estado->addValidator(new Zend_Validate_Int());
+        $estado->setAttrib('maxlength',3);
+        $estado->setAttrib('size',5);
+        $estado->setAttrib('class','v_numeric');
         $estado->addFilter('StripTags');
         $this->addElement($estado);
+        
+        $entregado = new Zend_Form_Element_Text('entregado');
+        $entregado->setLabel('Entregado:');
+        $entregado->setRequired();
+        $entregado->addValidator(new Zend_Validate_Int());
+        $entregado->setAttrib('maxlength',3);
+        $entregado->setAttrib('size',5);
+        $entregado->setAttrib('class','v_numeric');
+        $entregado->addFilter('StripTags');
+        $this->addElement($entregado);
+        
+        $fecha_genera = new Zend_Form_Element_Text('fecha_genera');
+        $fecha_genera->setLabel('Fecha_genera:');
+        $fecha_genera->setRequired();
+        $fecha_genera->addValidator(new Zend_Validate_Date());
+        $fecha_genera->setAttrib('maxlength',10);
+        $fecha_genera->setAttrib('class','v_datepicker');
+        $fecha_genera->addFilter('StripTags');
+        $this->addElement($fecha_genera);
+        
+        $fecha_entrega = new Zend_Form_Element_Text('fecha_entrega');
+        $fecha_entrega->setLabel('Fecha_entrega:');
+        $fecha_entrega->addValidator(new Zend_Validate_Date());
+        $fecha_entrega->setAttrib('maxlength',10);
+        $fecha_entrega->setAttrib('class','v_datepicker');
+        $fecha_entrega->addFilter('StripTags');
+        $this->addElement($fecha_entrega);
+        
+        $id_usuario = new Zend_Form_Element_Text('id_usuario');
+        $id_usuario->setLabel('Id_usuario:');
+        $id_usuario->addValidator(new Zend_Validate_Int());
+        $id_usuario->setAttrib('maxlength',9);
+        $id_usuario->setAttrib('class','v_numeric');
+        $id_usuario->addFilter('StripTags');
+        $this->addElement($id_usuario);
+        
+        $usuario_atendio = new Zend_Form_Element_Text('usuario_atendio');
+        $usuario_atendio->setLabel('Usuario_atendio:');
+        $usuario_atendio->addValidator(new Zend_Validate_Int());
+        $usuario_atendio->setAttrib('maxlength',9);
+        $usuario_atendio->setAttrib('class','v_numeric');
+        $usuario_atendio->addFilter('StripTags');
+        $this->addElement($usuario_atendio);
     }
 
 

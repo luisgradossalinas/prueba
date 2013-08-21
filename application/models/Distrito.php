@@ -1,18 +1,20 @@
 <?php
 
-class Application_Model_Configuracion extends Zend_Db_Table
+class Application_Model_Distrito extends Zend_Db_Table
 {
-    protected $_name = 'configuracion';
-    protected $_primary = 'id';
+    protected $_name = 'distrito';
     
     const ESTADO_INACTIVO = 0;
     const ESTADO_ACTIVO = 1;
-    const ESTADO_ELIMINADO = 2;
+    CONST ESTADO_ELIMINADO = 2;
     
-    const TABLA = 'configuracion';
+    const TABLA = 'distrito';
     
-    const ESTILO_PANEL = 'ESTILO_PANEL';
-    static $_ARRAY_ESTILO_PANEL = array('blue', 'red', 'grey');
+    public function combo()
+    {
+        return $this->getAdapter()->select()->from($this->_name,array('key' => 'id', 'value' => 'nom_cat'))
+                ->where('estado = ?',self::ESTADO_ACTIVO)->query()->fetchAll();
+    }
     
     public function guardar($datos)
     {         
