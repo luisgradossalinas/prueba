@@ -15,7 +15,7 @@ class Application_Form_General extends Zend_Form
         
         $fecha = new Zend_Form_Element_Text('fecha');
         $fecha->setLabel('Fecha:');
-        $fecha->addValidator(new Zend_Validate_Date());
+        $fecha->addValidator(new Zend_Validate_Date('DD-MM-YYYY'));
         $fecha->setAttrib('maxlength',10);
         $fecha->setAttrib('class','v_datepicker');
         $fecha->addFilter('StripTags');
@@ -68,7 +68,7 @@ class Application_Form_General extends Zend_Form
         
         $nacimiento = new Zend_Form_Element_Text('nacimiento');
         $nacimiento->setLabel('Nacimiento:');
-        $nacimiento->addValidator(new Zend_Validate_Date());
+        $nacimiento->addValidator(new Zend_Validate_Date('DD-MM-YYYY'));
         $nacimiento->setAttrib('maxlength',10);
         $nacimiento->setAttrib('class','v_datepicker');
         $nacimiento->addFilter('StripTags');
@@ -79,6 +79,15 @@ class Application_Form_General extends Zend_Form
         $dni->setAttrib('maxlength',10);
         $dni->addFilter('StripTags');
         $this->addElement($dni);
+    }
+
+    public function populate($data)
+    {
+        $data['fecha'] = new Zend_Date($data['fecha'],'yyyy-mm-dd');
+        $data['fecha'] = $data['fecha']->get('dd/mm/yyyy');
+        $data['nacimiento'] = new Zend_Date($data['nacimiento'],'yyyy-mm-dd');
+        $data['nacimiento'] = $data['nacimiento']->get('dd/mm/yyyy');
+        return $this->setDefaults($data);
     }
 
 

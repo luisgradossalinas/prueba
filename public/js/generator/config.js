@@ -26,19 +26,11 @@ $(document).ready(function(){
             
             $('#logGenerator').empty().html(data);
         }
-        
-        
+      
         
     })
-    
-    
- 
- 
+
  
  }
-     
-     
-     
- 
- 
+
 });

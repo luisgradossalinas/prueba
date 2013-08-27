@@ -6,7 +6,7 @@
 <div class="widget-content nopadding">
     <table id='tabla' class="table table-condensed table-bordered" >
         <thead>
-        <tr><th></th><th>Demo1</th><th>Fecha</th><th>Telefono</th><th>Direccion</th><th>Correo</th><th>Trabajo</th><th>Sueldo</th><th>Pais</th><th>Hijos</th><th>Nacimiento</th><th>Dni</th></tr>
+        <tr><th></th><th>Nombre</th><th>Fecha</th></tr>
         </thead>
         <?php
         echo '<tbody>';
@@ -21,17 +21,8 @@
             echo '</td>';
         ?>   
         <?php 
-	echo "<td>".$value['demo1']."</td>";
+	echo "<td>".$value['nombre']."</td>";
 	echo "<td>".$this->FechaMostrar($value['fecha'])."</td>";
-	echo "<td>".$value['telefono']."</td>";
-	echo "<td>".$value['direccion']."</td>";
-	echo "<td>".$value['correo']."</td>";
-	echo "<td>".$value['trabajo']."</td>";
-	echo "<td>".$value['sueldo']."</td>";
-	echo "<td>".$value['pais']."</td>";
-	echo "<td>".$value['hijos']."</td>";
-	echo "<td>".$this->FechaMostrar($value['nacimiento'])."</td>";
-	echo "<td>".$value['dni']."</td>";
 	echo "</tr>";
 	?>
         <?php

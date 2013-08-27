@@ -21,9 +21,8 @@
             echo '</td>';
         ?>   
         <?php 
-        $fechaNac = new Zend_Date($value['nacimiento']);
 	echo "<td>".$value['nombre']."</td>";
-	echo "<td>".date("d/m/Y", $fechaNac->getTimestamp())."</td>";
+	echo "<td>".$this->FechaMostrar($value['nacimiento'])."</td>";
 	echo "<td>".$value['sueldo']."</td>";
 	echo "</tr>";
 	?>

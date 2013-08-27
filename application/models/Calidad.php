@@ -1,9 +1,9 @@
 <?php
 
-class Application_Model_Socio extends Zend_Db_Table
+class Application_Model_Calidad extends Zend_Db_Table
 {
 
-    protected $_name = 'socio';
+    protected $_name = 'calidad';
 
     protected $_primary = 'id';
 
@@ -13,7 +13,7 @@ class Application_Model_Socio extends Zend_Db_Table
 
     const ESTADO_ELIMINADO = 2;
 
-    const TABLA = 'socio';
+    const TABLA = 'calidad';
 
     public function guardar($datos)
     {
@@ -26,15 +26,13 @@ class Application_Model_Socio extends Zend_Db_Table
         $datos = array_intersect_key($datos, array_flip($this->_getCols()));
         
         if ($id > 0) {
-        	$datos['nacimiento'] = new Zend_Date($datos['nacimiento'],'yyyy-mm-dd');
-        	$datos['nacimiento'] = $datos['nacimiento']->get('yyyy-mm-dd');
+        	$datos['fecha'] = new Zend_Date($datos['fecha'],'yyyy-mm-dd');
+        	$datos['fecha'] = $datos['fecha']->get('yyyy-mm-dd');
         	$cantidad = $this->update($datos, 'id = ' . $id);
         	$id = ($cantidad < 1) ? 0 : $id;
         } else {
-        	$GM = new Generator_Modelo();
-        	$datos['id'] = $GM->maxCodigo($this->_name);
-        	$datos['nacimiento'] = new Zend_Date($datos['nacimiento'],'yyyy-mm-dd');
-        	$datos['nacimiento'] = $datos['nacimiento']->get('yyyy-mm-dd');
+        	$datos['fecha'] = new Zend_Date($datos['fecha'],'yyyy-mm-dd');
+        	$datos['fecha'] = $datos['fecha']->get('yyyy-mm-dd');
         	$id = $this->insert($datos);
         }
         

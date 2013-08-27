@@ -122,11 +122,11 @@ class Admin_GeneratorController extends App_Controller_Action_Admin
         //Donde guardar los archivos
         $rutaFormulario = APPLICATION_PATH.'/forms/'.$formulario.'.php';
         file_put_contents($rutaFormulario, $formArchivo->generate());
-        chmod($rutaFormulario, 0777);
+        @chmod($rutaFormulario, 0777);
         
         $rutaModelo = APPLICATION_PATH.'/models/'.$modelo.'.php';
         file_put_contents($rutaModelo, $modeloArchivo->generate());
-        chmod($rutaModelo, 0777);
+        @chmod($rutaModelo, 0777);
         
         $rutaVista = APPLICATION_PATH.'/modules/admin/views/scripts/mvc/'.$tabla.'.phtml';
         $rutaGenerator = APPLICATION_PATH.'/modules/admin/views/scripts/mvc/generator.phtml';
@@ -137,7 +137,7 @@ class Admin_GeneratorController extends App_Controller_Action_Admin
         $vistaSalida = str_replace('$datosBD', $modeloGenerator->getDatosBD($tabla), $vistaSalida);
         
         file_put_contents($rutaVista, $vistaSalida);
-        chmod($rutaVista, 0777);
+        @chmod($rutaVista, 0777);
         
         echo "Formulario Application_Form_".$formulario." generado correctamente.<br>";
         echo "Modelo Application_Model_".$modelo." generado correctamente.<br>";

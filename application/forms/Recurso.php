@@ -39,7 +39,7 @@ class Application_Form_Recurso extends Zend_Form
         
         $padre = new Zend_Form_Element_Select('padre');
         $padre->setLabel('Padre:');
-        $padre->setRequired();
+        //$padre->setRequired();
         
         $padre->addFilter('StripTags');
         $padre->setMultiOptions($dataRecurso);
@@ -82,6 +82,11 @@ class Application_Form_Recurso extends Zend_Form
         $estado->addFilter('StripTags');
         $this->addElement($estado);
    
+    }
+    
+    public function populate($data)
+    {
+        return $this->setDefaults($data);
     }
 
 

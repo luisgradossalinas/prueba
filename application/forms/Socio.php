@@ -15,7 +15,7 @@ class Application_Form_Socio extends Zend_Form
         
         $nacimiento = new Zend_Form_Element_Text('nacimiento');
         $nacimiento->setLabel('Nacimiento:');
-        $nacimiento->addValidator(new Zend_Validate_Date());
+        $nacimiento->addValidator(new Zend_Validate_Date('DD-MM-YYYY'));
         $nacimiento->setAttrib('maxlength',10);
         $nacimiento->setAttrib('class','v_datepicker');
         $nacimiento->addFilter('StripTags');
@@ -25,6 +25,13 @@ class Application_Form_Socio extends Zend_Form
         $sueldo->setLabel('Sueldo:');
         $sueldo->addFilter('StripTags');
         $this->addElement($sueldo);
+    }
+
+    public function populate($data)
+    {
+        $data['nacimiento'] = new Zend_Date($data['nacimiento'],'yyyy-mm-dd');
+        $data['nacimiento'] = $data['nacimiento']->get('dd/mm/yyyy');
+        return $this->setDefaults($data);
     }
 
 
