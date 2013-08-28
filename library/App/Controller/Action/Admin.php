@@ -25,7 +25,7 @@ class App_Controller_Action_Admin extends App_Controller_Action
                 $acceso = ($recursoModelo->validaAcceso($rol, $url));
 
                 if ($acceso == 0)
-                    exit("No tiene permiso para acceder a este recurso");
+                    exit("No tiene permiso para acceder a este recurso<a href='javascript:history.back()'>Volver</a>");
             }
         }
     }
