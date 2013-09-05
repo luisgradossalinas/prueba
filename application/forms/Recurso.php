@@ -7,7 +7,6 @@ class Application_Form_Recurso extends Zend_Form
     public function init()
     {
         $this->_recurso = new Application_Model_Recurso;
-        $sesionMvc  = new Zend_Session_Namespace('sesion_mvc');
         
         $this->setAttrib('id', 'form');
         
@@ -83,12 +82,6 @@ class Application_Form_Recurso extends Zend_Form
         $this->addElement($estado);
    
     }
-    
-    public function populate($data)
-    {
-        return $this->setDefaults($data);
-    }
-
 
 }
 

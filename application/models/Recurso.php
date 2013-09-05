@@ -74,7 +74,7 @@ class Application_Model_Recurso extends Zend_Db_Table
                 inner join rol_recurso rr ON rr.`id_recurso` = r.`id`
                 where rr.`id_rol` = '.$rol.' ORDER BY r.`id`)')
                 ->where('orden = ?', self::PADRE)
-                ->order(array('padre asc','orden asc'))->query()->fetchAll();
+                ->order(array('nombre asc','orden asc'))->query()->fetchAll();
     }
     
     //Para generar el menú dinámico 
@@ -85,7 +85,7 @@ class Application_Model_Recurso extends Zend_Db_Table
                 ->where("b.id_rol = ?", $rol)->where("estado = ?",self::ESTADO_ACTIVO)
                 ->where('a.orden != ?', self::PADRE)
                 ->where('a.padre = ?', $padre)
-                ->order(array('a.orden asc'))->query()->fetchAll();
+                ->order(array('a.nombre asc'))->query()->fetchAll();
     }
     
     public function validaAcceso($rol, $url)
