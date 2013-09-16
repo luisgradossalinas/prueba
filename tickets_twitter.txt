@@ -1,4 +1,4 @@
 1. Al crear un recurso .. que se pueda tener un padre.
-2. Manejo de fechas al guardar y mostrar en las tablas. SOLUCIONADO
+2. Manejo de fechas al guardar y mostrar en las tablas. 
 3. Estadísticas con jQuery jGrap 
-4. Al crear usuarios ... ver los campos de la clava
+4. Al crear usuarios ... ver los campos de la clave
