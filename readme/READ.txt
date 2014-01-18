@@ -8,6 +8,3 @@ ALTER TABLE name ADD COLUMN fecha_actu DATETIME DEFAULT NULL COMMENT 'Fecha de a
 
 Después el software generará todos los mantenimientos automáticos:
 Creará el modelo de datos, el formulario y la vista por cada tabla de la BD.
-
-Mejorar parte de la administración de usuarios.
-Personalización de mensajes.
