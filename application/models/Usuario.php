@@ -40,5 +40,18 @@ class Application_Model_Usuario extends Zend_Db_Table
         
     }
     
+    public function recursosPorUsuario($id) {
+
+        $sql = $this->getAdapter();
+        return $sql->select()->from(array('u' => $this->_name), null)
+                        ->joinInner(array('r' => 'rol'), 'r.id = u.id_rol', null)
+                        ->joinInner(array('rr' => 'rol_recurso'), 'r.id = rr.id_rol', null)
+                        ->joinInner(array('re' => 'recurso'), 're.id = rr.id_recurso', array('nombre', 'info' => new Zend_Db_Expr("IF(re.`orden` = 1,'Lista','Página')"),
+                                    'accion', 'url')
+                        )->where('u.id = ?', $id)->where('re.orden <> 1')
+                        ->order(array('re.padre asc', 're.orden asc'))
+                        ->query()->fetchAll();
+    }
+    
 }
 

@@ -16,13 +16,16 @@ class Admin_IndexController extends App_Controller_Action_Admin
 
     public function indexAction()
     {
-        //echo 'hola1';
-        /*
-        $recursoModelo = new Application_Model_Recurso;
-        print_r($recursoModelo->recursosPadre(1));
-        echo count($recursoModelo->recursosPadre(1));
-        //recursosPadre
-        */
+        $this->_helper->layout->setLayout("admin");
+
+        $sesion_usuario = new Zend_Session_Namespace('sesion_usuario');
+
+        $this->view->active = 'Recursos para el usuario 
+            ' . $sesion_usuario->sesion_usuario['nombre_completo'].
+                " (".$sesion_usuario->sesion_usuario['nombre_rol'].")";
+
+        $id = $sesion_usuario->sesion_usuario['id'];
+        $this->view->data = $this->_usuarioModel->recursosPorUsuario($id);
         Zend_Layout::getMvcInstance()->assign('btnNuevo','0');
     }
         public function plantillaAction()
