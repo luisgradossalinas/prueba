@@ -6,7 +6,7 @@ $(function() {
             var mensajes = $('.alert'),
             h = 0,
             s = 'middle',
-            interval = '3000';
+            interval = '5000';
             $.each(mensajes, function(k, v){
                 h = 1000 * (k);
                 setTimeout(function(){

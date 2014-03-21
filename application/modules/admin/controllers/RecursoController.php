@@ -1,28 +1,25 @@
 <?php
 
-class Admin_RecursoController extends App_Controller_Action_Admin
-{
-    
+class Admin_RecursoController extends App_Controller_Action_Admin {
+
     const INACTIVO = 0;
     const ACTIVO = 1;
     const ELIMINADO = 2;
-    
+
     private $_rolrecurso;
     private $_recurso;
-    
-    public function init()
-    {
+
+    public function init() {
         parent::init();
-        
+
         $this->_rolrecurso = new Application_Model_RolRecurso;
         $this->_recurso = new Application_Model_Recurso;
     }
-    
-    public function listadoAction()
-    {
+
+    public function listadoAction() {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
-        
+
         $data = $this->_getAllParams();
 
         //Previene vulnerabilidad XSS (Cross-site scripting)
@@ -31,7 +28,7 @@ class Admin_RecursoController extends App_Controller_Action_Admin
             $data[$key] = $filtro->filter(trim($val));
         }
 
-        
+
         if ($this->_getParam('ajax') == 'listado') {
             if ($this->_hasParam('id_rol')) {
                 $rol = $this->_getParam('id_rol');
@@ -39,60 +36,49 @@ class Admin_RecursoController extends App_Controller_Action_Admin
                 //$listadoRecursos = $recurso->fetchAll('estado ='. self::ACTIVO)->toArray();
                 $listadoRecursos = $recurso->listadoPorRol($rol);
                 echo Zend_Json::encode($listadoRecursos);
-
-                
-                
             }
         }
-
     }
-    
-    public function agregarRecursosAction()
-    {
+
+    public function agregarRecursosAction() {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
-        
-        $sesionMvc  = new Zend_Session_Namespace('sesion_mvc');
-        
-        if (!$this->getRequest()->isXmlHttpRequest())
+
+        $sesionMvc = new Zend_Session_Namespace('sesion_mvc');
+
+        if (!$this->getRequest()->isXmlHttpRequest()) {
             exit('Acción solo válida para peticiones ajax');
-        
+        }
+
         $rol = $this->_getParam('rol');
         $recursoADD = $this->_getParam('rec_add');
         $recursoDEL = substr($this->_getParam('rec_del'), 0, -1);
-        $rolrecurso =  new Application_Model_RolRecurso;
-        
-        if (!empty($recursoDEL))
-        $rolrecurso->delete('id_rol = '.$rol.' and id_recurso in ('.$recursoDEL.')');
-        
+        $rolrecurso = new Application_Model_RolRecurso;
+
+        if (!empty($recursoDEL)) {
+            $rolrecurso->delete('id_rol = ' . $rol . ' and id_recurso in (' . $recursoDEL . ')');
+        }
+
         if (count($recursoADD) > 0) {
-            foreach ($recursoADD as $reg){
+            foreach ($recursoADD as $reg) {
                 //verifica si el recurso está asignado al rol
-                $dataRR = $rolrecurso->fetchAll('id_rol = '.$rol. ' and id_recurso = '.$reg);
-                if (count($dataRR) == 0){
-                    $rolrecurso->insert(array('id_rol' => $rol,'id_recurso' => $reg));
+                $dataRR = $rolrecurso->fetchAll('id_rol = ' . $rol . ' and id_recurso = ' . $reg);
+                if (count($dataRR) == 0) {
+                    $rolrecurso->insert(array('id_rol' => $rol, 'id_recurso' => $reg));
                     $sesionMvc->messages = 'Rol actualizado';
                     $sesionMvc->tipoMessages = self::SUCCESS;
                 }
-                    
             }
         }
-        
     }
-    
-    public function numRecursoCorrelativoAction()
-    {
+
+    public function numRecursoCorrelativoAction() {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
-        
+
         $padre = $this->_getParam('padre');
         $numRecurso = $this->_recurso->numRecursoCorrelativo($padre);
         echo Zend_Json::encode($numRecurso);
-        
     }
-    
 
 }
-
-
-
