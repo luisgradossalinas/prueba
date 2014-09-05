@@ -99,8 +99,12 @@ class Generator_Form extends Zend_Db_Table
             $tipo = $value['DATA_TYPE'];
    
                 if ($tipo == 'date' or $tipo == 'datetime' ){
-                    $populate .=  '$data[\''.$campo.'\'] = new Zend_Date($data[\''.$campo.'\'],\'yyyy-mm-dd\');'. "\n";
-                    $populate .=  '$data[\''.$campo.'\'] = $data[\''.$campo.'\']->get(\'dd/mm/yyyy\');'. "\n";
+                    $populate .=  "    ".'if (isset($data[\''.$campo.'\']) && ($data[\''.$campo.'\'] == App_View_Helper_FechaMostrar::DEFAULT_DATE || $data[\''.$campo.'\'] == App_View_Helper_FechaMostrar::DEFAULT_DATETIME)) {' . "\n";
+                    $populate .=  "    ".'unset($data[\''.$campo.'\']);'. "\n";
+                    $populate .=  '} else {'. "\n";
+                    $populate .=  "    ".'$data[\''.$campo.'\'] = new Zend_Date($data[\''.$campo.'\'],\'yyyy-mm-dd\');'. "\n";
+                    $populate .=  "    ".'$data[\''.$campo.'\'] = $data[\''.$campo.'\']->get(\'dd/mm/yyyy\');'. "\n";
+                    $populate .=  "    ".'} '. "\n";
                 }             
             
         }

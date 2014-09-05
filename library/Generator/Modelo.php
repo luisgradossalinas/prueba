@@ -123,9 +123,11 @@ class Generator_Modelo extends Zend_Db_Table
         foreach ($dataTabla as $key => $value) {
             $campo = $key;
             $tipo = $value['DATA_TYPE'];
-                if ($tipo == 'date' or $tipo == 'datetime' ){
+                if ($tipo == 'date' or $tipo == 'datetime'){
+                    $cuerpo .=  "    ".'if (isset($datos[\''.$campo.'\']) && !empty($datos[\''.$campo.'\'])) {' . "\n";
                     $cuerpo .=  "\t".'$datos[\''.$campo.'\'] = new Zend_Date($datos[\''.$campo.'\'],\'yyyy-mm-dd\');'. "\n";
                     $cuerpo .=  "\t".'$datos[\''.$campo.'\'] = $datos[\''.$campo.'\']->get(\'yyyy-mm-dd\');'. "\n";                 
+                    $cuerpo .=  "    ".'}'. "\n";
                 } 
                 
         }         
