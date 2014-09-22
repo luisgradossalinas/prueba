@@ -11,6 +11,10 @@ class App_Controller_Action extends Zend_Controller_Action
     
     const ACTUALIZAR = 'UPDATE';
     const NUEVO = 'NEW';
+    
+    const ACCESO_DENEGADO = 0;
+    
+    const MODULO_ADMIN = 'admin';
 
     public function init()
     {

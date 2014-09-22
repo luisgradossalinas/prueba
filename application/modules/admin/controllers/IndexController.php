@@ -63,6 +63,13 @@ class Admin_IndexController extends App_Controller_Action_Admin
         //echo ESTILO_CSS;exit;
         $this->_redirect(SITE_URL);*/
     }
+    
+    public function testAction() {
+        
+        
+        echo "hola";
+        
+    }
 
 
 }
