@@ -26,11 +26,17 @@ class Application_Model_Tema extends Zend_Db_Table
         $datos = array_intersect_key($datos, array_flip($this->_getCols()));
         
         if ($id > 0) {
+            if (isset($datos['fecha_inicio']) && !empty($datos['fecha_inicio'])) {
+        	$datos['fecha_inicio'] = new Zend_Date($datos['fecha_inicio'],'yyyy-mm-dd');
+        	$datos['fecha_inicio'] = $datos['fecha_inicio']->get('yyyy-mm-dd');
+            }
         	$cantidad = $this->update($datos, 'id_tema = ' . $id);
         	$id = ($cantidad < 1) ? 0 : $id;
         } else {
-                $datos['fecha_inicio'] = new Zend_Date($datos['fecha_inicio'],'dd/mm/yyyy');
-                $datos['fecha_inicio'] = $datos['fecha_inicio']->get('yyyy-mm-dd');
+            if (isset($datos['fecha_inicio']) && !empty($datos['fecha_inicio'])) {
+        	$datos['fecha_inicio'] = new Zend_Date($datos['fecha_inicio'],'yyyy-mm-dd');
+        	$datos['fecha_inicio'] = $datos['fecha_inicio']->get('yyyy-mm-dd');
+            }
         	$id = $this->insert($datos);
         }
         
