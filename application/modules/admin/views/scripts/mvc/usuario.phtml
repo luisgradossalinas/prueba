@@ -4,40 +4,44 @@
         <h5><?=$this->active?></h5>
     </div>
 <div class="widget-content nopadding">
-    <table id='tabla' class="table table-condensed table-bordered">
+    <table id='tabla' class="table table-condensed table-bordered" >
         <thead>
-            <tr><th></th><th>Nombre</th><th>Apellido</th><th>E-mail</th><th>Nombre Rol</th>
-                <th>Teléfono</th><th>Celular</th><th>Dirección</th><th>Fecha nac.</th><th>Estado</th></tr>
+        <tr><th></th><th>Nombres</th><th>Apellidos</th><th>Email</th><th>Clave</th><th>Estado</th><th>Telefono</th><th>Celular</th><th>Direccion</th><th>Rol</th><th>Fecha_nac</th><th>Fecha_registro</th><th>Ultimo_login</th></tr>
         </thead>
         <?php
         echo '<tbody>';
         foreach ($this->data as $value) {
-            echo '<tr>';
             $estado = 'checkmark.png';
+            echo '<tr>';
             echo '<td width=5% class="taskOptions">';
             echo '<a data-original-title="Editar" class="tip-top" href="#myModal" data-toggle="modal" onclick="editar('.$value['id'].')">';
             echo '<i class="icon-pencil"></i></a>&nbsp;&nbsp;';
             echo '<a data-original-title="Eliminar" class="tip-top" href="#myModal" data-toggle="modal" onclick="elimina('.$value['id'].')">';
             echo '<i class="icon-trash"></i></a>';
             echo '</td>';
-
-            echo '<td>'.$value['nombres'].'</td>';
-            echo '<td>'.$value['apellidos'].'</td>';
-            echo '<td>'.$value['email'].'</td>';
-            echo '<td>'.$value['nom_rol'].'</td>';
-            echo '<td>'.$value['telefono'].'</td>';
-            echo '<td>'.$value['celular'].'</td>';
-            echo '<td>'.$value['direccion'].'</td>';
-            echo '<td>'.$value['fecha_nac'].'</td>';
-            
-            if ($value['estado'] == Admin_MvcController::INACTIVO)
+        ?>   
+        <?php 
+	echo "<td>".$value['nombres']."</td>";
+	echo "<td>".$value['apellidos']."</td>";
+	echo "<td>".$value['email']."</td>";
+	echo "<td>".$value['clave']."</td>";
+	if ($value['estado'] == Admin_MvcController::INACTIVO)
                 $estado = 'error.png';
-            echo '<td width=7%><center><span style=display:none>'.$value['estado'].'</span><img src='.SITE_URL.'/img/'.$estado.' width=15%><center></td>';
-            echo '</tr>';
+        echo '<td width=7%><center><span style=display:none>'.$value['estado'].'</span><img src='.SITE_URL.'/img/'.$estado.' width=15%><center></td>';
+	echo "<td>".$value['telefono']."</td>";
+	echo "<td>".$value['celular']."</td>";
+	echo "<td>".$value['direccion']."</td>";
+	echo "<td>".$value['nom_rol']."</td>";
+	echo "<td>".$this->FechaMostrar($value['fecha_nac'])."</td>";
+	echo "<td>".$this->FechaMostrar($value['fecha_registro'])."</td>";
+	echo "<td>".$this->FechaMostrar($value['ultimo_login'])."</td>";
+	echo "</tr>";
+	?>
+        <?php
         }
         echo '</tbody>';
         ?>
     </table>
 </div>
-</div>
+</div>    
 <?=$this->partial('_partials/modal.phtml',array('model' => $this->model));?>
